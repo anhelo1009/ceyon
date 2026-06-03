@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="세연테크놀로지(주) 회사소개 — CEO 인사말, 연혁, 오시는 길. 2001년 설립 이후 RFID 하드웨어를 자체 개발·제조해 온 RFID 전문 기업." />
-  <title>제품소개 | 세연테크놀로지 CEYON Technology</title>
+  <title>RFID 소개 | 세연테크놀로지 CEYON Technology</title>
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png" />
@@ -328,246 +328,184 @@
     .ceo__value-desc { font-size: 13px; color: var(--color-text-muted); line-height: 1.6; }
 
     /* =========================================================
-       PRODUCTS 페이지 전용
+       RFID 페이지 전용
        ========================================================= */
-
-    /* 사이드네비 버튼 (a 대신 button) — 기존 스타일 변형 */
-    .side-nav__link[data-band] {
-      width: 100%; text-align: left; cursor: pointer;
-      font-family: inherit; background: none; border: none;
-      display: flex; flex-direction: column; gap: 3px;
-    }
-    .side-nav__sub {
-      font-family: var(--font-kr); font-size: 11px; letter-spacing: 0;
-      color: var(--color-text-faint); font-weight: 500;
-    }
-    .side-nav__link.is-active .side-nav__sub { color: var(--color-accent); }
-    /* 주파수 숫자 + 단위 표시 */
-    .side-nav__link[data-band] .band {
-      display: flex; align-items: baseline; gap: 5px;
-    }
-    .side-nav__link[data-band] .band b {
-      font-family: var(--font-en); font-size: 18px; font-weight: 700;
-      letter-spacing: -.01em; color: var(--color-text);
-    }
-    .side-nav__link[data-band] .band i {
-      font-family: var(--font-en); font-style: normal;
-      font-size: 11px; font-weight: 700; letter-spacing: .05em;
-      padding: 2px 6px; border-radius: 3px;
-      background: var(--color-bg-alt); color: var(--color-text-muted);
-    }
-    .side-nav__link.is-active .band b { color: var(--color-primary); }
-    .side-nav__link.is-active .band i { background: var(--color-primary); color: #fff; }
-    /* 그룹 구분 라벨 */
-    .side-nav__group {
-      font-family: var(--font-en); font-size: 10px; font-weight: 700;
-      letter-spacing: .12em; text-transform: uppercase;
-      color: var(--color-text-faint);
-      padding: 16px 16px 8px; margin-top: 4px;
-    }
-    .side-nav__group:first-child { margin-top: 0; padding-top: 4px; }
-
-    /* 패널 전환 애니메이션 */
-    .prod-panel { animation: prodFade .35s var(--ease-out); }
-    .prod-panel[hidden] { display: none; }
-    @keyframes prodFade {
-      from { opacity: 0; transform: translateY(8px); }
-      to   { opacity: 1; transform: none; }
+    .rfid-lead {
+      font-size: 17px; line-height: 1.8; color: var(--color-text-muted);
+      max-width: 64ch; margin-bottom: 40px;
     }
 
-    /* 대역 개요 카드 */
-    .prod-overview {
-      padding: 36px 40px;
-      background: linear-gradient(135deg, var(--color-primary-deep) 0%, var(--color-primary) 100%);
-      color: #fff; border-radius: 10px; margin-bottom: 56px;
-      position: relative; overflow: hidden;
+    /* 바코드 vs RFID 비교 */
+    .compare {
+      display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px;
+      align-items: stretch; margin-top: 16px;
     }
-    .prod-overview::before {
-      content: ""; position: absolute; inset: 0;
-      background-image:
-        linear-gradient(to right, rgba(91,194,216,.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(91,194,216,.05) 1px, transparent 1px);
-      background-size: 48px 48px;
-      mask-image: radial-gradient(ellipse at 80% 50%, #000 10%, transparent 70%);
-      -webkit-mask-image: radial-gradient(ellipse at 80% 50%, #000 10%, transparent 70%);
+    .compare__col {
+      padding: 36px 32px; border-radius: 8px;
+      border: 1px solid var(--color-border);
+      background: #fff;
     }
-    .prod-overview__head { position: relative; z-index: 1; margin-bottom: 28px; }
-    .prod-overview__band {
-      display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;
-      margin-bottom: 14px;
+    .compare__col--new {
+      border-color: var(--color-primary);
+      background: linear-gradient(180deg, rgba(0,51,102,0.04) 0%, rgba(0,51,102,0) 60%);
+      box-shadow: 0 12px 36px -20px rgba(0,31,63,.2);
     }
-    .prod-overview__badge {
+    .compare__tag {
       display: inline-block; font-family: var(--font-en);
-      font-size: 11px; font-weight: 700; letter-spacing: .15em;
-      padding: 5px 12px; border-radius: 3px;
-      background: rgba(255,255,255,.15); color: #fff;
+      font-size: 10px; font-weight: 700; letter-spacing: .2em;
+      padding: 4px 10px; border-radius: 3px; margin-bottom: 14px;
     }
-    .prod-badge--lf  { background: rgba(91,194,216,.25) !important; }
-    .prod-badge--hf  { background: rgba(204,0,0,.6) !important; }
-    .prod-badge--uhf { background: rgba(255,255,255,.85) !important; color: var(--color-primary-deep) !important; }
-    .prod-overview__freq {
-      font-family: var(--font-en);
-      font-size: clamp(32px, 4vw, 44px); font-weight: 700;
-      letter-spacing: -.02em; line-height: 1;
+    .compare__col--old .compare__tag { background: var(--color-bg-alt); color: var(--color-text-muted); }
+    .compare__col--new .compare__tag { background: var(--color-primary); color: #fff; }
+    .compare__name {
+      font-size: 22px; font-weight: 700; color: var(--color-primary);
+      margin-bottom: 18px; letter-spacing: -.02em;
     }
-    .prod-overview__sub {
-      font-size: 15px; line-height: 1.7;
-      color: rgba(255,255,255,.82); max-width: 60ch;
+    .compare__col--old .compare__name { color: var(--color-text-muted); }
+    .compare__list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .compare__list li {
+      position: relative; padding-left: 22px;
+      font-size: 15px; line-height: 1.6;
     }
-    .prod-spec-grid {
-      list-style: none; display: grid;
-      grid-template-columns: repeat(4, 1fr); gap: 1px;
-      background: rgba(255,255,255,.12); border-radius: 6px; overflow: hidden;
-      position: relative; z-index: 1;
+    .compare__col--old .compare__list li {
+      color: var(--color-text-muted);
     }
-    .prod-spec-grid li {
-      background: rgba(255,255,255,.06); padding: 18px 20px;
-      display: flex; flex-direction: column; gap: 6px;
+    .compare__col--old .compare__list li::before {
+      content: "−"; position: absolute; left: 0; top: 0;
+      color: var(--color-text-faint); font-weight: 700;
     }
-    .prod-spec-grid span {
-      font-family: var(--font-en); font-size: 10px;
-      letter-spacing: .15em; text-transform: uppercase;
-      color: rgba(255,255,255,.55); font-weight: 600;
+    .compare__col--new .compare__list li::before {
+      content: "✓"; position: absolute; left: 0; top: 0;
+      color: var(--color-accent); font-weight: 700;
     }
-    .prod-spec-grid strong {
-      font-size: 15px; font-weight: 700; color: #fff; letter-spacing: -.01em;
-    }
-
-    /* 제품 섹션 */
-    .prod-section { margin-bottom: 56px; }
-    .prod-section__title {
-      font-family: var(--font-en); font-size: 12px; font-weight: 700;
-      letter-spacing: .2em; color: var(--color-text-muted);
-      padding-bottom: 14px; margin-bottom: 24px;
-      border-bottom: 1px solid var(--color-border);
+    .compare__divider {
+      align-self: center;
+      font-family: var(--font-en); font-size: 14px; font-weight: 700;
+      color: var(--color-text-faint);
+      padding: 8px 14px; border-radius: 50%;
+      background: var(--color-bg-alt);
     }
 
-    .prod-cards {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    /* RFID 구성 컴포넌트 카드 */
+    .components {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+      margin-bottom: 56px;
     }
-    .prod-cards--small { grid-template-columns: 1fr 1fr; gap: 16px; }
-
-    .prod-card {
-      display: flex; flex-direction: column;
-      background: #fff; border: 1px solid var(--color-border);
-      border-radius: 8px; overflow: hidden;
+    .component {
+      padding: 36px 28px; border: 1px solid var(--color-border); border-radius: 8px;
+      position: relative; background: #fff;
       transition: all .3s var(--ease-out);
     }
-    .prod-card:hover {
+    .component:hover {
       border-color: var(--color-primary);
       box-shadow: 0 16px 40px -22px rgba(0,31,63,.25);
-      transform: translateY(-3px);
+      transform: translateY(-4px);
     }
-    .prod-card--feature {
-      grid-column: span 2;
-      border-color: var(--color-primary);
-      box-shadow: 0 12px 36px -22px rgba(0,31,63,.2);
+    .component__num {
+      font-family: var(--font-en); font-size: 13px; font-weight: 700;
+      letter-spacing: .15em; color: var(--color-accent); margin-bottom: 16px;
     }
-    .prod-card--feature .prod-card__image { aspect-ratio: 21/9; }
-    .prod-card__image {
-      aspect-ratio: 4/3;
-      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-soft) 100%);
-      display: flex; align-items: center; justify-content: center;
-      position: relative; overflow: hidden;
+    .component__icon {
+      width: 48px; height: 48px; color: var(--color-primary);
+      margin-bottom: 20px;
     }
-    .prod-card__image::before {
-      content: ""; position: absolute; inset: 0;
-      background-image:
-        linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
-      background-size: 32px 32px;
+    .component__icon svg { width: 100%; height: 100%; }
+    .component__name {
+      font-size: 20px; font-weight: 700; color: var(--color-primary);
+      margin-bottom: 10px; letter-spacing: -.02em;
     }
-    .prod-card__ph {
-      font-family: var(--font-en); font-size: 16px; font-weight: 600;
-      color: rgba(255,255,255,.85); letter-spacing: .02em;
-      padding: 10px 20px; border: 1px solid rgba(255,255,255,.3);
-      border-radius: 3px; position: relative; z-index: 1;
-    }
-    .prod-card__body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
-    .prod-card__series {
-      font-family: var(--font-en); font-size: 10px; font-weight: 700;
-      letter-spacing: .18em; color: var(--color-accent); margin-bottom: 10px;
-    }
-    .prod-card__name {
-      font-size: 19px; font-weight: 700; color: var(--color-primary);
-      letter-spacing: -.02em; margin-bottom: 8px;
-    }
-    .prod-card__desc {
+    .component__desc {
       font-size: 14px; line-height: 1.7; color: var(--color-text-muted);
-      margin-bottom: 16px;
-    }
-    .prod-card__feats {
-      list-style: none; padding-top: 14px;
-      border-top: 1px dashed var(--color-border);
-      display: flex; flex-direction: column; gap: 8px;
-      margin-top: auto;
-    }
-    .prod-card__feats li {
-      position: relative; padding-left: 18px;
-      font-size: 13px; line-height: 1.5; color: var(--color-text);
-    }
-    .prod-card__feats li::before {
-      content: "✓"; position: absolute; left: 0; top: 0;
-      color: var(--color-accent); font-weight: 700; font-size: 12px;
     }
 
-    .prod-card--mini { flex-direction: row; }
-    .prod-card--mini .prod-card__image {
-      aspect-ratio: 1; width: 120px; flex-shrink: 0;
+    /* 동작 흐름 */
+    .flow {
+      display: flex; align-items: center; justify-content: center;
+      gap: 16px; padding: 32px; flex-wrap: wrap;
+      background: var(--color-bg-alt); border-radius: 8px;
     }
-    .prod-card--mini .prod-card__body { padding: 18px 20px; }
-    .prod-card--mini .prod-card__name { font-size: 15px; margin-bottom: 4px; }
-    .prod-card--mini .prod-card__desc { font-size: 13px; margin-bottom: 0; }
+    .flow__step {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 14px; font-weight: 500; color: var(--color-text);
+    }
+    .flow__step-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 26px; height: 26px; border-radius: 50%;
+      background: var(--color-primary); color: #fff;
+      font-family: var(--font-en); font-size: 12px; font-weight: 700;
+    }
+    .flow__arrow {
+      color: var(--color-accent); font-size: 18px;
+    }
 
-    /* 적용 분야 */
-    .prod-uses { margin-bottom: 16px; }
-    .prod-uses__grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    /* 주파수 대역 표 */
+    .freq-table {
+      border: 1px solid var(--color-border); border-radius: 8px; overflow: hidden;
+      margin-bottom: 40px;
     }
-    .prod-use {
-      padding: 18px 14px; text-align: center;
-      background: var(--color-bg-alt); border-radius: 6px;
-      border-top: 2px solid var(--color-primary);
-      font-size: 14px; font-weight: 600; color: var(--color-primary);
+    .freq-row {
+      display: grid; grid-template-columns: 130px 80px 100px 1.4fr 1.6fr;
+      gap: 16px; padding: 18px 24px;
+      border-bottom: 1px solid var(--color-border);
+      font-size: 14px; align-items: center;
     }
+    .freq-row:last-child { border-bottom: none; }
+    .freq-row--head {
+      background: var(--color-primary); color: #fff;
+      font-family: var(--font-en); font-size: 11px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+    }
+    .freq-row:not(.freq-row--head):hover {
+      background: var(--color-bg-alt);
+    }
+    .freq-band strong {
+      font-family: var(--font-en); font-size: 16px; font-weight: 700;
+      color: var(--color-primary); letter-spacing: -.01em;
+    }
+    .freq-badge {
+      display: inline-block; font-family: var(--font-en); font-size: 10px;
+      font-weight: 700; letter-spacing: .1em; padding: 3px 8px;
+      border-radius: 3px;
+    }
+    .freq-badge--lf  { background: rgba(0,51,102,.1); color: var(--color-primary); }
+    .freq-badge--hf  { background: rgba(204,0,0,.1);  color: var(--color-accent); }
+    .freq-badge--uhf { background: rgba(0,31,63,.85); color: #fff; }
 
-    /* 하단 CTA */
-    .prod-cta {
-      margin-top: 56px; padding: 32px;
+    /* CTA 박스 */
+    .rfid-cta {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; padding: 28px 32px;
       background: var(--color-primary-deep); color: #fff;
       border-radius: 8px;
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 24px;
     }
-    .prod-cta__text { flex: 1; }
-    .prod-cta__text h3 {
-      font-size: 19px; font-weight: 700; color: #fff;
-      margin-bottom: 6px; letter-spacing: -.01em;
+    .rfid-cta__text {
+      font-size: 15px; line-height: 1.6;
+      color: rgba(255,255,255,.85); flex: 1;
     }
-    .prod-cta__text p {
-      font-size: 14px; color: rgba(255,255,255,.75); line-height: 1.6;
-    }
-    .prod-cta__btn {
+    .rfid-cta__btn {
       display: inline-flex; align-items: center; gap: 8px;
       padding: 14px 24px; background: #fff; color: var(--color-primary);
       border-radius: 4px; font-size: 14px; font-weight: 700;
       white-space: nowrap;
       transition: all .25s var(--ease-out);
     }
-    .prod-cta__btn:hover {
+    .rfid-cta__btn:hover {
       background: var(--color-accent); color: #fff;
       transform: translateX(4px);
     }
 
+    /* 반응형 */
     @media (max-width: 960px) {
-      .prod-overview { padding: 28px 24px; }
-      .prod-spec-grid { grid-template-columns: 1fr 1fr; }
-      .prod-cards { grid-template-columns: 1fr; }
-      .prod-card--feature { grid-column: auto; }
-      .prod-card--mini { flex-direction: column; }
-      .prod-card--mini .prod-card__image { width: 100%; aspect-ratio: 4/3; }
-      .prod-uses__grid { grid-template-columns: 1fr 1fr; }
-      .prod-cta { flex-direction: column; align-items: flex-start; }
+      .compare { grid-template-columns: 1fr; }
+      .compare__divider { justify-self: center; }
+      .components { grid-template-columns: 1fr; }
+      .freq-row {
+        grid-template-columns: 1fr 1fr; gap: 8px;
+        padding: 14px 18px; font-size: 13px;
+      }
+      .freq-row--head { display: none; }
+      .freq-row > div { padding: 2px 0; }
+      .rfid-cta { flex-direction: column; align-items: flex-start; }
     }
 
     /* 연혁 (타임라인) */
@@ -727,7 +665,7 @@
           </div>
         </div>
         <div class="nav__item">
-          <a href="rfid.html" class="nav__link" data-i18n="nav.rfid">RFID 기술</a>
+          <a href="rfid.html" class="nav__link is-current" data-i18n="nav.rfid">RFID 기술</a>
           <div class="nav__dropdown">
             <a href="rfid.html" data-i18n="rfid.navIntro">RFID 소개</a>
             <a href="rfid-effect.html" data-i18n="rfid.navEffect">도입효과</a>
@@ -735,7 +673,7 @@
           </div>
         </div>
         <div class="nav__item">
-          <a href="products.html" class="nav__link is-current" data-i18n="nav.products">제품소개</a>
+          <a href="products.html" class="nav__link" data-i18n="nav.products">제품소개</a>
           <div class="nav__dropdown nav__dropdown--freq">
             <a href="products.html#lf125"><strong>125</strong><em>kHz</em></a>
             <a href="products.html#lf134"><strong>134.2</strong><em>kHz</em></a>
@@ -773,13 +711,13 @@
   <section class="page-hero">
     <div class="page-hero__inner">
       <nav class="page-hero__crumb" aria-label="breadcrumb">
-        <a href="index.html" data-i18n="crumb.home">홈</a> &nbsp;/&nbsp; <span data-i18n="nav.products">제품소개</span>
+        <a href="index.html" data-i18n="crumb.home">홈</a> &nbsp;/&nbsp; <a href="rfid.html" data-i18n="nav.rfid">RFID 기술</a> &nbsp;/&nbsp; <span data-i18n="rfid.navIntro">RFID 소개</span>
       </nav>
-      <span class="page-hero__eyebrow" data-i18n="prod.eye">PRODUCTS</span>
-      <h1 class="page-hero__title" id="prodHeroTitle" data-i18n="prodPage.title" data-i18n-html>주파수 대역별<br>RFID 제품군</h1>
-      <p class="page-hero__sub" id="prodHeroSub" data-i18n="prodPage.sub">
-        125 kHz · 134.2 kHz · 13.56 MHz · 900 MHz — 산업 현장에서 가장 많이 쓰이는
-        4개 대역의 리더·안테나·태그를 모두 자체 개발·제조합니다.
+      <span class="page-hero__eyebrow" data-i18n="rfid.eyebrow">ABOUT RFID</span>
+      <h1 class="page-hero__title" data-i18n="rfidIntro.title" data-i18n-html>전파로 사물을 인식하는<br>비접촉 식별 기술</h1>
+      <p class="page-hero__sub" data-i18n="rfidIntro.sub">
+        RFID(Radio Frequency IDentification)는 전파를 이용해 태그에 저장된 정보를
+        비접촉으로 읽고 쓰는 기술입니다. 보이지 않아도, 여러 개를, 한 번에 인식합니다.
       </p>
     </div>
   </section>
@@ -787,356 +725,185 @@
   <!-- ===================== ABOUT LAYOUT ===================== -->
   <div class="about-layout">
 
-    <!-- 좌측 사이드 네비 (제품 대역 탭) -->
+    <!-- 좌측 사이드 네비 (RFID) -->
     <aside class="side-nav">
-      <div class="side-nav__title">PRODUCTS</div>
+      <div class="side-nav__title">RFID</div>
       <ul class="side-nav__list">
-        <li class="side-nav__group" data-i18n="prod.groupLf">저주파 (LF)</li>
-        <li><button type="button" class="side-nav__link is-active" data-band="lf125"><span class="band"><b>125</b><i>kHz</i></span><span class="side-nav__sub" data-i18n="prod.sub125">저주파 · 출입·자산</span></button></li>
-        <li><button type="button" class="side-nav__link" data-band="lf134"><span class="band"><b>134.2</b><i>kHz</i></span><span class="side-nav__sub" data-i18n="prod.sub134">동물 개체식별</span></button></li>
-        <li class="side-nav__group" data-i18n="prod.groupHf">고주파 (HF / UHF)</li>
-        <li><button type="button" class="side-nav__link" data-band="hf"><span class="band"><b>13.56</b><i>MHz</i></span><span class="side-nav__sub" data-i18n="prod.subHf">표준 · 도서·결제</span></button></li>
-        <li><button type="button" class="side-nav__link" data-band="uhf"><span class="band"><b>900</b><i>MHz</i></span><span class="side-nav__sub" data-i18n="prod.subUhf">장거리 · 물류</span></button></li>
+        <li><a href="rfid.html"          class="side-nav__link is-active" data-i18n="rfid.navIntro">RFID 소개</a></li>
+        <li><a href="rfid-effect.html"   class="side-nav__link " data-i18n="rfid.navEffect">도입효과</a></li>
+        <li><a href="rfid-solution.html" class="side-nav__link " data-i18n="rfid.navSolution">응용·솔루션</a></li>
       </ul>
     </aside>
 
     <!-- 우측 콘텐츠 -->
     <div class="about-content">
 
-      <!-- ===== 125 kHz ===== -->
-      <section class="prod-panel is-active" data-panel="lf125">
-        <div class="prod-overview">
-          <div class="prod-overview__head">
-            <div class="prod-overview__band">
-              <span class="prod-overview__badge prod-badge--lf">LF · 저주파</span>
-              <h2 class="prod-overview__freq">125 kHz</h2>
-            </div>
-            <p class="prod-overview__sub">금속·수분 환경에서도 안정적으로 동작하는 저주파 대역. 출입통제·자산관리에 가장 많이 쓰입니다.</p>
-          </div>
-          <ul class="prod-spec-grid">
-            <li><span>인식 거리</span><strong>~10cm</strong></li>
-            <li><span>주요 표준</span><strong>ISO 11784/11785</strong></li>
-            <li><span>강점</span><strong>금속·수분 강함</strong></li>
-            <li><span>인터페이스</span><strong>RS-232 / USB</strong></li>
-          </ul>
-        </div>
+      <!-- 섹션 1: RFID란 무엇인가 -->
+      <section class="block" id="what">
+        <span class="block__eyebrow" data-i18n="rfid.s1Eye">WHAT IS RFID</span>
+        <h2 class="block__title" data-i18n="rfid.s1Title" data-i18n-html>
+          전파로 정보를 주고받는<br><em>무선 식별 기술</em>
+        </h2>
+        <p class="rfid-lead" data-i18n="rfid.s1Lead">
+          RFID는 태그(Tag)에 저장된 정보를 전파(Radio Frequency)로 읽어내는 기술입니다.
+          바코드처럼 직접 보이게 스캔할 필요 없이, 거리를 두고도 여러 개를 동시에 빠르게 인식할 수 있어
+          공장자동화·물류·자산관리 등 다양한 산업 현장에서 핵심 인프라로 자리 잡았습니다.
+        </p>
 
-        <!-- 제품 라인업 -->
-        <div class="prod-section">
-          <h3 class="prod-section__title">READERS — 리더 라인업</h3>
-          <div class="prod-cards">
-            <article class="prod-card">
-              <div class="prod-card__image"><div class="prod-card__ph">REM125 / 고정형</div></div>
-              <div class="prod-card__body">
-                <div class="prod-card__series">REM125 SERIES</div>
-                <h4 class="prod-card__name">고정형 RFID Reader</h4>
-                <p class="prod-card__desc">출입통제·자산관리에 최적화된 고정 설치형 리더.</p>
-                <ul class="prod-card__feats">
-                  <li>안테나 1~4ch 외장 연결 가능</li>
-                  <li>RS-232 / TCP-IP 통신 지원</li>
-                  <li>금속 환경 안정 동작</li>
-                </ul>
-              </div>
-            </article>
-            <article class="prod-card">
-              <div class="prod-card__image"><div class="prod-card__ph">REM125 / 휴대형</div></div>
-              <div class="prod-card__body">
-                <div class="prod-card__series">REM125 HANDHELD</div>
-                <h4 class="prod-card__name">휴대형 RFID Reader</h4>
-                <p class="prod-card__desc">국내 최초 PDA용 125kHz RFID 리더 — 현장 점검·이동 식별용.</p>
-                <ul class="prod-card__feats">
-                  <li>휴대 가능한 배터리 일체형</li>
-                  <li>블루투스 / USB 통신</li>
-                  <li>점검·점호·검수 용도</li>
-                </ul>
-              </div>
-            </article>
+        <!-- 바코드 vs RFID 비교 -->
+        <div class="compare">
+          <div class="compare__col compare__col--old">
+            <div class="compare__tag" data-i18n="rfid.cmpOldTag">BARCODE</div>
+            <h3 class="compare__name" data-i18n="rfid.cmpOldName">바코드</h3>
+            <ul class="compare__list">
+              <li data-i18n="rfid.cmpOld1">직접 보여야 인식 (가시 거리)</li>
+              <li data-i18n="rfid.cmpOld2">한 번에 1개만 스캔</li>
+              <li data-i18n="rfid.cmpOld3">정보 변경 불가</li>
+              <li data-i18n="rfid.cmpOld4">오염·훼손에 취약</li>
+            </ul>
           </div>
-        </div>
-
-        <div class="prod-section">
-          <h3 class="prod-section__title">ANTENNAS &amp; TAGS</h3>
-          <div class="prod-cards prod-cards--small">
-            <article class="prod-card prod-card--mini">
-              <div class="prod-card__image"><div class="prod-card__ph">125kHz Antenna</div></div>
-              <div class="prod-card__body">
-                <h4 class="prod-card__name">125 kHz 안테나</h4>
-                <p class="prod-card__desc">패치형·게이트형 등 환경별 안테나 라인업.</p>
-              </div>
-            </article>
-            <article class="prod-card prod-card--mini">
-              <div class="prod-card__image"><div class="prod-card__ph">125kHz Tags</div></div>
-              <div class="prod-card__body">
-                <h4 class="prod-card__name">125 kHz 태그</h4>
-                <p class="prod-card__desc">카드형·키링형·디스크형 등 부착 환경에 맞춤.</p>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        <div class="prod-uses">
-          <h3 class="prod-section__title">APPLICATIONS — 주요 적용 분야</h3>
-          <div class="prod-uses__grid">
-            <div class="prod-use">출입통제</div>
-            <div class="prod-use">자산관리</div>
-            <div class="prod-use">근태관리</div>
-            <div class="prod-use">설비점검</div>
+          <div class="compare__divider" aria-hidden="true">vs</div>
+          <div class="compare__col compare__col--new">
+            <div class="compare__tag" data-i18n="rfid.cmpNewTag">RFID</div>
+            <h3 class="compare__name" data-i18n="rfid.cmpNewName">RFID</h3>
+            <ul class="compare__list">
+              <li data-i18n="rfid.cmpNew1">비접촉·비가시 인식 가능</li>
+              <li data-i18n="rfid.cmpNew2">초당 수백 개 동시 인식</li>
+              <li data-i18n="rfid.cmpNew3">정보 읽기·쓰기 모두 가능</li>
+              <li data-i18n="rfid.cmpNew4">금속·먼지·온도에 강한 내구성</li>
+            </ul>
           </div>
         </div>
       </section>
 
-      <!-- ===== 134.2 kHz ===== -->
-      <section class="prod-panel" data-panel="lf134" hidden>
-        <div class="prod-overview">
-          <div class="prod-overview__head">
-            <div class="prod-overview__band">
-              <span class="prod-overview__badge prod-badge--lf">LF · 동물식별</span>
-              <h2 class="prod-overview__freq">134.2 kHz</h2>
+      <!-- 섹션 2: 기본 구성 -->
+      <section class="block" id="components">
+        <span class="block__eyebrow" data-i18n="rfid.s2Eye">COMPONENTS</span>
+        <h2 class="block__title" data-i18n="rfid.s2Title" data-i18n-html>
+          RFID 시스템의<br><em>3가지 핵심 구성</em>
+        </h2>
+
+        <div class="components">
+          <div class="component">
+            <div class="component__num">01</div>
+            <div class="component__icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="8" y="14" width="32" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
+                <line x1="14" y1="20" x2="34" y2="20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <line x1="14" y1="24" x2="30" y2="24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="33" cy="28" r="1.6" fill="currentColor"/>
+              </svg>
             </div>
-            <p class="prod-overview__sub">ISO 11784/11785 동물 개체식별 국제 표준. 축산물 이력관리·반려동물 등록에 사용됩니다.</p>
+            <h3 class="component__name" data-i18n="rfid.c1Name">태그 (Tag)</h3>
+            <p class="component__desc" data-i18n="rfid.c1Desc">
+              사물에 부착되어 고유 정보를 저장하는 칩과 안테나의 결합체.
+              인식 거리·환경에 따라 LF/HF/UHF 등 다양한 종류로 제작됩니다.
+            </p>
           </div>
-          <ul class="prod-spec-grid">
-            <li><span>인식 거리</span><strong>~10cm</strong></li>
-            <li><span>주요 표준</span><strong>ISO 11784/11785</strong></li>
-            <li><span>강점</span><strong>야외·악조건 안정</strong></li>
-            <li><span>인터페이스</span><strong>RS-232 / Bluetooth</strong></li>
-          </ul>
-        </div>
 
-        <div class="prod-section">
-          <h3 class="prod-section__title">READERS — 리더 라인업</h3>
-          <div class="prod-cards">
-            <article class="prod-card">
-              <div class="prod-card__image"><div class="prod-card__ph">REM134 / 휴대형</div></div>
-              <div class="prod-card__body">
-                <div class="prod-card__series">REM134 SERIES</div>
-                <h4 class="prod-card__name">동물식별 휴대형 Reader</h4>
-                <p class="prod-card__desc">가축·반려동물의 귀표·체내 태그를 읽는 휴대형 리더.</p>
-                <ul class="prod-card__feats">
-                  <li>ISO 11784/11785 완벽 호환</li>
-                  <li>방진·방수 등급</li>
-                  <li>축산농가·도축장·검역소 적용</li>
-                </ul>
-              </div>
-            </article>
-            <article class="prod-card">
-              <div class="prod-card__image"><div class="prod-card__ph">REM134 / 고정형</div></div>
-              <div class="prod-card__body">
-                <div class="prod-card__series">REM134 FIXED</div>
-                <h4 class="prod-card__name">고정형 동물식별 Reader</h4>
-                <p class="prod-card__desc">도축장 라인·통로 게이트 등 자동 식별이 필요한 위치에 설치.</p>
-                <ul class="prod-card__feats">
-                  <li>연속 자동 인식</li>
-                  <li>외장 안테나 연결</li>
-                  <li>이력관리 시스템 연계</li>
-                </ul>
-              </div>
-            </article>
+          <div class="component">
+            <div class="component__num">02</div>
+            <div class="component__icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="24" y1="26" x2="24" y2="40" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M18 22a6 6 0 0 1 12 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M14 22a10 10 0 0 1 20 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.65"/>
+                <path d="M10 22a14 14 0 0 1 28 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.35"/>
+                <circle cx="24" cy="22" r="2" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3 class="component__name" data-i18n="rfid.c2Name">안테나 (Antenna)</h3>
+            <p class="component__desc" data-i18n="rfid.c2Desc">
+              전파를 송수신하여 태그와 리더 사이의 통신을 담당합니다.
+              지향성·이득·편파 등 설계에 따라 인식 거리와 정확도가 결정됩니다.
+            </p>
           </div>
-        </div>
 
-        <div class="prod-section">
-          <h3 class="prod-section__title">TAGS — 동물식별 태그</h3>
-          <div class="prod-cards prod-cards--small">
-            <article class="prod-card prod-card--mini">
-              <div class="prod-card__image"><div class="prod-card__ph">귀표 (Ear Tag)</div></div>
-              <div class="prod-card__body">
-                <h4 class="prod-card__name">귀표 태그</h4>
-                <p class="prod-card__desc">소·돼지 등 가축 개체식별용 외부 부착형.</p>
-              </div>
-            </article>
-            <article class="prod-card prod-card--mini">
-              <div class="prod-card__image"><div class="prod-card__ph">체내 태그</div></div>
-              <div class="prod-card__body">
-                <h4 class="prod-card__name">체내 (Implant) 태그</h4>
-                <p class="prod-card__desc">반려동물·소형 가축용 마이크로칩 태그.</p>
-              </div>
-            </article>
+          <div class="component">
+            <div class="component__num">03</div>
+            <div class="component__icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="7" y="10" width="34" height="22" rx="2" stroke="currentColor" stroke-width="2"/>
+                <line x1="18" y1="40" x2="30" y2="40" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <line x1="24" y1="32" x2="24" y2="40" stroke="currentColor" stroke-width="2"/>
+                <rect x="13" y="16" width="9" height="9" rx="1" stroke="currentColor" stroke-width="1.6"/>
+                <line x1="26" y1="17" x2="35" y2="17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <line x1="26" y1="21" x2="35" y2="21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <line x1="26" y1="25" x2="32" y2="25" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="component__name" data-i18n="rfid.c3Name">리더 (Reader)</h3>
+            <p class="component__desc" data-i18n="rfid.c3Desc">
+              안테나를 통해 태그로부터 받은 신호를 해독하여 호스트 시스템으로 전달합니다.
+              세연테크놀로지의 핵심 제품군이 바로 이 리더입니다.
+            </p>
           </div>
         </div>
 
-        <div class="prod-uses">
-          <h3 class="prod-section__title">APPLICATIONS — 주요 적용 분야</h3>
-          <div class="prod-uses__grid">
-            <div class="prod-use">축산물 이력관리</div>
-            <div class="prod-use">가축 개체식별</div>
-            <div class="prod-use">반려동물 등록</div>
-            <div class="prod-use">도축·가공 추적</div>
-          </div>
+        <!-- 동작 흐름 -->
+        <div class="flow">
+          <div class="flow__step"><span class="flow__step-num">1</span><span data-i18n="rfid.flow1">리더가 안테나를 통해 전파 송신</span></div>
+          <div class="flow__arrow" aria-hidden="true">→</div>
+          <div class="flow__step"><span class="flow__step-num">2</span><span data-i18n="rfid.flow2">태그가 전파를 받아 정보 응답</span></div>
+          <div class="flow__arrow" aria-hidden="true">→</div>
+          <div class="flow__step"><span class="flow__step-num">3</span><span data-i18n="rfid.flow3">리더가 정보를 해독·전달</span></div>
         </div>
       </section>
 
-      <!-- ===== 13.56 MHz ===== -->
-      <section class="prod-panel" data-panel="hf" hidden>
-        <div class="prod-overview">
-          <div class="prod-overview__head">
-            <div class="prod-overview__band">
-              <span class="prod-overview__badge prod-badge--hf">HF · 표준</span>
-              <h2 class="prod-overview__freq">13.56 MHz</h2>
-            </div>
-            <p class="prod-overview__sub">국제 표준(ISO 14443/15693) 호환. 도서관리·스마트카드·결제 등 정밀 식별이 필요한 분야의 표준 대역.</p>
-          </div>
-          <ul class="prod-spec-grid">
-            <li><span>인식 거리</span><strong>~1m</strong></li>
-            <li><span>주요 표준</span><strong>ISO 14443 / 15693</strong></li>
-            <li><span>강점</span><strong>1리더 4안테나 외장형</strong></li>
-            <li><span>인터페이스</span><strong>RS-232 / TCP-IP</strong></li>
-          </ul>
-        </div>
+      <!-- 섹션 3: 주파수 대역별 특성 -->
+      <section class="block" id="frequency">
+        <span class="block__eyebrow" data-i18n="rfid.s3Eye">FREQUENCY</span>
+        <h2 class="block__title" data-i18n="rfid.s3Title" data-i18n-html>
+          주파수에 따라 달라지는<br><em>인식 거리와 특성</em>
+        </h2>
+        <p class="rfid-lead" data-i18n="rfid.s3Lead">
+          RFID는 사용하는 주파수 대역에 따라 인식 거리·환경 적합성·인식 속도가 크게 달라집니다.
+          세연테크놀로지는 산업 현장에서 가장 많이 쓰이는 4개 대역의 제품을 모두 보유하고 있습니다.
+        </p>
 
-        <div class="prod-section">
-          <h3 class="prod-section__title">READERS — 리더 라인업</h3>
-          <div class="prod-cards">
-            <article class="prod-card prod-card--feature">
-              <div class="prod-card__image"><div class="prod-card__ph">REM1356-4</div></div>
-              <div class="prod-card__body">
-                <div class="prod-card__series">REM1356 SERIES · FLAGSHIP</div>
-                <h4 class="prod-card__name">1리더 4안테나 외장형 Reader</h4>
-                <p class="prod-card__desc">하나의 리더에 외장 안테나 4개까지 연결 가능. 도서관 무인 반납기·공장자동화 라인에 검증된 구성.</p>
-                <ul class="prod-card__feats">
-                  <li>외장 안테나 1~4ch 자유 구성</li>
-                  <li>ISO 14443A/B, ISO 15693 호환</li>
-                  <li>TCP-IP / RS-232 통신</li>
-                  <li>다중 태그 충돌 방지(Anti-collision)</li>
-                </ul>
-              </div>
-            </article>
-            <article class="prod-card">
-              <div class="prod-card__image"><div class="prod-card__ph">REM1356 / 휴대형</div></div>
-              <div class="prod-card__body">
-                <div class="prod-card__series">REM1356 HANDHELD</div>
-                <h4 class="prod-card__name">휴대형 HF Reader</h4>
-                <p class="prod-card__desc">현장에서 사용하는 휴대형 13.56MHz 리더.</p>
-                <ul class="prod-card__feats">
-                  <li>블루투스·USB 통신</li>
-                  <li>장서 점검·재고 실사</li>
-                  <li>스마트카드 발급·관리</li>
-                </ul>
-              </div>
-            </article>
+        <div class="freq-table">
+          <div class="freq-row freq-row--head">
+            <div data-i18n="rfid.fHead1">대역</div>
+            <div data-i18n="rfid.fHead2">분류</div>
+            <div data-i18n="rfid.fHead3">인식거리</div>
+            <div data-i18n="rfid.fHead4">특성</div>
+            <div data-i18n="rfid.fHead5">주요 용도</div>
           </div>
-        </div>
 
-        <div class="prod-section">
-          <h3 class="prod-section__title">ANTENNAS &amp; TAGS</h3>
-          <div class="prod-cards prod-cards--small">
-            <article class="prod-card prod-card--mini">
-              <div class="prod-card__image"><div class="prod-card__ph">13.56MHz Antenna</div></div>
-              <div class="prod-card__body">
-                <h4 class="prod-card__name">13.56 MHz 안테나</h4>
-                <p class="prod-card__desc">슬림형·게이트형·터널형 등 환경별 안테나.</p>
-              </div>
-            </article>
-            <article class="prod-card prod-card--mini">
-              <div class="prod-card__image"><div class="prod-card__ph">13.56MHz Tags</div></div>
-              <div class="prod-card__body">
-                <h4 class="prod-card__name">13.56 MHz 태그</h4>
-                <p class="prod-card__desc">라벨형·카드형·스티커형 — 도서·자산 라벨링.</p>
-              </div>
-            </article>
+          <div class="freq-row">
+            <div class="freq-band"><strong>125 kHz</strong></div>
+            <div><span class="freq-badge freq-badge--lf">LF</span></div>
+            <div data-i18n="rfid.f1Dist">~10cm</div>
+            <div data-i18n="rfid.f1Feat">금속·수분 환경 강함</div>
+            <div data-i18n="rfid.f1Use">출입통제, 자산관리</div>
+          </div>
+          <div class="freq-row">
+            <div class="freq-band"><strong>134.2 kHz</strong></div>
+            <div><span class="freq-badge freq-badge--lf">LF</span></div>
+            <div data-i18n="rfid.f2Dist">~10cm</div>
+            <div data-i18n="rfid.f2Feat">ISO 11784/11785 국제 표준</div>
+            <div data-i18n="rfid.f2Use">가축·반려동물 개체식별</div>
+          </div>
+          <div class="freq-row">
+            <div class="freq-band"><strong>13.56 MHz</strong></div>
+            <div><span class="freq-badge freq-badge--hf">HF</span></div>
+            <div data-i18n="rfid.f3Dist">~1m</div>
+            <div data-i18n="rfid.f3Feat">ISO 14443/15693, 다중 인식</div>
+            <div data-i18n="rfid.f3Use">도서관리, 스마트카드, 결제</div>
+          </div>
+          <div class="freq-row">
+            <div class="freq-band"><strong>900 MHz</strong></div>
+            <div><span class="freq-badge freq-badge--uhf">UHF</span></div>
+            <div data-i18n="rfid.f4Dist">~수 m</div>
+            <div data-i18n="rfid.f4Feat">초당 수백 개 동시 인식</div>
+            <div data-i18n="rfid.f4Use">물류 입출고, 공급망 추적</div>
           </div>
         </div>
 
-        <div class="prod-uses">
-          <h3 class="prod-section__title">APPLICATIONS — 주요 적용 분야</h3>
-          <div class="prod-uses__grid">
-            <div class="prod-use">도서관리</div>
-            <div class="prod-use">스마트카드</div>
-            <div class="prod-use">전자결제</div>
-            <div class="prod-use">의료·자산</div>
-          </div>
+        <div class="rfid-cta">
+          <p class="rfid-cta__text" data-i18n="rfid.ctaText">현장에 맞는 주파수가 어떤 것인지 궁금하시다면, 25년간의 적용 경험을 바탕으로 안내해 드립니다.</p>
+          <a href="support.html" class="rfid-cta__btn" data-i18n="rfid.ctaBtn">상담 문의하기 →</a>
         </div>
-      </section>
-
-      <!-- ===== 900 MHz ===== -->
-      <section class="prod-panel" data-panel="uhf" hidden>
-        <div class="prod-overview">
-          <div class="prod-overview__head">
-            <div class="prod-overview__band">
-              <span class="prod-overview__badge prod-badge--uhf">UHF · 장거리</span>
-              <h2 class="prod-overview__freq">900 MHz</h2>
-            </div>
-            <p class="prod-overview__sub">수 미터 거리에서 초당 수백 개 태그를 동시에 인식. 물류·공급망·반도체 공정 자동화의 핵심 대역.</p>
-          </div>
-          <ul class="prod-spec-grid">
-            <li><span>인식 거리</span><strong>~수 m</strong></li>
-            <li><span>주요 표준</span><strong>ISO 18000-6C (EPC C1G2)</strong></li>
-            <li><span>강점</span><strong>다중 인식·고속 처리</strong></li>
-            <li><span>인터페이스</span><strong>TCP-IP / RS-232</strong></li>
-          </ul>
-        </div>
-
-        <div class="prod-section">
-          <h3 class="prod-section__title">READERS — 리더 라인업</h3>
-          <div class="prod-cards">
-            <article class="prod-card prod-card--feature">
-              <div class="prod-card__image"><div class="prod-card__ph">REM900 / 고정형</div></div>
-              <div class="prod-card__body">
-                <div class="prod-card__series">REM900 SERIES · FLAGSHIP</div>
-                <h4 class="prod-card__name">UHF 고정형 Reader</h4>
-                <p class="prod-card__desc">반도체 공장·물류센터 입출고 게이트에 검증된 고정형 리더. 멀티태그 인식률 100%(TTA 인증).</p>
-                <ul class="prod-card__feats">
-                  <li>외장 안테나 4ch 연결</li>
-                  <li>EPC C1G2 표준 호환</li>
-                  <li>TTA 멀티태그 인식률 100% 인증</li>
-                  <li>Good Design 수상 (REM900-R2)</li>
-                </ul>
-              </div>
-            </article>
-            <article class="prod-card">
-              <div class="prod-card__image"><div class="prod-card__ph">REM900 / 휴대형</div></div>
-              <div class="prod-card__body">
-                <div class="prod-card__series">REM900 HANDHELD</div>
-                <h4 class="prod-card__name">UHF 휴대형 Reader</h4>
-                <p class="prod-card__desc">대량 재고 실사·현장 검수용 휴대형 UHF 리더.</p>
-                <ul class="prod-card__feats">
-                  <li>블루투스 / USB 통신</li>
-                  <li>장거리 인식 (최대 ~5m)</li>
-                  <li>창고·매장 재고 실사</li>
-                </ul>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        <div class="prod-section">
-          <h3 class="prod-section__title">ANTENNAS &amp; TAGS</h3>
-          <div class="prod-cards prod-cards--small">
-            <article class="prod-card prod-card--mini">
-              <div class="prod-card__image"><div class="prod-card__ph">UHF Antenna</div></div>
-              <div class="prod-card__body">
-                <h4 class="prod-card__name">UHF 안테나</h4>
-                <p class="prod-card__desc">원편파·선형편파, 게이트·터널형 등 적용 환경별 라인업.</p>
-              </div>
-            </article>
-            <article class="prod-card prod-card--mini">
-              <div class="prod-card__image"><div class="prod-card__ph">UHF Tags</div></div>
-              <div class="prod-card__body">
-                <h4 class="prod-card__name">UHF 태그</h4>
-                <p class="prod-card__desc">라벨·하드·금속 부착형 — 반도체 자재·물류 박스에 적용.</p>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        <div class="prod-uses">
-          <h3 class="prod-section__title">APPLICATIONS — 주요 적용 분야</h3>
-          <div class="prod-uses__grid">
-            <div class="prod-use">반도체 공장자동화</div>
-            <div class="prod-use">물류·공급망</div>
-            <div class="prod-use">자산 실사</div>
-            <div class="prod-use">대형 매장 재고</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 공통 CTA -->
-      <section class="prod-cta">
-        <div class="prod-cta__text">
-          <h3>현장에 맞는 제품을 찾으시나요?</h3>
-          <p>25년간 쌓아온 산업별 적용 경험을 바탕으로, 환경·자재·동선에 가장 적합한 구성을 제안드립니다.</p>
-        </div>
-        <a href="support.html" class="prod-cta__btn">견적 문의하기 →</a>
       </section>
 
     </div>
@@ -1218,15 +985,34 @@
         'location.whTag':'사업장 · 납품 창고','location.whName':'안양 사업장',
         'location.whAddr':'경기도 안양시 동안구 흥안대로427번길 57-2<br>1204호 (관양동, 아이에스비즈타워)',
         'location.whNote':'용도 · 제품 납품 및 물류 창고',
-        'prod.eye':'PRODUCTS',
-        'prodPage.title':'주파수 대역별<br>RFID 제품군',
-        'prodPage.tLf125':'125 kHz<br>저주파 RFID','prodPage.sLf125':'출입통제·자산관리에 쓰이는 125kHz 저주파 리더·태그를 자체 개발·제조합니다.',
-        'prodPage.tLf134':'134.2 kHz<br>동물 개체식별 RFID','prodPage.sLf134':'국제표준(ISO 11784/5) 기반 동물 개체식별용 134.2kHz 제품군입니다.',
-        'prodPage.tHf':'13.56 MHz<br>고주파 RFID','prodPage.sHf':'도서관리·결제·출입 등 가장 널리 쓰이는 13.56MHz 표준 대역 제품군입니다.',
-        'prodPage.tUhf':'900 MHz<br>UHF 장거리 RFID','prodPage.sUhf':'물류·반도체 등 장거리 다중인식이 필요한 900MHz UHF 제품군입니다.',
-        'prodPage.sub':'125 kHz · 134.2 kHz · 13.56 MHz · 900 MHz — 산업 현장에서 가장 많이 쓰이는 4개 대역의 리더·안테나·태그를 모두 자체 개발·제조합니다.',
-        'prod.groupLf':'저주파 (LF)','prod.groupHf':'고주파 (HF / UHF)',
-        'prod.sub125':'저주파 · 출입·자산','prod.sub134':'동물 개체식별','prod.subHf':'표준 · 도서·결제','prod.subUhf':'장거리 · 물류',
+        'rfid.eyebrow':'ABOUT RFID',
+        'rfid.navIntro':'RFID 소개',
+        'rfid.navEffect':'도입효과',
+        'rfid.navSolution':'응용·솔루션',
+        'rfidIntro.title':'전파로 사물을 인식하는<br>비접촉 식별 기술',
+        'rfidIntro.sub':'RFID(Radio Frequency IDentification)는 전파를 이용해 태그에 저장된 정보를 비접촉으로 읽고 쓰는 기술입니다. 보이지 않아도, 여러 개를, 한 번에 인식합니다.',
+        'rfid.s1Eye':'WHAT IS RFID','rfid.s1Title':'전파로 정보를 주고받는<br><em>무선 식별 기술</em>',
+        'rfid.s1Lead':'RFID는 태그(Tag)에 저장된 정보를 전파(Radio Frequency)로 읽어내는 기술입니다. 바코드처럼 직접 보이게 스캔할 필요 없이, 거리를 두고도 여러 개를 동시에 빠르게 인식할 수 있어 공장자동화·물류·자산관리 등 다양한 산업 현장에서 핵심 인프라로 자리 잡았습니다.',
+        'rfid.cmpOldTag':'BARCODE','rfid.cmpOldName':'바코드',
+        'rfid.cmpOld1':'직접 보여야 인식 (가시 거리)','rfid.cmpOld2':'한 번에 1개만 스캔',
+        'rfid.cmpOld3':'정보 변경 불가','rfid.cmpOld4':'오염·훼손에 취약',
+        'rfid.cmpNewTag':'RFID','rfid.cmpNewName':'RFID',
+        'rfid.cmpNew1':'비접촉·비가시 인식 가능','rfid.cmpNew2':'초당 수백 개 동시 인식',
+        'rfid.cmpNew3':'정보 읽기·쓰기 모두 가능','rfid.cmpNew4':'금속·먼지·온도에 강한 내구성',
+        'rfid.s2Eye':'COMPONENTS','rfid.s2Title':'RFID 시스템의<br><em>3가지 핵심 구성</em>',
+        'rfid.c1Name':'태그 (Tag)','rfid.c1Desc':'사물에 부착되어 고유 정보를 저장하는 칩과 안테나의 결합체. 인식 거리·환경에 따라 LF/HF/UHF 등 다양한 종류로 제작됩니다.',
+        'rfid.c2Name':'안테나 (Antenna)','rfid.c2Desc':'전파를 송수신하여 태그와 리더 사이의 통신을 담당합니다. 지향성·이득·편파 등 설계에 따라 인식 거리와 정확도가 결정됩니다.',
+        'rfid.c3Name':'리더 (Reader)','rfid.c3Desc':'안테나를 통해 태그로부터 받은 신호를 해독하여 호스트 시스템으로 전달합니다. 세연테크놀로지의 핵심 제품군이 바로 이 리더입니다.',
+        'rfid.flow1':'리더가 안테나를 통해 전파 송신','rfid.flow2':'태그가 전파를 받아 정보 응답','rfid.flow3':'리더가 정보를 해독·전달',
+        'rfid.s3Eye':'FREQUENCY','rfid.s3Title':'주파수에 따라 달라지는<br><em>인식 거리와 특성</em>',
+        'rfid.s3Lead':'RFID는 사용하는 주파수 대역에 따라 인식 거리·환경 적합성·인식 속도가 크게 달라집니다. 세연테크놀로지는 산업 현장에서 가장 많이 쓰이는 4개 대역의 제품을 모두 보유하고 있습니다.',
+        'rfid.fHead1':'대역','rfid.fHead2':'분류','rfid.fHead3':'인식거리','rfid.fHead4':'특성','rfid.fHead5':'주요 용도',
+        'rfid.f1Dist':'~10cm','rfid.f1Feat':'금속·수분 환경 강함','rfid.f1Use':'출입통제, 자산관리',
+        'rfid.f2Dist':'~10cm','rfid.f2Feat':'ISO 11784/11785 국제 표준','rfid.f2Use':'가축·반려동물 개체식별',
+        'rfid.f3Dist':'~1m','rfid.f3Feat':'ISO 14443/15693, 다중 인식','rfid.f3Use':'도서관리, 스마트카드, 결제',
+        'rfid.f4Dist':'~수 m','rfid.f4Feat':'초당 수백 개 동시 인식','rfid.f4Use':'물류 입출고, 공급망 추적',
+        'rfid.ctaText':'현장에 맞는 주파수가 어떤 것인지 궁금하시다면, 25년간의 적용 경험을 바탕으로 안내해 드립니다.',
+        'rfid.ctaBtn':'상담 문의하기 →',
         'foot.hours1':'평일 AM 9:00 ~ PM 6:00','foot.hours2':'(토·일, 법정 공휴일 휴무)',
         'foot.c1t':'회사 소개','foot.c1d':'RFID 전문 기업, 세연테크놀로지를 소개합니다.',
         'foot.c2t':'제품 안내','foot.c2d':'125·134·13.56·900 전 대역 RFID 제품을 안내합니다.',
@@ -1256,15 +1042,32 @@
         'location.whTag':'Site · Warehouse','location.whName':'Anyang Site',
         'location.whAddr':'57-2 Heungan-daero 427beon-gil, Dongan-gu,<br>Anyang-si, Gyeonggi-do #1204',
         'location.whNote':'Use · Product delivery & logistics warehouse',
-        'prod.eye':'PRODUCTS',
-        'prodPage.title':'RFID products<br>by frequency band',
-        'prodPage.tLf125':'125 kHz<br>Low-Frequency RFID','prodPage.sLf125':'125kHz LF readers and tags for access control and asset management, developed in-house.',
-        'prodPage.tLf134':'134.2 kHz<br>Animal ID RFID','prodPage.sLf134':'134.2kHz products for animal identification based on ISO 11784/5 standards.',
-        'prodPage.tHf':'13.56 MHz<br>High-Frequency RFID','prodPage.sHf':'13.56MHz standard-band products widely used for library, payment and access.',
-        'prodPage.tUhf':'900 MHz<br>UHF Long-Range RFID','prodPage.sUhf':'900MHz UHF products for long-range multi-tag reading in logistics and semiconductors.',
-        'prodPage.sub':'125 kHz · 134.2 kHz · 13.56 MHz · 900 MHz — we develop and manufacture readers, antennas, and tags in-house across all four bands most used in industry.',
-        'prod.groupLf':'Low Freq (LF)','prod.groupHf':'High Freq (HF / UHF)',
-        'prod.sub125':'Low freq · Access·Asset','prod.sub134':'Animal ID','prod.subHf':'Standard · Library·Pay','prod.subUhf':'Long range · Logistics',
+        'rfid.eyebrow':'ABOUT RFID',
+        'rfid.navIntro':'Introduction','rfid.navEffect':'Benefits','rfid.navSolution':'Applications',
+        'rfidIntro.title':'Identify objects<br>wirelessly with radio',
+        'rfidIntro.sub':'RFID (Radio Frequency IDentification) reads and writes tag data over the air. It works without line of sight and can scan many items at once.',
+        'rfid.s1Eye':'WHAT IS RFID','rfid.s1Title':'A wireless identification<br><em>technology</em>',
+        'rfid.s1Lead':'RFID reads tag data using radio waves. Unlike barcodes, no direct visibility is needed, and many items can be read at once — making it core infrastructure for factory automation, logistics, and asset management.',
+        'rfid.cmpOldTag':'BARCODE','rfid.cmpOldName':'Barcode',
+        'rfid.cmpOld1':'Requires line of sight','rfid.cmpOld2':'One scan at a time',
+        'rfid.cmpOld3':'Read-only','rfid.cmpOld4':'Vulnerable to dirt and damage',
+        'rfid.cmpNewTag':'RFID','rfid.cmpNewName':'RFID',
+        'rfid.cmpNew1':'No line of sight needed','rfid.cmpNew2':'Hundreds of tags per second',
+        'rfid.cmpNew3':'Read and write','rfid.cmpNew4':'Robust to metal, dust, temperature',
+        'rfid.s2Eye':'COMPONENTS','rfid.s2Title':'Three core parts<br>of an <em>RFID system</em>',
+        'rfid.c1Name':'Tag','rfid.c1Desc':'A chip-and-antenna unit attached to objects to store unique data. Comes in LF/HF/UHF types depending on range and environment.',
+        'rfid.c2Name':'Antenna','rfid.c2Desc':'Transmits and receives radio waves between reader and tag. Range and accuracy depend on directionality, gain, and polarization.',
+        'rfid.c3Name':'Reader','rfid.c3Desc':'Decodes signals from tags and forwards them to the host system. The Reader is CEYON\u2019s core product family.',
+        'rfid.flow1':'Reader transmits radio via antenna','rfid.flow2':'Tag receives and responds','rfid.flow3':'Reader decodes and delivers',
+        'rfid.s3Eye':'FREQUENCY','rfid.s3Title':'Range and behavior<br><em>vary by frequency</em>',
+        'rfid.s3Lead':'Recognition range, environment, and speed differ greatly by RFID frequency band. CEYON offers products in all four bands most commonly used in industry.',
+        'rfid.fHead1':'Band','rfid.fHead2':'Class','rfid.fHead3':'Range','rfid.fHead4':'Feature','rfid.fHead5':'Use Cases',
+        'rfid.f1Dist':'~10cm','rfid.f1Feat':'Robust to metal & moisture','rfid.f1Use':'Access control, asset mgmt',
+        'rfid.f2Dist':'~10cm','rfid.f2Feat':'ISO 11784/11785 standard','rfid.f2Use':'Livestock & pet ID',
+        'rfid.f3Dist':'~1m','rfid.f3Feat':'ISO 14443/15693, multi-read','rfid.f3Use':'Library, smart card, payment',
+        'rfid.f4Dist':'~several m','rfid.f4Feat':'Hundreds of tags/sec','rfid.f4Use':'Logistics, supply chain',
+        'rfid.ctaText':'Wondering which frequency fits your site? We will guide you with 25 years of field experience.',
+        'rfid.ctaBtn':'Contact us →',
         'foot.hours1':'Weekdays 9:00 AM ~ 6:00 PM','foot.hours2':'(Closed weekends & public holidays)',
         'foot.c1t':'About Us','foot.c1d':'Meet CEYON Technology, an RFID specialist.',
         'foot.c2t':'Products','foot.c2d':'Explore our full 125·134·13.56·900 RFID lineup.',
@@ -1294,15 +1097,32 @@
         'location.whTag':'营业场所 · 交货仓库','location.whName':'安养营业场所',
         'location.whAddr':'京畿道安养市东安区兴安大路427号街57-2<br>1204号 (冠阳洞, IS Biz Tower)',
         'location.whNote':'用途 · 产品交货及物流仓库',
-        'prod.eye':'PRODUCTS',
-        'prodPage.title':'按频段分类的<br>RFID产品系列',
-        'prodPage.tLf125':'125 kHz<br>低频 RFID','prodPage.sLf125':'用于门禁·资产管理的125kHz低频读取器和标签，自主研发制造。',
-        'prodPage.tLf134':'134.2 kHz<br>动物识别 RFID','prodPage.sLf134':'基于ISO 11784/5标准的134.2kHz动物个体识别产品系列。',
-        'prodPage.tHf':'13.56 MHz<br>高频 RFID','prodPage.sHf':'广泛用于图书·支付·门禁的13.56MHz标准频段产品系列。',
-        'prodPage.tUhf':'900 MHz<br>UHF 远距离 RFID','prodPage.sUhf':'用于物流·半导体等远距离多标签识别的900MHz UHF产品系列。',
-        'prodPage.sub':'125 kHz · 134.2 kHz · 13.56 MHz · 900 MHz — 自主研发并制造产业现场最常用的4个频段的读取器·天线·标签全产品。',
-        'prod.groupLf':'低频 (LF)','prod.groupHf':'高频 (HF / UHF)',
-        'prod.sub125':'低频 · 门禁·资产','prod.sub134':'动物个体识别','prod.subHf':'标准 · 图书·支付','prod.subUhf':'远距离 · 物流',
+        'rfid.eyebrow':'ABOUT RFID',
+        'rfid.navIntro':'RFID介绍','rfid.navEffect':'引入效果','rfid.navSolution':'应用·方案',
+        'rfidIntro.title':'通过电波识别物体的<br>非接触式识别技术',
+        'rfidIntro.sub':'RFID(射频识别)是通过电波非接触式读写标签信息的技术。即使看不见,也能同时识别多个对象。',
+        'rfid.s1Eye':'WHAT IS RFID','rfid.s1Title':'通过电波传输信息的<br><em>无线识别技术</em>',
+        'rfid.s1Lead':'RFID是通过电波读取标签存储信息的技术。与条形码不同,无需直接可见也可在一定距离内同时快速识别多个对象,已成为工厂自动化、物流、资产管理等产业现场的核心基础设施。',
+        'rfid.cmpOldTag':'BARCODE','rfid.cmpOldName':'条形码',
+        'rfid.cmpOld1':'需要可见(视距)','rfid.cmpOld2':'一次只能扫描1个',
+        'rfid.cmpOld3':'无法修改信息','rfid.cmpOld4':'易受污染·损坏',
+        'rfid.cmpNewTag':'RFID','rfid.cmpNewName':'RFID',
+        'rfid.cmpNew1':'非接触·非可见识别','rfid.cmpNew2':'每秒数百个同时识别',
+        'rfid.cmpNew3':'可读可写','rfid.cmpNew4':'耐金属·灰尘·温度',
+        'rfid.s2Eye':'COMPONENTS','rfid.s2Title':'RFID系统的<br><em>3个核心组成</em>',
+        'rfid.c1Name':'标签 (Tag)','rfid.c1Desc':'附着于物体存储唯一信息的芯片与天线组合体。根据识别距离·环境分为LF/HF/UHF等多种类型。',
+        'rfid.c2Name':'天线 (Antenna)','rfid.c2Desc':'收发电波,负责标签与读取器之间的通信。根据指向性、增益、极化等设计决定识别距离和精度。',
+        'rfid.c3Name':'读取器 (Reader)','rfid.c3Desc':'通过天线解码标签信号并传递给主机系统。这正是世延科技的核心产品系列。',
+        'rfid.flow1':'读取器通过天线发射电波','rfid.flow2':'标签接收电波并响应信息','rfid.flow3':'读取器解码并传递信息',
+        'rfid.s3Eye':'FREQUENCY','rfid.s3Title':'根据频率不同的<br><em>识别距离和特性</em>',
+        'rfid.s3Lead':'RFID因使用的频段不同,识别距离·环境适应性·识别速度有很大差异。世延科技拥有产业现场最常用的4个频段全部产品。',
+        'rfid.fHead1':'频段','rfid.fHead2':'分类','rfid.fHead3':'识别距离','rfid.fHead4':'特性','rfid.fHead5':'主要用途',
+        'rfid.f1Dist':'~10cm','rfid.f1Feat':'耐金属·水分环境','rfid.f1Use':'门禁、资产管理',
+        'rfid.f2Dist':'~10cm','rfid.f2Feat':'ISO 11784/11785国际标准','rfid.f2Use':'家畜·宠物个体识别',
+        'rfid.f3Dist':'~1m','rfid.f3Feat':'ISO 14443/15693, 多重识别','rfid.f3Use':'图书管理、智能卡、支付',
+        'rfid.f4Dist':'~数米','rfid.f4Feat':'每秒数百个同时识别','rfid.f4Use':'物流出入库、供应链追踪',
+        'rfid.ctaText':'想知道哪种频率适合您的现场吗?我们将基于25年的应用经验为您提供咨询。',
+        'rfid.ctaBtn':'联系咨询 →',
         'foot.hours1':'工作日 上午9:00 ~ 下午6:00','foot.hours2':'(周六·日、法定节假日休息)',
         'foot.c1t':'公司简介','foot.c1d':'介绍RFID专业企业世延科技。',
         'foot.c2t':'产品介绍','foot.c2d':'介绍125·134·13.56·900全频段RFID产品。',
@@ -1312,10 +1132,8 @@
       }
     };
     const LANG_HTML_ATTR = { ko:'ko', en:'en', cn:'zh' };
-    let CUR_LANG = 'ko';
     const applyLang = (lang) => {
       const dict = I18N[lang]; if (!dict) return;
-      CUR_LANG = lang;
       document.documentElement.lang = LANG_HTML_ATTR[lang];
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const v = dict[el.getAttribute('data-i18n')];
@@ -1334,64 +1152,6 @@
       if (s && I18N[s]) { applyLang(s); return; }
       const n=(navigator.language||'ko').toLowerCase();
       if (n.startsWith('zh')) applyLang('cn'); else if (n.startsWith('en')) applyLang('en');
-    })();
-
-    /* 제품 대역 탭 전환 (사이드네비 클릭 + URL 해시 연동) */
-    (() => {
-      const tabs = document.querySelectorAll('.side-nav__link[data-band]');
-      const panels = document.querySelectorAll('.prod-panel');
-      if (!tabs.length) return;
-
-      const HERO_KEYS = {
-        lf125: { t:'prodPage.tLf125', s:'prodPage.sLf125' },
-        lf134: { t:'prodPage.tLf134', s:'prodPage.sLf134' },
-        hf:    { t:'prodPage.tHf',    s:'prodPage.sHf' },
-        uhf:   { t:'prodPage.tUhf',   s:'prodPage.sUhf' },
-      };
-      const heroTitle = document.getElementById('prodHeroTitle');
-      const heroSub = document.getElementById('prodHeroSub');
-
-      const activate = (target, doScroll) => {
-        const exists = [...panels].some(p => p.dataset.panel === target);
-        if (!exists) return;
-        tabs.forEach(t => t.classList.toggle('is-active', t.dataset.band === target));
-        panels.forEach(p => {
-          const show = p.dataset.panel === target;
-          p.classList.toggle('is-active', show);
-          p.hidden = !show;
-        });
-        // page-hero 타이틀/부제도 대역에 맞게 변경 (언어 전환과 호환되게 data-i18n 키 교체)
-        const k = HERO_KEYS[target];
-        if (k && heroTitle && heroSub) {
-          heroTitle.setAttribute('data-i18n', k.t);
-          heroSub.setAttribute('data-i18n', k.s);
-          const dict = I18N[CUR_LANG] || I18N.ko;
-          if (dict[k.t]) heroTitle.innerHTML = dict[k.t];
-          if (dict[k.s]) heroSub.textContent = dict[k.s];
-        }
-        if (doScroll && window.innerWidth < 960) {
-          const layout = document.querySelector('.about-layout');
-          if (layout) layout.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      };
-
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          const target = tab.dataset.band;
-          history.replaceState(null, '', '#' + target);
-          activate(target, true);
-        });
-      });
-
-      // 페이지 로드 시 URL 해시(#uhf 등) 반영
-      const fromHash = (location.hash || '').replace('#', '');
-      if (fromHash) activate(fromHash, false);
-
-      // 다른 페이지 드롭다운에서 같은 페이지의 다른 해시로 이동했을 때
-      window.addEventListener('hashchange', () => {
-        const h = (location.hash || '').replace('#', '');
-        if (h) activate(h, true);
-      });
     })();
 
     /* 스크롤 시 헤더 축소 */

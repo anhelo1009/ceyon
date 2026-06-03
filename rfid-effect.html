@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="세연테크놀로지(주) 회사소개 — CEO 인사말, 연혁, 오시는 길. 2001년 설립 이후 RFID 하드웨어를 자체 개발·제조해 온 RFID 전문 기업." />
-  <title>RFID 소개 | 세연테크놀로지 CEYON Technology</title>
+  <title>도입효과 | 세연테크놀로지 CEYON Technology</title>
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png" />
@@ -326,7 +326,6 @@
     .ceo__value-en { font-family: var(--font-en); font-size: 11px; letter-spacing: .16em; color: var(--color-accent); font-weight: 600; }
     .ceo__value-ko { font-size: 18px; font-weight: 700; color: var(--color-primary); margin: 8px 0 6px; }
     .ceo__value-desc { font-size: 13px; color: var(--color-text-muted); line-height: 1.6; }
-
     /* =========================================================
        RFID 페이지 전용
        ========================================================= */
@@ -506,6 +505,77 @@
       .freq-row--head { display: none; }
       .freq-row > div { padding: 2px 0; }
       .rfid-cta { flex-direction: column; align-items: flex-start; }
+    }
+
+
+    /* Before / After 비교 */
+    .ba {
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      gap: 24px; align-items: stretch;
+    }
+    .ba__col {
+      padding: 36px 32px; border-radius: 8px; border: 1px solid var(--color-border);
+      background: #fff;
+    }
+    .ba__col--after {
+      border-color: var(--color-primary);
+      background: linear-gradient(180deg, rgba(0,51,102,0.04) 0%, rgba(0,51,102,0) 60%);
+      box-shadow: 0 12px 36px -20px rgba(0,31,63,.2);
+    }
+    .ba__tag {
+      display: inline-block; font-family: var(--font-en);
+      font-size: 11px; font-weight: 700; letter-spacing: .2em;
+      padding: 5px 12px; border-radius: 3px; margin-bottom: 20px;
+    }
+    .ba__col--before .ba__tag { background: var(--color-bg-alt); color: var(--color-text-muted); }
+    .ba__col--after .ba__tag { background: var(--color-accent); color: #fff; }
+    .ba__list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .ba__list li {
+      position: relative; padding-left: 24px;
+      font-size: 15px; line-height: 1.6; color: var(--color-text);
+    }
+    .ba__col--before .ba__list li { color: var(--color-text-muted); }
+    .ba__col--before .ba__list li::before {
+      content: "✕"; position: absolute; left: 0;
+      color: var(--color-text-faint); font-weight: 700;
+    }
+    .ba__col--after .ba__list li::before {
+      content: "✓"; position: absolute; left: 0;
+      color: var(--color-accent); font-weight: 700;
+    }
+    .ba__arrow {
+      align-self: center; font-size: 28px; color: var(--color-accent); font-weight: 300;
+    }
+
+    /* 6가지 효과 그리드 */
+    .benefits {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    .benefit {
+      padding: 32px 28px; border: 1px solid var(--color-border); border-radius: 8px;
+      background: #fff; transition: all .3s var(--ease-out);
+    }
+    .benefit:hover {
+      border-color: var(--color-primary);
+      box-shadow: 0 12px 36px -20px rgba(0,31,63,.2);
+      transform: translateY(-3px);
+    }
+    .benefit__num {
+      font-family: var(--font-en); font-size: 12px; font-weight: 700;
+      letter-spacing: .15em; color: var(--color-accent); margin-bottom: 14px;
+    }
+    .benefit__name {
+      font-size: 19px; font-weight: 700; color: var(--color-primary);
+      margin-bottom: 12px; letter-spacing: -.02em;
+    }
+    .benefit__desc {
+      font-size: 14px; line-height: 1.7; color: var(--color-text-muted);
+    }
+
+    @media (max-width: 960px) {
+      .ba { grid-template-columns: 1fr; }
+      .ba__arrow { transform: rotate(90deg); justify-self: center; }
+      .benefits { grid-template-columns: 1fr; }
     }
 
     /* 연혁 (타임라인) */
@@ -711,13 +781,13 @@
   <section class="page-hero">
     <div class="page-hero__inner">
       <nav class="page-hero__crumb" aria-label="breadcrumb">
-        <a href="index.html" data-i18n="crumb.home">홈</a> &nbsp;/&nbsp; <a href="rfid.html" data-i18n="nav.rfid">RFID 기술</a> &nbsp;/&nbsp; <span data-i18n="rfid.navIntro">RFID 소개</span>
+        <a href="index.html" data-i18n="crumb.home">홈</a> &nbsp;/&nbsp; <a href="rfid.html" data-i18n="nav.rfid">RFID 기술</a> &nbsp;/&nbsp; <span data-i18n="rfid.navEffect">도입효과</span>
       </nav>
-      <span class="page-hero__eyebrow" data-i18n="rfid.eyebrow">ABOUT RFID</span>
-      <h1 class="page-hero__title" data-i18n="rfidIntro.title" data-i18n-html>전파로 사물을 인식하는<br>비접촉 식별 기술</h1>
-      <p class="page-hero__sub" data-i18n="rfidIntro.sub">
-        RFID(Radio Frequency IDentification)는 전파를 이용해 태그에 저장된 정보를
-        비접촉으로 읽고 쓰는 기술입니다. 보이지 않아도, 여러 개를, 한 번에 인식합니다.
+      <span class="page-hero__eyebrow" data-i18n="rfid.benefitsEye">BENEFITS</span>
+      <h1 class="page-hero__title" data-i18n="rfidEff.title" data-i18n-html>현장의 일하는 방식을<br>바꾸는 6가지 변화</h1>
+      <p class="page-hero__sub" data-i18n="rfidEff.sub">
+        RFID 도입이 가져오는 실질적인 효과를 정리했습니다. 단순한 자동화를 넘어
+        데이터 기반 의사결정과 운영 효율의 새로운 기준이 됩니다.
       </p>
     </div>
   </section>
@@ -729,8 +799,8 @@
     <aside class="side-nav">
       <div class="side-nav__title">RFID</div>
       <ul class="side-nav__list">
-        <li><a href="rfid.html"          class="side-nav__link is-active" data-i18n="rfid.navIntro">RFID 소개</a></li>
-        <li><a href="rfid-effect.html"   class="side-nav__link " data-i18n="rfid.navEffect">도입효과</a></li>
+        <li><a href="rfid.html"          class="side-nav__link " data-i18n="rfid.navIntro">RFID 소개</a></li>
+        <li><a href="rfid-effect.html"   class="side-nav__link is-active" data-i18n="rfid.navEffect">도입효과</a></li>
         <li><a href="rfid-solution.html" class="side-nav__link " data-i18n="rfid.navSolution">응용·솔루션</a></li>
       </ul>
     </aside>
@@ -738,170 +808,101 @@
     <!-- 우측 콘텐츠 -->
     <div class="about-content">
 
-      <!-- 섹션 1: RFID란 무엇인가 -->
-      <section class="block" id="what">
-        <span class="block__eyebrow" data-i18n="rfid.s1Eye">WHAT IS RFID</span>
-        <h2 class="block__title" data-i18n="rfid.s1Title" data-i18n-html>
-          전파로 정보를 주고받는<br><em>무선 식별 기술</em>
+      <!-- 섹션 1: Before vs After -->
+      <section class="block" id="ba">
+        <span class="block__eyebrow" data-i18n="rfid.baEye">BEFORE / AFTER</span>
+        <h2 class="block__title" data-i18n="rfid.baTitle" data-i18n-html>
+          RFID 도입 전과 후,<br><em>달라지는 현장</em>
         </h2>
-        <p class="rfid-lead" data-i18n="rfid.s1Lead">
-          RFID는 태그(Tag)에 저장된 정보를 전파(Radio Frequency)로 읽어내는 기술입니다.
-          바코드처럼 직접 보이게 스캔할 필요 없이, 거리를 두고도 여러 개를 동시에 빠르게 인식할 수 있어
-          공장자동화·물류·자산관리 등 다양한 산업 현장에서 핵심 인프라로 자리 잡았습니다.
-        </p>
 
-        <!-- 바코드 vs RFID 비교 -->
-        <div class="compare">
-          <div class="compare__col compare__col--old">
-            <div class="compare__tag" data-i18n="rfid.cmpOldTag">BARCODE</div>
-            <h3 class="compare__name" data-i18n="rfid.cmpOldName">바코드</h3>
-            <ul class="compare__list">
-              <li data-i18n="rfid.cmpOld1">직접 보여야 인식 (가시 거리)</li>
-              <li data-i18n="rfid.cmpOld2">한 번에 1개만 스캔</li>
-              <li data-i18n="rfid.cmpOld3">정보 변경 불가</li>
-              <li data-i18n="rfid.cmpOld4">오염·훼손에 취약</li>
+        <div class="ba">
+          <div class="ba__col ba__col--before">
+            <div class="ba__tag" data-i18n="rfid.baBeforeTag">BEFORE</div>
+            <ul class="ba__list">
+              <li data-i18n="rfid.baB1">수기 입력에 의한 누락·오류</li>
+              <li data-i18n="rfid.baB2">현장 상태 파악에 시간 소요</li>
+              <li data-i18n="rfid.baB3">재고·자산 위치 추적 어려움</li>
+              <li data-i18n="rfid.baB4">감사·이력 관리에 별도 작업</li>
             </ul>
           </div>
-          <div class="compare__divider" aria-hidden="true">vs</div>
-          <div class="compare__col compare__col--new">
-            <div class="compare__tag" data-i18n="rfid.cmpNewTag">RFID</div>
-            <h3 class="compare__name" data-i18n="rfid.cmpNewName">RFID</h3>
-            <ul class="compare__list">
-              <li data-i18n="rfid.cmpNew1">비접촉·비가시 인식 가능</li>
-              <li data-i18n="rfid.cmpNew2">초당 수백 개 동시 인식</li>
-              <li data-i18n="rfid.cmpNew3">정보 읽기·쓰기 모두 가능</li>
-              <li data-i18n="rfid.cmpNew4">금속·먼지·온도에 강한 내구성</li>
+          <div class="ba__arrow" aria-hidden="true">→</div>
+          <div class="ba__col ba__col--after">
+            <div class="ba__tag" data-i18n="rfid.baAfterTag">AFTER</div>
+            <ul class="ba__list">
+              <li data-i18n="rfid.baA1">자동 인식으로 데이터 무결성 확보</li>
+              <li data-i18n="rfid.baA2">실시간 상태·위치 파악</li>
+              <li data-i18n="rfid.baA3">전 공정·전 자산 가시화</li>
+              <li data-i18n="rfid.baA4">이력 자동 축적, 감사 대응 즉시</li>
             </ul>
           </div>
         </div>
       </section>
 
-      <!-- 섹션 2: 기본 구성 -->
-      <section class="block" id="components">
-        <span class="block__eyebrow" data-i18n="rfid.s2Eye">COMPONENTS</span>
-        <h2 class="block__title" data-i18n="rfid.s2Title" data-i18n-html>
-          RFID 시스템의<br><em>3가지 핵심 구성</em>
+      <!-- 섹션 2: 6가지 핵심 효과 -->
+      <section class="block" id="benefits">
+        <span class="block__eyebrow" data-i18n="rfid.bnEye">KEY BENEFITS</span>
+        <h2 class="block__title" data-i18n="rfid.bnTitle" data-i18n-html>
+          비즈니스에 가져오는<br><em>실질적 가치</em>
         </h2>
 
-        <div class="components">
-          <div class="component">
-            <div class="component__num">01</div>
-            <div class="component__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="8" y="14" width="32" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
-                <line x1="14" y1="20" x2="34" y2="20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <line x1="14" y1="24" x2="30" y2="24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <circle cx="33" cy="28" r="1.6" fill="currentColor"/>
-              </svg>
-            </div>
-            <h3 class="component__name" data-i18n="rfid.c1Name">태그 (Tag)</h3>
-            <p class="component__desc" data-i18n="rfid.c1Desc">
-              사물에 부착되어 고유 정보를 저장하는 칩과 안테나의 결합체.
-              인식 거리·환경에 따라 LF/HF/UHF 등 다양한 종류로 제작됩니다.
+        <div class="benefits">
+          <div class="benefit">
+            <div class="benefit__num">01</div>
+            <h3 class="benefit__name" data-i18n="rfid.b1Name">생산성 향상</h3>
+            <p class="benefit__desc" data-i18n="rfid.b1Desc">
+              수기·바코드 작업 대비 인식 속도와 처리량이 비약적으로 증가하여,
+              동일 인력으로 더 많은 물량을 처리할 수 있습니다.
             </p>
           </div>
-
-          <div class="component">
-            <div class="component__num">02</div>
-            <div class="component__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <line x1="24" y1="26" x2="24" y2="40" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M18 22a6 6 0 0 1 12 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M14 22a10 10 0 0 1 20 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.65"/>
-                <path d="M10 22a14 14 0 0 1 28 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.35"/>
-                <circle cx="24" cy="22" r="2" fill="currentColor"/>
-              </svg>
-            </div>
-            <h3 class="component__name" data-i18n="rfid.c2Name">안테나 (Antenna)</h3>
-            <p class="component__desc" data-i18n="rfid.c2Desc">
-              전파를 송수신하여 태그와 리더 사이의 통신을 담당합니다.
-              지향성·이득·편파 등 설계에 따라 인식 거리와 정확도가 결정됩니다.
+          <div class="benefit">
+            <div class="benefit__num">02</div>
+            <h3 class="benefit__name" data-i18n="rfid.b2Name">데이터 정확도</h3>
+            <p class="benefit__desc" data-i18n="rfid.b2Desc">
+              사람의 개입 없이 자동 인식되므로 입력 오류·누락이 거의 발생하지 않습니다.
+              데이터 신뢰도가 높아져 의사결정의 품질도 개선됩니다.
             </p>
           </div>
-
-          <div class="component">
-            <div class="component__num">03</div>
-            <div class="component__icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="7" y="10" width="34" height="22" rx="2" stroke="currentColor" stroke-width="2"/>
-                <line x1="18" y1="40" x2="30" y2="40" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <line x1="24" y1="32" x2="24" y2="40" stroke="currentColor" stroke-width="2"/>
-                <rect x="13" y="16" width="9" height="9" rx="1" stroke="currentColor" stroke-width="1.6"/>
-                <line x1="26" y1="17" x2="35" y2="17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                <line x1="26" y1="21" x2="35" y2="21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-                <line x1="26" y1="25" x2="32" y2="25" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h3 class="component__name" data-i18n="rfid.c3Name">리더 (Reader)</h3>
-            <p class="component__desc" data-i18n="rfid.c3Desc">
-              안테나를 통해 태그로부터 받은 신호를 해독하여 호스트 시스템으로 전달합니다.
-              세연테크놀로지의 핵심 제품군이 바로 이 리더입니다.
+          <div class="benefit">
+            <div class="benefit__num">03</div>
+            <h3 class="benefit__name" data-i18n="rfid.b3Name">실시간 가시성</h3>
+            <p class="benefit__desc" data-i18n="rfid.b3Desc">
+              자재·제품·자산의 현재 위치와 상태를 실시간으로 파악할 수 있어,
+              병목 구간 발견과 즉각적인 대응이 가능합니다.
             </p>
           </div>
-        </div>
-
-        <!-- 동작 흐름 -->
-        <div class="flow">
-          <div class="flow__step"><span class="flow__step-num">1</span><span data-i18n="rfid.flow1">리더가 안테나를 통해 전파 송신</span></div>
-          <div class="flow__arrow" aria-hidden="true">→</div>
-          <div class="flow__step"><span class="flow__step-num">2</span><span data-i18n="rfid.flow2">태그가 전파를 받아 정보 응답</span></div>
-          <div class="flow__arrow" aria-hidden="true">→</div>
-          <div class="flow__step"><span class="flow__step-num">3</span><span data-i18n="rfid.flow3">리더가 정보를 해독·전달</span></div>
+          <div class="benefit">
+            <div class="benefit__num">04</div>
+            <h3 class="benefit__name" data-i18n="rfid.b4Name">운영비 절감</h3>
+            <p class="benefit__desc" data-i18n="rfid.b4Desc">
+              재고 실사·자산 점검·이력 작성 등 반복 업무를 자동화함으로써
+              인건비와 관리비를 동시에 줄일 수 있습니다.
+            </p>
+          </div>
+          <div class="benefit">
+            <div class="benefit__num">05</div>
+            <h3 class="benefit__name" data-i18n="rfid.b5Name">완벽한 이력 추적</h3>
+            <p class="benefit__desc" data-i18n="rfid.b5Desc">
+              제품·자재가 거쳐 간 모든 공정·위치·시간이 자동으로 기록되어,
+              품질 이슈 발생 시 원인 추적과 리콜 대응이 신속해집니다.
+            </p>
+          </div>
+          <div class="benefit">
+            <div class="benefit__num">06</div>
+            <h3 class="benefit__name" data-i18n="rfid.b6Name">위변조·분실 방지</h3>
+            <p class="benefit__desc" data-i18n="rfid.b6Desc">
+              고유 ID와 암호화 기반 인증으로 정품 검증, 자산 무단 반출 방지,
+              출입 통제까지 한 번에 해결할 수 있습니다.
+            </p>
+          </div>
         </div>
       </section>
 
-      <!-- 섹션 3: 주파수 대역별 특성 -->
-      <section class="block" id="frequency">
-        <span class="block__eyebrow" data-i18n="rfid.s3Eye">FREQUENCY</span>
-        <h2 class="block__title" data-i18n="rfid.s3Title" data-i18n-html>
-          주파수에 따라 달라지는<br><em>인식 거리와 특성</em>
-        </h2>
-        <p class="rfid-lead" data-i18n="rfid.s3Lead">
-          RFID는 사용하는 주파수 대역에 따라 인식 거리·환경 적합성·인식 속도가 크게 달라집니다.
-          세연테크놀로지는 산업 현장에서 가장 많이 쓰이는 4개 대역의 제품을 모두 보유하고 있습니다.
-        </p>
-
-        <div class="freq-table">
-          <div class="freq-row freq-row--head">
-            <div data-i18n="rfid.fHead1">대역</div>
-            <div data-i18n="rfid.fHead2">분류</div>
-            <div data-i18n="rfid.fHead3">인식거리</div>
-            <div data-i18n="rfid.fHead4">특성</div>
-            <div data-i18n="rfid.fHead5">주요 용도</div>
-          </div>
-
-          <div class="freq-row">
-            <div class="freq-band"><strong>125 kHz</strong></div>
-            <div><span class="freq-badge freq-badge--lf">LF</span></div>
-            <div data-i18n="rfid.f1Dist">~10cm</div>
-            <div data-i18n="rfid.f1Feat">금속·수분 환경 강함</div>
-            <div data-i18n="rfid.f1Use">출입통제, 자산관리</div>
-          </div>
-          <div class="freq-row">
-            <div class="freq-band"><strong>134.2 kHz</strong></div>
-            <div><span class="freq-badge freq-badge--lf">LF</span></div>
-            <div data-i18n="rfid.f2Dist">~10cm</div>
-            <div data-i18n="rfid.f2Feat">ISO 11784/11785 국제 표준</div>
-            <div data-i18n="rfid.f2Use">가축·반려동물 개체식별</div>
-          </div>
-          <div class="freq-row">
-            <div class="freq-band"><strong>13.56 MHz</strong></div>
-            <div><span class="freq-badge freq-badge--hf">HF</span></div>
-            <div data-i18n="rfid.f3Dist">~1m</div>
-            <div data-i18n="rfid.f3Feat">ISO 14443/15693, 다중 인식</div>
-            <div data-i18n="rfid.f3Use">도서관리, 스마트카드, 결제</div>
-          </div>
-          <div class="freq-row">
-            <div class="freq-band"><strong>900 MHz</strong></div>
-            <div><span class="freq-badge freq-badge--uhf">UHF</span></div>
-            <div data-i18n="rfid.f4Dist">~수 m</div>
-            <div data-i18n="rfid.f4Feat">초당 수백 개 동시 인식</div>
-            <div data-i18n="rfid.f4Use">물류 입출고, 공급망 추적</div>
-          </div>
-        </div>
-
+      <!-- CTA -->
+      <section class="block">
         <div class="rfid-cta">
-          <p class="rfid-cta__text" data-i18n="rfid.ctaText">현장에 맞는 주파수가 어떤 것인지 궁금하시다면, 25년간의 적용 경험을 바탕으로 안내해 드립니다.</p>
+          <p class="rfid-cta__text" data-i18n="rfidEff.ctaText">
+            우리 현장에서는 어떤 효과를 기대할 수 있을지, 25년 경험을 바탕으로 진단해 드립니다.
+          </p>
           <a href="support.html" class="rfid-cta__btn" data-i18n="rfid.ctaBtn">상담 문의하기 →</a>
         </div>
       </section>
@@ -989,30 +990,36 @@
         'rfid.navIntro':'RFID 소개',
         'rfid.navEffect':'도입효과',
         'rfid.navSolution':'응용·솔루션',
-        'rfidIntro.title':'전파로 사물을 인식하는<br>비접촉 식별 기술',
-        'rfidIntro.sub':'RFID(Radio Frequency IDentification)는 전파를 이용해 태그에 저장된 정보를 비접촉으로 읽고 쓰는 기술입니다. 보이지 않아도, 여러 개를, 한 번에 인식합니다.',
-        'rfid.s1Eye':'WHAT IS RFID','rfid.s1Title':'전파로 정보를 주고받는<br><em>무선 식별 기술</em>',
-        'rfid.s1Lead':'RFID는 태그(Tag)에 저장된 정보를 전파(Radio Frequency)로 읽어내는 기술입니다. 바코드처럼 직접 보이게 스캔할 필요 없이, 거리를 두고도 여러 개를 동시에 빠르게 인식할 수 있어 공장자동화·물류·자산관리 등 다양한 산업 현장에서 핵심 인프라로 자리 잡았습니다.',
-        'rfid.cmpOldTag':'BARCODE','rfid.cmpOldName':'바코드',
-        'rfid.cmpOld1':'직접 보여야 인식 (가시 거리)','rfid.cmpOld2':'한 번에 1개만 스캔',
-        'rfid.cmpOld3':'정보 변경 불가','rfid.cmpOld4':'오염·훼손에 취약',
-        'rfid.cmpNewTag':'RFID','rfid.cmpNewName':'RFID',
-        'rfid.cmpNew1':'비접촉·비가시 인식 가능','rfid.cmpNew2':'초당 수백 개 동시 인식',
-        'rfid.cmpNew3':'정보 읽기·쓰기 모두 가능','rfid.cmpNew4':'금속·먼지·온도에 강한 내구성',
-        'rfid.s2Eye':'COMPONENTS','rfid.s2Title':'RFID 시스템의<br><em>3가지 핵심 구성</em>',
-        'rfid.c1Name':'태그 (Tag)','rfid.c1Desc':'사물에 부착되어 고유 정보를 저장하는 칩과 안테나의 결합체. 인식 거리·환경에 따라 LF/HF/UHF 등 다양한 종류로 제작됩니다.',
-        'rfid.c2Name':'안테나 (Antenna)','rfid.c2Desc':'전파를 송수신하여 태그와 리더 사이의 통신을 담당합니다. 지향성·이득·편파 등 설계에 따라 인식 거리와 정확도가 결정됩니다.',
-        'rfid.c3Name':'리더 (Reader)','rfid.c3Desc':'안테나를 통해 태그로부터 받은 신호를 해독하여 호스트 시스템으로 전달합니다. 세연테크놀로지의 핵심 제품군이 바로 이 리더입니다.',
-        'rfid.flow1':'리더가 안테나를 통해 전파 송신','rfid.flow2':'태그가 전파를 받아 정보 응답','rfid.flow3':'리더가 정보를 해독·전달',
-        'rfid.s3Eye':'FREQUENCY','rfid.s3Title':'주파수에 따라 달라지는<br><em>인식 거리와 특성</em>',
-        'rfid.s3Lead':'RFID는 사용하는 주파수 대역에 따라 인식 거리·환경 적합성·인식 속도가 크게 달라집니다. 세연테크놀로지는 산업 현장에서 가장 많이 쓰이는 4개 대역의 제품을 모두 보유하고 있습니다.',
-        'rfid.fHead1':'대역','rfid.fHead2':'분류','rfid.fHead3':'인식거리','rfid.fHead4':'특성','rfid.fHead5':'주요 용도',
-        'rfid.f1Dist':'~10cm','rfid.f1Feat':'금속·수분 환경 강함','rfid.f1Use':'출입통제, 자산관리',
-        'rfid.f2Dist':'~10cm','rfid.f2Feat':'ISO 11784/11785 국제 표준','rfid.f2Use':'가축·반려동물 개체식별',
-        'rfid.f3Dist':'~1m','rfid.f3Feat':'ISO 14443/15693, 다중 인식','rfid.f3Use':'도서관리, 스마트카드, 결제',
-        'rfid.f4Dist':'~수 m','rfid.f4Feat':'초당 수백 개 동시 인식','rfid.f4Use':'물류 입출고, 공급망 추적',
-        'rfid.ctaText':'현장에 맞는 주파수가 어떤 것인지 궁금하시다면, 25년간의 적용 경험을 바탕으로 안내해 드립니다.',
         'rfid.ctaBtn':'상담 문의하기 →',
+        'rfid.benefitsEye':'BENEFITS',
+        'rfidEff.title':'현장의 일하는 방식을<br>바꾸는 6가지 변화',
+        'rfidEff.sub':'RFID 도입이 가져오는 실질적인 효과를 정리했습니다. 단순한 자동화를 넘어 데이터 기반 의사결정과 운영 효율의 새로운 기준이 됩니다.',
+        'rfid.baEye':'BEFORE / AFTER',
+        'rfid.baTitle':'RFID 도입 전과 후,<br><em>달라지는 현장</em>',
+        'rfid.baBeforeTag':'BEFORE','rfid.baAfterTag':'AFTER',
+        'rfid.baB1':'수기 입력에 의한 누락·오류',
+        'rfid.baB2':'현장 상태 파악에 시간 소요',
+        'rfid.baB3':'재고·자산 위치 추적 어려움',
+        'rfid.baB4':'감사·이력 관리에 별도 작업',
+        'rfid.baA1':'자동 인식으로 데이터 무결성 확보',
+        'rfid.baA2':'실시간 상태·위치 파악',
+        'rfid.baA3':'전 공정·전 자산 가시화',
+        'rfid.baA4':'이력 자동 축적, 감사 대응 즉시',
+        'rfid.bnEye':'KEY BENEFITS',
+        'rfid.bnTitle':'비즈니스에 가져오는<br><em>실질적 가치</em>',
+        'rfid.b1Name':'생산성 향상',
+        'rfid.b1Desc':'수기·바코드 작업 대비 인식 속도와 처리량이 비약적으로 증가하여, 동일 인력으로 더 많은 물량을 처리할 수 있습니다.',
+        'rfid.b2Name':'데이터 정확도',
+        'rfid.b2Desc':'사람의 개입 없이 자동 인식되므로 입력 오류·누락이 거의 발생하지 않습니다. 데이터 신뢰도가 높아져 의사결정의 품질도 개선됩니다.',
+        'rfid.b3Name':'실시간 가시성',
+        'rfid.b3Desc':'자재·제품·자산의 현재 위치와 상태를 실시간으로 파악할 수 있어, 병목 구간 발견과 즉각적인 대응이 가능합니다.',
+        'rfid.b4Name':'운영비 절감',
+        'rfid.b4Desc':'재고 실사·자산 점검·이력 작성 등 반복 업무를 자동화함으로써 인건비와 관리비를 동시에 줄일 수 있습니다.',
+        'rfid.b5Name':'완벽한 이력 추적',
+        'rfid.b5Desc':'제품·자재가 거쳐 간 모든 공정·위치·시간이 자동으로 기록되어, 품질 이슈 발생 시 원인 추적과 리콜 대응이 신속해집니다.',
+        'rfid.b6Name':'위변조·분실 방지',
+        'rfid.b6Desc':'고유 ID와 암호화 기반 인증으로 정품 검증, 자산 무단 반출 방지, 출입 통제까지 한 번에 해결할 수 있습니다.',
+        'rfidEff.ctaText':'우리 현장에서는 어떤 효과를 기대할 수 있을지, 25년 경험을 바탕으로 진단해 드립니다.',
         'foot.hours1':'평일 AM 9:00 ~ PM 6:00','foot.hours2':'(토·일, 법정 공휴일 휴무)',
         'foot.c1t':'회사 소개','foot.c1d':'RFID 전문 기업, 세연테크놀로지를 소개합니다.',
         'foot.c2t':'제품 안내','foot.c2d':'125·134·13.56·900 전 대역 RFID 제품을 안내합니다.',
@@ -1043,31 +1050,39 @@
         'location.whAddr':'57-2 Heungan-daero 427beon-gil, Dongan-gu,<br>Anyang-si, Gyeonggi-do #1204',
         'location.whNote':'Use · Product delivery & logistics warehouse',
         'rfid.eyebrow':'ABOUT RFID',
-        'rfid.navIntro':'Introduction','rfid.navEffect':'Benefits','rfid.navSolution':'Applications',
-        'rfidIntro.title':'Identify objects<br>wirelessly with radio',
-        'rfidIntro.sub':'RFID (Radio Frequency IDentification) reads and writes tag data over the air. It works without line of sight and can scan many items at once.',
-        'rfid.s1Eye':'WHAT IS RFID','rfid.s1Title':'A wireless identification<br><em>technology</em>',
-        'rfid.s1Lead':'RFID reads tag data using radio waves. Unlike barcodes, no direct visibility is needed, and many items can be read at once — making it core infrastructure for factory automation, logistics, and asset management.',
-        'rfid.cmpOldTag':'BARCODE','rfid.cmpOldName':'Barcode',
-        'rfid.cmpOld1':'Requires line of sight','rfid.cmpOld2':'One scan at a time',
-        'rfid.cmpOld3':'Read-only','rfid.cmpOld4':'Vulnerable to dirt and damage',
-        'rfid.cmpNewTag':'RFID','rfid.cmpNewName':'RFID',
-        'rfid.cmpNew1':'No line of sight needed','rfid.cmpNew2':'Hundreds of tags per second',
-        'rfid.cmpNew3':'Read and write','rfid.cmpNew4':'Robust to metal, dust, temperature',
-        'rfid.s2Eye':'COMPONENTS','rfid.s2Title':'Three core parts<br>of an <em>RFID system</em>',
-        'rfid.c1Name':'Tag','rfid.c1Desc':'A chip-and-antenna unit attached to objects to store unique data. Comes in LF/HF/UHF types depending on range and environment.',
-        'rfid.c2Name':'Antenna','rfid.c2Desc':'Transmits and receives radio waves between reader and tag. Range and accuracy depend on directionality, gain, and polarization.',
-        'rfid.c3Name':'Reader','rfid.c3Desc':'Decodes signals from tags and forwards them to the host system. The Reader is CEYON\u2019s core product family.',
-        'rfid.flow1':'Reader transmits radio via antenna','rfid.flow2':'Tag receives and responds','rfid.flow3':'Reader decodes and delivers',
-        'rfid.s3Eye':'FREQUENCY','rfid.s3Title':'Range and behavior<br><em>vary by frequency</em>',
-        'rfid.s3Lead':'Recognition range, environment, and speed differ greatly by RFID frequency band. CEYON offers products in all four bands most commonly used in industry.',
-        'rfid.fHead1':'Band','rfid.fHead2':'Class','rfid.fHead3':'Range','rfid.fHead4':'Feature','rfid.fHead5':'Use Cases',
-        'rfid.f1Dist':'~10cm','rfid.f1Feat':'Robust to metal & moisture','rfid.f1Use':'Access control, asset mgmt',
-        'rfid.f2Dist':'~10cm','rfid.f2Feat':'ISO 11784/11785 standard','rfid.f2Use':'Livestock & pet ID',
-        'rfid.f3Dist':'~1m','rfid.f3Feat':'ISO 14443/15693, multi-read','rfid.f3Use':'Library, smart card, payment',
-        'rfid.f4Dist':'~several m','rfid.f4Feat':'Hundreds of tags/sec','rfid.f4Use':'Logistics, supply chain',
-        'rfid.ctaText':'Wondering which frequency fits your site? We will guide you with 25 years of field experience.',
+        'rfid.navIntro':'Introduction',
+        'rfid.navEffect':'Benefits',
+        'rfid.navSolution':'Applications',
         'rfid.ctaBtn':'Contact us →',
+        'rfid.benefitsEye':'BENEFITS',
+        'rfidEff.title':'Six ways RFID<br>changes how sites work',
+        'rfidEff.sub':'The real benefits RFID brings — not just automation, but a new standard for data-driven decisions and operational efficiency.',
+        'rfid.baEye':'BEFORE / AFTER',
+        'rfid.baTitle':'Before vs after<br><em>RFID adoption</em>',
+        'rfid.baBeforeTag':'BEFORE','rfid.baAfterTag':'AFTER',
+        'rfid.baB1':'Errors and omissions in manual input',
+        'rfid.baB2':'Time to grasp site status',
+        'rfid.baB3':'Difficult to track inventory and assets',
+        'rfid.baB4':'Extra work for audit and history',
+        'rfid.baA1':'Automatic recognition ensures data integrity',
+        'rfid.baA2':'Real-time status and location',
+        'rfid.baA3':'Full process and asset visibility',
+        'rfid.baA4':'Automatic history, instant audit response',
+        'rfid.bnEye':'KEY BENEFITS',
+        'rfid.bnTitle':'Real business value<br><em>RFID brings</em>',
+        'rfid.b1Name':'Productivity',
+        'rfid.b1Desc':'Recognition speed and throughput far exceed manual or barcode work, so the same team can handle more volume.',
+        'rfid.b2Name':'Data Accuracy',
+        'rfid.b2Desc':'Automatic, hands-free reading eliminates input errors. Higher data trust raises decision quality.',
+        'rfid.b3Name':'Real-time Visibility',
+        'rfid.b3Desc':'Know where every item is, in real time. Spot bottlenecks and respond immediately.',
+        'rfid.b4Name':'Lower Costs',
+        'rfid.b4Desc':'Automate repetitive tasks like stock checks, asset audits, and logging — cutting labor and overhead.',
+        'rfid.b5Name':'Full Traceability',
+        'rfid.b5Desc':'Every process, location, and time is logged automatically — root cause analysis and recalls become fast.',
+        'rfid.b6Name':'Anti-counterfeit & Loss',
+        'rfid.b6Desc':'Unique IDs and encrypted authentication enable product verification, asset protection, and access control in one.',
+        'rfidEff.ctaText':'Curious what benefits you could expect at your site? We will assess it based on 25 years of experience.',
         'foot.hours1':'Weekdays 9:00 AM ~ 6:00 PM','foot.hours2':'(Closed weekends & public holidays)',
         'foot.c1t':'About Us','foot.c1d':'Meet CEYON Technology, an RFID specialist.',
         'foot.c2t':'Products','foot.c2d':'Explore our full 125·134·13.56·900 RFID lineup.',
@@ -1098,31 +1113,39 @@
         'location.whAddr':'京畿道安养市东安区兴安大路427号街57-2<br>1204号 (冠阳洞, IS Biz Tower)',
         'location.whNote':'用途 · 产品交货及物流仓库',
         'rfid.eyebrow':'ABOUT RFID',
-        'rfid.navIntro':'RFID介绍','rfid.navEffect':'引入效果','rfid.navSolution':'应用·方案',
-        'rfidIntro.title':'通过电波识别物体的<br>非接触式识别技术',
-        'rfidIntro.sub':'RFID(射频识别)是通过电波非接触式读写标签信息的技术。即使看不见,也能同时识别多个对象。',
-        'rfid.s1Eye':'WHAT IS RFID','rfid.s1Title':'通过电波传输信息的<br><em>无线识别技术</em>',
-        'rfid.s1Lead':'RFID是通过电波读取标签存储信息的技术。与条形码不同,无需直接可见也可在一定距离内同时快速识别多个对象,已成为工厂自动化、物流、资产管理等产业现场的核心基础设施。',
-        'rfid.cmpOldTag':'BARCODE','rfid.cmpOldName':'条形码',
-        'rfid.cmpOld1':'需要可见(视距)','rfid.cmpOld2':'一次只能扫描1个',
-        'rfid.cmpOld3':'无法修改信息','rfid.cmpOld4':'易受污染·损坏',
-        'rfid.cmpNewTag':'RFID','rfid.cmpNewName':'RFID',
-        'rfid.cmpNew1':'非接触·非可见识别','rfid.cmpNew2':'每秒数百个同时识别',
-        'rfid.cmpNew3':'可读可写','rfid.cmpNew4':'耐金属·灰尘·温度',
-        'rfid.s2Eye':'COMPONENTS','rfid.s2Title':'RFID系统的<br><em>3个核心组成</em>',
-        'rfid.c1Name':'标签 (Tag)','rfid.c1Desc':'附着于物体存储唯一信息的芯片与天线组合体。根据识别距离·环境分为LF/HF/UHF等多种类型。',
-        'rfid.c2Name':'天线 (Antenna)','rfid.c2Desc':'收发电波,负责标签与读取器之间的通信。根据指向性、增益、极化等设计决定识别距离和精度。',
-        'rfid.c3Name':'读取器 (Reader)','rfid.c3Desc':'通过天线解码标签信号并传递给主机系统。这正是世延科技的核心产品系列。',
-        'rfid.flow1':'读取器通过天线发射电波','rfid.flow2':'标签接收电波并响应信息','rfid.flow3':'读取器解码并传递信息',
-        'rfid.s3Eye':'FREQUENCY','rfid.s3Title':'根据频率不同的<br><em>识别距离和特性</em>',
-        'rfid.s3Lead':'RFID因使用的频段不同,识别距离·环境适应性·识别速度有很大差异。世延科技拥有产业现场最常用的4个频段全部产品。',
-        'rfid.fHead1':'频段','rfid.fHead2':'分类','rfid.fHead3':'识别距离','rfid.fHead4':'特性','rfid.fHead5':'主要用途',
-        'rfid.f1Dist':'~10cm','rfid.f1Feat':'耐金属·水分环境','rfid.f1Use':'门禁、资产管理',
-        'rfid.f2Dist':'~10cm','rfid.f2Feat':'ISO 11784/11785国际标准','rfid.f2Use':'家畜·宠物个体识别',
-        'rfid.f3Dist':'~1m','rfid.f3Feat':'ISO 14443/15693, 多重识别','rfid.f3Use':'图书管理、智能卡、支付',
-        'rfid.f4Dist':'~数米','rfid.f4Feat':'每秒数百个同时识别','rfid.f4Use':'物流出入库、供应链追踪',
-        'rfid.ctaText':'想知道哪种频率适合您的现场吗?我们将基于25年的应用经验为您提供咨询。',
+        'rfid.navIntro':'RFID介绍',
+        'rfid.navEffect':'引入效果',
+        'rfid.navSolution':'应用·方案',
         'rfid.ctaBtn':'联系咨询 →',
+        'rfid.benefitsEye':'BENEFITS',
+        'rfidEff.title':'改变现场工作方式的<br>6种变化',
+        'rfidEff.sub':'整理了RFID引入带来的实际效果。超越简单的自动化,成为基于数据决策和运营效率的新标准。',
+        'rfid.baEye':'BEFORE / AFTER',
+        'rfid.baTitle':'RFID引入前与后,<br><em>变化的现场</em>',
+        'rfid.baBeforeTag':'BEFORE','rfid.baAfterTag':'AFTER',
+        'rfid.baB1':'手动输入导致的遗漏·错误',
+        'rfid.baB2':'掌握现场状态需要时间',
+        'rfid.baB3':'难以追踪库存·资产位置',
+        'rfid.baB4':'审计·履历管理需要额外作业',
+        'rfid.baA1':'自动识别确保数据完整性',
+        'rfid.baA2':'实时掌握状态·位置',
+        'rfid.baA3':'全工序·全资产可视化',
+        'rfid.baA4':'履历自动累积,审计响应即时',
+        'rfid.bnEye':'KEY BENEFITS',
+        'rfid.bnTitle':'为业务带来的<br><em>实际价值</em>',
+        'rfid.b1Name':'生产率提升',
+        'rfid.b1Desc':'相比手动·条形码作业,识别速度和处理量大幅增加,相同人力可处理更多业务量。',
+        'rfid.b2Name':'数据准确性',
+        'rfid.b2Desc':'无需人工干预自动识别,几乎不会发生输入错误·遗漏。数据可信度提高,决策质量也得到改善。',
+        'rfid.b3Name':'实时可视性',
+        'rfid.b3Desc':'可实时掌握物料·产品·资产的当前位置和状态,可发现瓶颈区间并立即响应。',
+        'rfid.b4Name':'运营成本节减',
+        'rfid.b4Desc':'通过自动化库存盘点·资产检查·履历记录等重复业务,可同时减少人工费和管理费。',
+        'rfid.b5Name':'完美的履历追踪',
+        'rfid.b5Desc':'产品·物料经过的所有工序·位置·时间均自动记录,质量问题发生时原因追踪和召回响应迅速。',
+        'rfid.b6Name':'防伪造·防丢失',
+        'rfid.b6Desc':'基于唯一ID和加密认证,可一次性解决正品验证、资产防止擅自带出、门禁管理。',
+        'rfidEff.ctaText':'想知道我们现场能期待什么效果吗?基于25年经验为您诊断。',
         'foot.hours1':'工作日 上午9:00 ~ 下午6:00','foot.hours2':'(周六·日、法定节假日休息)',
         'foot.c1t':'公司简介','foot.c1d':'介绍RFID专业企业世延科技。',
         'foot.c2t':'产品介绍','foot.c2d':'介绍125·134·13.56·900全频段RFID产品。',

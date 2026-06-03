@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="세연테크놀로지(주) 회사소개 — CEO 인사말, 연혁, 오시는 길. 2001년 설립 이후 RFID 하드웨어를 자체 개발·제조해 온 RFID 전문 기업." />
-  <title>오시는 길 | 세연테크놀로지 CEYON Technology</title>
+  <title>세연소식 | 세연테크놀로지 CEYON Technology</title>
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png" />
@@ -327,6 +327,173 @@
     .ceo__value-ko { font-size: 18px; font-weight: 700; color: var(--color-primary); margin: 8px 0 6px; }
     .ceo__value-desc { font-size: 13px; color: var(--color-text-muted); line-height: 1.6; }
 
+    /* =========================================================
+       NEWS 페이지 전용
+       ========================================================= */
+    /* 사이드네비 없는 단일 컬럼 레이아웃 */
+    .about-layout--news { grid-template-columns: 1fr; max-width: 980px; }
+
+    /* 툴바: 필터 + 검색 */
+    .news-toolbar {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 20px; flex-wrap: wrap; margin-bottom: 16px;
+    }
+    .news-filter { display: flex; flex-wrap: wrap; gap: 8px; }
+    .news-filter__btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 16px; border-radius: 999px;
+      border: 1px solid var(--color-border-strong);
+      font-size: 14px; font-weight: 600; color: var(--color-text-muted);
+      transition: all .25s var(--ease-out);
+    }
+    .news-filter__btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
+    .news-filter__btn.is-active {
+      background: var(--color-primary); border-color: var(--color-primary); color: #fff;
+    }
+    .news-filter__count {
+      font-family: var(--font-en); font-size: 11px; font-weight: 700;
+      padding: 1px 7px; border-radius: 999px;
+      background: var(--color-bg-alt); color: var(--color-text-muted);
+    }
+    .news-filter__btn.is-active .news-filter__count {
+      background: rgba(255,255,255,.22); color: #fff;
+    }
+
+    .news-search {
+      position: relative; display: flex; align-items: center;
+      min-width: 220px;
+    }
+    .news-search__icon {
+      position: absolute; left: 14px; width: 18px; height: 18px;
+      color: var(--color-text-faint); pointer-events: none;
+    }
+    .news-search input {
+      width: 100%; padding: 10px 16px 10px 40px;
+      border: 1px solid var(--color-border-strong); border-radius: 999px;
+      font-family: inherit; font-size: 14px; color: var(--color-text);
+      transition: border-color .25s var(--ease-out);
+    }
+    .news-search input:focus { outline: none; border-color: var(--color-primary); }
+
+    /* 뉴스 리스트 */
+    .news-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+    .news-item {
+      border-top: 1px solid var(--color-border);
+      transition: background .2s var(--ease-out);
+    }
+    .news-item:last-child { border-bottom: 1px solid var(--color-border); }
+    .news-item__btn {
+      width: 100%; text-align: left; cursor: pointer;
+      display: flex; align-items: flex-start; gap: 24px;
+      padding: 28px 16px; background: none; border: none; font-family: inherit;
+    }
+    .news-item:hover { background: var(--color-bg-alt); }
+    .news-item__left { flex-shrink: 0; width: 96px; }
+    .news-item__cat {
+      display: inline-block; font-family: var(--font-en);
+      font-size: 10px; font-weight: 700; letter-spacing: .1em;
+      padding: 4px 10px; border-radius: 3px; margin-bottom: 10px;
+    }
+    .news-cat--notice { background: rgba(204,0,0,.1);  color: var(--color-accent); }
+    .news-cat--news   { background: rgba(0,51,102,.1); color: var(--color-primary); }
+    .news-cat--event  { background: rgba(91,194,216,.18); color: #1c6b80; }
+    .news-cat--award  { background: rgba(180,130,0,.13); color: #9a7400; }
+    .news-item__date {
+      font-family: var(--font-en); font-size: 13px;
+      color: var(--color-text-faint); font-weight: 500;
+    }
+    .news-item__body { flex: 1; min-width: 0; }
+    .news-item__title {
+      font-size: 18px; font-weight: 700; color: var(--color-text);
+      letter-spacing: -.02em; line-height: 1.45; margin-bottom: 8px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .news-item:hover .news-item__title { color: var(--color-primary); }
+    .news-item__pin {
+      flex-shrink: 0; font-size: 14px; color: var(--color-accent);
+    }
+    .news-item__excerpt {
+      font-size: 14px; line-height: 1.7; color: var(--color-text-muted);
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .news-item__arrow {
+      flex-shrink: 0; align-self: center;
+      color: var(--color-text-faint); font-size: 18px;
+      transition: transform .25s var(--ease-out), color .25s var(--ease-out);
+    }
+    .news-item:hover .news-item__arrow { color: var(--color-accent); transform: translateX(4px); }
+    .news-item--pinned { background: linear-gradient(90deg, rgba(204,0,0,.03), transparent 40%); }
+
+    /* 펼쳐진 본문 */
+    .news-item__detail {
+      padding: 0 16px 32px 136px;
+      animation: newsFade .3s var(--ease-out);
+    }
+    .news-item__detail-inner {
+      padding: 24px 28px; background: var(--color-bg-alt); border-radius: 8px;
+      font-size: 15px; line-height: 1.8; color: var(--color-text);
+      border-left: 3px solid var(--color-primary);
+    }
+    /* 리치 에디터로 작성된 본문 서식 */
+    .news-content h1, .news-content h2, .news-content h3 {
+      margin: 18px 0 10px; font-weight: 700; line-height: 1.4; color: var(--color-primary);
+    }
+    .news-content h1 { font-size: 22px; }
+    .news-content h2 { font-size: 19px; }
+    .news-content h3 { font-size: 17px; }
+    .news-content p { margin: 10px 0; }
+    .news-content strong { font-weight: 700; }
+    .news-content em { font-style: italic; }
+    .news-content ul, .news-content ol { margin: 10px 0; padding-left: 22px; }
+    .news-content li { margin: 4px 0; }
+    .news-content a { color: var(--color-primary); text-decoration: underline; }
+    .news-content blockquote {
+      margin: 14px 0; padding: 10px 18px; border-left: 3px solid var(--color-border-strong);
+      background: #fff; color: var(--color-text-muted);
+    }
+    .news-content img { max-width: 100%; border-radius: 8px; margin: 10px 0; display: block; }
+    .news-content hr { border: none; border-top: 1px solid var(--color-border); margin: 18px 0; }
+    .news-content table {
+      width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px;
+      background: #fff;
+    }
+    .news-content th, .news-content td {
+      border: 1px solid var(--color-border); padding: 8px 12px; text-align: left;
+    }
+    .news-content th { background: var(--color-bg-alt); font-weight: 600; }
+    @keyframes newsFade { from { opacity: 0; } to { opacity: 1; } }
+
+    /* 결과 없음 */
+    .news-empty {
+      text-align: center; padding: 80px 20px; color: var(--color-text-muted);
+    }
+    .news-empty__icon { font-size: 40px; margin-bottom: 16px; opacity: .5; }
+    .news-empty__text { font-size: 18px; font-weight: 700; color: var(--color-text); margin-bottom: 6px; }
+    .news-empty__sub { font-size: 14px; color: var(--color-text-faint); }
+
+    /* 더보기 */
+    .news-more-wrap { text-align: center; margin-top: 40px; }
+    .news-more {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 32px; border: 1px solid var(--color-border-strong);
+      border-radius: 4px; font-size: 14px; font-weight: 600; color: var(--color-primary);
+      transition: all .25s var(--ease-out);
+    }
+    .news-more:hover { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
+    .news-more__remain { font-family: var(--font-en); font-size: 12px; opacity: .7; }
+    .news-more[hidden] { display: none; }
+
+    @media (max-width: 720px) {
+      .news-toolbar { flex-direction: column; align-items: stretch; }
+      .news-search { min-width: 0; }
+      .news-item__btn { flex-direction: column; gap: 10px; padding: 22px 8px; }
+      .news-item__left { width: auto; display: flex; align-items: center; gap: 12px; }
+      .news-item__cat { margin-bottom: 0; }
+      .news-item__arrow { display: none; }
+      .news-item__detail { padding: 0 8px 24px; }
+    }
+
     /* 연혁 (타임라인) */
     .history { position: relative; }
     .history__list { list-style: none; position: relative; }
@@ -382,19 +549,8 @@
     .location__card {
       padding: 28px; border: 1px solid var(--color-border); border-radius: 6px;
       transition: all .3s var(--ease-out);
-      text-align: left; background: #fff; cursor: pointer;
-      position: relative; font-family: inherit;
     }
     .location__card:hover { border-color: var(--color-primary); box-shadow: 0 8px 30px -16px rgba(0,31,63,.2); }
-    .location__card.is-active {
-      border-color: var(--color-primary);
-      box-shadow: 0 0 0 1px var(--color-primary), 0 12px 36px -18px rgba(0,31,63,.3);
-    }
-    .location__card.is-active::after {
-      content: ""; position: absolute; left: 50%; bottom: -9px; transform: translateX(-50%) rotate(45deg);
-      width: 16px; height: 16px; background: #fff;
-      border-right: 1px solid var(--color-primary); border-bottom: 1px solid var(--color-primary);
-    }
     .location__tag {
       display: inline-block; font-family: var(--font-en); font-size: 11px; font-weight: 600;
       letter-spacing: .12em; padding: 4px 10px; border-radius: 3px; margin-bottom: 14px;
@@ -406,27 +562,13 @@
     .location__detail { margin-top: 14px; display: flex; flex-direction: column; gap: 4px; font-size: 14px; color: var(--color-text-muted); }
     .location__detail strong { color: var(--color-text); font-weight: 600; }
     .location__map {
-      width: 100%; aspect-ratio: 16/9; border-radius: 6px; overflow: hidden;
+      width: 100%; aspect-ratio: 21/9; border-radius: 6px; overflow: hidden;
       background: var(--color-bg-alt); position: relative;
       display: flex; align-items: center; justify-content: center;
       border: 1px solid var(--color-border);
     }
     .location__map iframe { width: 100%; height: 100%; border: 0; }
-    .location__map-ph {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 8px; text-align: center; padding: 24px;
-      animation: mapFade .4s var(--ease-out);
-    }
-    .location__map-pin { font-size: 36px; }
-    .location__map-name { font-size: 20px; font-weight: 700; color: var(--color-primary); }
-    .location__map-addr { font-size: 14px; color: var(--color-text-muted); max-width: 40ch; }
-    .location__map-link {
-      margin-top: 8px; font-size: 14px; font-weight: 600; color: var(--color-accent);
-      transition: opacity .25s var(--ease-out);
-    }
-    .location__map-link:hover { opacity: .7; }
-    @keyframes mapFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
-
+    .location__map-ph { color: var(--color-text-faint); font-size: 14px; font-family: var(--font-mono); text-align: center; }
 
     /* =========================================================
        FOOTER (index.html과 동일)
@@ -489,8 +631,12 @@
       *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
     }
   </style>
-  <!-- 카카오맵 SDK — 아래 'YOUR_KAKAO_JS_KEY'를 발급받은 JavaScript 키로 교체하세요 -->
-  <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_KAKAO_JS_KEY&libraries=services" defer></script>
+  <!-- Supabase 연결 -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    window.CEYON_SUPABASE_URL  = 'https://ovmwclkbquzapgvzweon.supabase.co';
+    window.CEYON_SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im92bXdjbGticXV6YXBndnp3ZW9uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyNjcyMjksImV4cCI6MjA5NTg0MzIyOX0.LWv5GEx3Y0lrem2Vh7-brijuQNZIRdMNsieIC1BtEck';
+  </script>
 </head>
 
 <body>
@@ -503,7 +649,7 @@
       </a>
             <nav class="nav" aria-label="주메뉴">
         <div class="nav__item">
-          <a href="about.html" class="nav__link is-current" data-i18n="nav.about">회사소개</a>
+          <a href="about.html" class="nav__link" data-i18n="nav.about">회사소개</a>
           <div class="nav__dropdown">
             <a href="about.html" data-i18n="about.navCeo">CEO 인사말</a>
             <a href="history.html" data-i18n="about.navHistory">연혁</a>
@@ -529,7 +675,7 @@
           </div>
         </div>
         <div class="nav__item">
-          <a href="news.html" class="nav__link" data-i18n="nav.news">세연소식</a>
+          <a href="news.html" class="nav__link is-current" data-i18n="nav.news">세연소식</a>
         </div>
         <div class="nav__item">
           <a href="support.html" class="nav__link" data-i18n="nav.support">고객지원</a>
@@ -557,81 +703,70 @@
   <section class="page-hero">
     <div class="page-hero__inner">
       <nav class="page-hero__crumb" aria-label="breadcrumb">
-        <a href="index.html" data-i18n="crumb.home">홈</a> &nbsp;/&nbsp; <a href="about.html" data-i18n="nav.about">회사소개</a> &nbsp;/&nbsp; <span data-i18n="about.navLocation">오시는 길</span>
+        <a href="index.html" data-i18n="crumb.home">홈</a> &nbsp;/&nbsp; <span data-i18n="nav.news">세연소식</span>
       </nav>
-      <span class="page-hero__eyebrow" data-i18n="about.navLocation">LOCATION</span>
-      <h1 class="page-hero__title" data-i18n="locationPage.title" data-i18n-html>세연테크놀로지를<br>찾아오시는 길</h1>
-      <p class="page-hero__sub" data-i18n="locationPage.sub">
-        업무는 서울 본사에서, 제품 납품·물류는 안양 사업장에서 운영하고 있습니다.
+      <span class="page-hero__eyebrow" data-i18n="news.eye">NEWS &amp; NOTICE</span>
+      <h1 class="page-hero__title" data-i18n="newsPage.title" data-i18n-html>세연테크놀로지의<br>최신 소식과 공지사항</h1>
+      <p class="page-hero__sub" data-i18n="newsPage.sub">
+        제품 출시, 전시회 참가, 인증·수상 등 세연테크놀로지의 최근 활동과 공지를
+        한곳에서 확인하실 수 있습니다.
       </p>
     </div>
   </section>
 
-  <!-- ===================== ABOUT LAYOUT ===================== -->
-  <div class="about-layout">
+  <!-- ===================== NEWS LAYOUT ===================== -->
+  <div class="about-layout about-layout--news">
 
-    <!-- 좌측 사이드 네비 -->
-    <aside class="side-nav">
-      <div class="side-nav__title">ABOUT</div>
-      <ul class="side-nav__list">
-        <li><a href="about.html"    class="side-nav__link" data-i18n="about.navCeo">CEO 인사말</a></li>
-        <li><a href="history.html"  class="side-nav__link" data-i18n="about.navHistory">연혁</a></li>
-        <li><a href="location.html" class="side-nav__link is-active" data-i18n="about.navLocation">오시는 길</a></li>
-      </ul>
-    </aside>
-
-    <!-- 우측 콘텐츠 -->
+    <!-- 콘텐츠 -->
     <div class="about-content">
 
-      <!-- 오시는 길 -->
-      <section class="block" id="location">
-        <span class="block__eyebrow" data-i18n="about.navLocation">LOCATION</span>
-        <h2 class="block__title" data-i18n="location.title">오시는 길</h2>
-        <div class="location">
-          <div class="location__cards">
-            <button class="location__card is-active" data-loc="hq" type="button">
-              <span class="location__tag location__tag--hq" data-i18n="location.hqTag">본사 · 업무</span>
-              <div class="location__name" data-i18n="location.hqName">서울 본사</div>
-              <p class="location__addr" data-i18n="location.hqAddr">
-                서울특별시 서초구 서초중앙로22길 117<br>그라비타스타워 5층 (우 06631)
-              </p>
-              <div class="location__detail">
-                <span><strong>TEL</strong> &nbsp; 02-3418-3030</span>
-                <span><strong>FAX</strong> &nbsp; 02-3418-5678</span>
-                <span><strong>EMAIL</strong> &nbsp; ceyonpo@ceyon.co.kr</span>
-              </div>
-            </button>
-            <button class="location__card" data-loc="wh" type="button">
-              <span class="location__tag location__tag--wh" data-i18n="location.whTag">사업장 · 납품 창고</span>
-              <div class="location__name" data-i18n="location.whName">안양 사업장</div>
-              <p class="location__addr" data-i18n="location.whAddr">
-                경기도 안양시 동안구 흥안대로427번길 57-2<br>1204호 (관양동, 아이에스비즈타워)
-              </p>
-              <div class="location__detail">
-                <span data-i18n="location.whNote">용도 · 제품 납품 및 물류 창고</span>
-              </div>
-            </button>
-          </div>
-
-          <!-- 지도 (탭 전환) -->
-          <div class="location__map" id="locationMap">
-            <!--
-              ▼▼▼ 실제 카카오맵 적용 방법 ▼▼▼
-              1) https://developers.kakao.com 에서 앱 생성 → JavaScript 키 발급 (무료)
-              2) 배포 도메인을 [플랫폼 > Web]에 등록 (예: https://ceyon.github.io)
-              3) <head> 에 SDK 추가 (예시): dapi.kakao.com/v2/maps/sdk.js?appkey=발급키 를 script 태그로 로드
-              4) 아래 MAP_DATA 의 lat/lng 를 실제 좌표로 넣고, USE_KAKAO 를 true 로
-              현재는 키가 없어 안내용 플레이스홀더가 표시됩니다(탭 전환 동작은 미리보기 가능).
-            -->
-            <div class="location__map-ph" id="mapPlaceholder">
-              <div class="location__map-pin">📍</div>
-              <div class="location__map-name" id="mapName">서울 본사</div>
-              <div class="location__map-addr" id="mapAddr">서울특별시 서초구 서초중앙로22길 117, 그라비타스타워 5층</div>
-              <a class="location__map-link" id="mapLink" href="https://map.kakao.com/?q=서울특별시 서초구 서초중앙로22길 117" target="_blank" rel="noopener" data-i18n="location.openMap">카카오맵에서 보기 →</a>
-            </div>
-          </div>
+      <!-- 카테고리 필터 + 검색 -->
+      <div class="news-toolbar">
+        <div class="news-filter" id="newsFilter" role="tablist">
+          <button class="news-filter__btn is-active" type="button" data-cat="all">
+            <span>전체</span><span class="news-filter__count" id="cntAll">0</span>
+          </button>
+          <button class="news-filter__btn" type="button" data-cat="notice">
+            <span>공지</span><span class="news-filter__count" id="cntNotice">0</span>
+          </button>
+          <button class="news-filter__btn" type="button" data-cat="news">
+            <span>뉴스</span><span class="news-filter__count" id="cntNews">0</span>
+          </button>
+          <button class="news-filter__btn" type="button" data-cat="event">
+            <span>전시·행사</span><span class="news-filter__count" id="cntEvent">0</span>
+          </button>
+          <button class="news-filter__btn" type="button" data-cat="award">
+            <span>수상·인증</span><span class="news-filter__count" id="cntAward">0</span>
+          </button>
         </div>
-      </section>
+        <div class="news-search">
+          <svg class="news-search__icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.6"/>
+            <line x1="13.5" y1="13.5" x2="17" y2="17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          <input type="search" id="newsSearchInput" placeholder="제목·내용 검색" aria-label="뉴스 검색"/>
+        </div>
+      </div>
+
+      <!-- 뉴스 리스트 -->
+      <ul class="news-list" id="newsList">
+        <!-- JS가 NEWS_DATA로 채움 -->
+      </ul>
+
+      <!-- 결과 없음 -->
+      <div class="news-empty" id="newsEmpty" hidden>
+        <div class="news-empty__icon">🔍</div>
+        <div class="news-empty__text">검색 결과가 없습니다</div>
+        <div class="news-empty__sub">다른 키워드나 카테고리로 시도해 보세요.</div>
+      </div>
+
+      <!-- 더보기 -->
+      <div class="news-more-wrap">
+        <button class="news-more" id="newsMore" type="button">
+          <span>더보기</span>
+          <span class="news-more__remain" id="newsRemain"></span>
+        </button>
+      </div>
 
     </div>
   </div>
@@ -707,14 +842,14 @@
         'ceo.signLabel':'세연테크놀로지(주) 대표이사','ceo.signName':'손 영 전',
         'history.title':'국내외 현장에서 쌓아 온<br><em>RFID 기술의 발자취</em>',
         'location.title':'오시는 길',
-        'locationPage.title':'세연테크놀로지를<br>찾아오시는 길',
-        'locationPage.sub':'업무는 서울 본사에서, 제품 납품·물류는 안양 사업장에서 운영하고 있습니다.',
-        'location.openMap':'카카오맵에서 보기 →',
         'location.hqTag':'본사 · 업무','location.hqName':'서울 본사',
         'location.hqAddr':'서울특별시 서초구 서초중앙로22길 117<br>그라비타스타워 5층 (우 06631)',
         'location.whTag':'사업장 · 납품 창고','location.whName':'안양 사업장',
         'location.whAddr':'경기도 안양시 동안구 흥안대로427번길 57-2<br>1204호 (관양동, 아이에스비즈타워)',
         'location.whNote':'용도 · 제품 납품 및 물류 창고',
+        'news.eye':'NEWS & NOTICE',
+        'newsPage.title':'세연테크놀로지의<br>최신 소식과 공지사항',
+        'newsPage.sub':'제품 출시, 전시회 참가, 인증·수상 등 세연테크놀로지의 최근 활동과 공지를 한곳에서 확인하실 수 있습니다.',
         'foot.hours1':'평일 AM 9:00 ~ PM 6:00','foot.hours2':'(토·일, 법정 공휴일 휴무)',
         'foot.c1t':'회사 소개','foot.c1d':'RFID 전문 기업, 세연테크놀로지를 소개합니다.',
         'foot.c2t':'제품 안내','foot.c2d':'125·134·13.56·900 전 대역 RFID 제품을 안내합니다.',
@@ -739,14 +874,14 @@
         'ceo.signLabel':'CEO, CEYON Technology Co., Ltd.','ceo.signName':'Son Young-jeon',
         'history.title':'A track record of RFID<br><em>built on real-world sites</em>',
         'location.title':'Location',
-        'locationPage.title':'How to<br>find CEYON',
-        'locationPage.sub':'Our office operates at the Seoul HQ, while product delivery and logistics run from the Anyang site.',
-        'location.openMap':'View on KakaoMap →',
         'location.hqTag':'HQ · Office','location.hqName':'Seoul HQ',
         'location.hqAddr':'5F Gravitas Tower, 117 Seochojungang-ro 22-gil,<br>Seocho-gu, Seoul (06631)',
         'location.whTag':'Site · Warehouse','location.whName':'Anyang Site',
         'location.whAddr':'57-2 Heungan-daero 427beon-gil, Dongan-gu,<br>Anyang-si, Gyeonggi-do #1204',
         'location.whNote':'Use · Product delivery & logistics warehouse',
+        'news.eye':'NEWS & NOTICE',
+        'newsPage.title':'Latest news<br>and notices from CEYON',
+        'newsPage.sub':'Find CEYON\u2019s recent activities and announcements — product launches, exhibitions, certifications, and awards — all in one place.',
         'foot.hours1':'Weekdays 9:00 AM ~ 6:00 PM','foot.hours2':'(Closed weekends & public holidays)',
         'foot.c1t':'About Us','foot.c1d':'Meet CEYON Technology, an RFID specialist.',
         'foot.c2t':'Products','foot.c2d':'Explore our full 125·134·13.56·900 RFID lineup.',
@@ -771,14 +906,14 @@
         'ceo.signLabel':'世延科技(株) 代表理事','ceo.signName':'孙荣田',
         'history.title':'在国内外现场积累的<br><em>RFID技术足迹</em>',
         'location.title':'交通指南',
-        'locationPage.title':'前往世延科技的<br>交通指南',
-        'locationPage.sub':'业务在首尔总部办理,产品交货及物流在安养营业场所运营。',
-        'location.openMap':'在KakaoMap查看 →',
         'location.hqTag':'总部 · 办公','location.hqName':'首尔总部',
         'location.hqAddr':'首尔特别市瑞草区瑞草中央路22街117<br>Gravitas Tower 5层 (邮编06631)',
         'location.whTag':'营业场所 · 交货仓库','location.whName':'安养营业场所',
         'location.whAddr':'京畿道安养市东安区兴安大路427号街57-2<br>1204号 (冠阳洞, IS Biz Tower)',
         'location.whNote':'用途 · 产品交货及物流仓库',
+        'news.eye':'NEWS & NOTICE',
+        'newsPage.title':'世延科技的<br>最新消息与公告',
+        'newsPage.sub':'产品发布、参展、认证·获奖等世延科技的最新活动与公告,可在此一并查看。',
         'foot.hours1':'工作日 上午9:00 ~ 下午6:00','foot.hours2':'(周六·日、法定节假日休息)',
         'foot.c1t':'公司简介','foot.c1d':'介绍RFID专业企业世延科技。',
         'foot.c2t':'产品介绍','foot.c2d':'介绍125·134·13.56·900全频段RFID产品。',
@@ -810,106 +945,157 @@
       if (n.startsWith('zh')) applyLang('cn'); else if (n.startsWith('en')) applyLang('en');
     })();
 
-    /* 오시는 길 — 본사/사업장 탭 전환 + 카카오맵 연동 준비 */
+    /* =========================================================
+       세연소식 데이터 — Supabase 'news' 테이블에서 불러옴
+       cat: notice(공지) / news(뉴스) / event(전시·행사) / award(수상·인증)
+       ========================================================= */
+    let NEWS_DATA = [];
+    let sb = null;
+    try {
+      if (window.supabase && window.CEYON_SUPABASE_URL) {
+        sb = window.supabase.createClient(window.CEYON_SUPABASE_URL, window.CEYON_SUPABASE_ANON);
+      }
+    } catch (e) { console.warn('Supabase 초기화 실패', e); }
+
+    /* 세연소식 렌더링 + 필터 + 검색 + 더보기 */
     (() => {
-      const cards = document.querySelectorAll('.location__card');
-      if (!cards.length) return;
+      const listEl   = document.getElementById('newsList');
+      const emptyEl  = document.getElementById('newsEmpty');
+      const moreBtn  = document.getElementById('newsMore');
+      const remainEl = document.getElementById('newsRemain');
+      const searchEl = document.getElementById('newsSearchInput');
+      const filterEl = document.getElementById('newsFilter');
+      if (!listEl) return;
 
-      // ▼ 실제 좌표/주소 (배포 시 lat/lng 정확히 입력)
-      const MAP_DATA = {
-        hq: {
-          name: '서울 본사',
-          addr: '서울특별시 서초구 서초중앙로22길 117, 그라비타스타워 5층',
-          query: '서울특별시 서초구 서초중앙로22길 117',
-          lat: 37.4915, lng: 127.0078   // TODO: 정확한 좌표로 교체
-        },
-        wh: {
-          name: '안양 사업장',
-          addr: '경기도 안양시 동안구 흥안대로427번길 57-2, 1204호',
-          query: '경기도 안양시 동안구 흥안대로427번길 57-2',
-          lat: 37.4017, lng: 126.9525   // TODO: 정확한 좌표로 교체
-        }
+      const PAGE = 6;
+      let curCat = 'all';
+      let curKeyword = '';
+      let shown = PAGE;
+      let openId = null;
+
+      const CAT_LABEL = { notice:'공지', news:'뉴스', event:'전시·행사', award:'수상·인증' };
+      const fmtDate = (d) => (d || '').slice(0,10).replace(/-/g, '. ');
+
+      // 정렬: 고정 먼저, 그다음 날짜 내림차순
+      const getSorted = () => [...NEWS_DATA].sort((a, b) => {
+        if (!!b.pinned - !!a.pinned) return (!!b.pinned) - (!!a.pinned);
+        return (b.date||'').localeCompare(a.date||'');
+      });
+
+      const updateCounts = () => {
+        const counts = { all: NEWS_DATA.length, notice:0, news:0, event:0, award:0 };
+        NEWS_DATA.forEach(n => { if (counts[n.cat] !== undefined) counts[n.cat]++; });
+        document.getElementById('cntAll').textContent = counts.all;
+        document.getElementById('cntNotice').textContent = counts.notice;
+        document.getElementById('cntNews').textContent = counts.news;
+        document.getElementById('cntEvent').textContent = counts.event;
+        document.getElementById('cntAward').textContent = counts.award;
       };
 
-      let map = null, marker = null, infowindow = null, geocoder = null;
-      const isKakaoReady = () => (typeof kakao !== 'undefined' && kakao.maps && kakao.maps.Map);
+      const filtered = () => getSorted().filter(n => {
+        const okCat = curCat === 'all' || n.cat === curCat;
+        const okKw = !curKeyword ||
+          ((n.title || '') + ' ' + (n.body || '')).toLowerCase().includes(curKeyword);
+        return okCat && okKw;
+      });
 
-      const nameEl = document.getElementById('mapName');
-      const addrEl = document.getElementById('mapAddr');
-      const linkEl = document.getElementById('mapLink');
-      const mapBox = document.getElementById('locationMap');
+      const itemHTML = (n) => {
+        const open = n.id === openId;
+        // 미리보기: HTML 태그 제거한 순수 텍스트 요약 (120자)
+        const plain = (n.body || '').replace(/<[^>]*>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
+        const excerpt = plain.length > 120 ? plain.slice(0, 120) + '…' : plain;
+        // 상세: 서식 있는 HTML 그대로 렌더링 (관리자만 작성하므로 신뢰)
+        const detailHtml = n.body || '';
+        return `
+          <li class="news-item${n.pinned ? ' news-item--pinned' : ''}">
+            <button class="news-item__btn" type="button" data-id="${n.id}" aria-expanded="${open}">
+              <div class="news-item__left">
+                <span class="news-item__cat news-cat--${n.cat}">${CAT_LABEL[n.cat] || n.cat}</span>
+                <div class="news-item__date">${fmtDate(n.date)}</div>
+              </div>
+              <div class="news-item__body">
+                <div class="news-item__title">${n.pinned ? '<span class="news-item__pin">📌</span>' : ''}${(n.title||'').replace(/</g,'&lt;')}</div>
+                <div class="news-item__excerpt">${excerpt.replace(/</g,'&lt;')}</div>
+              </div>
+              <div class="news-item__arrow">${open ? '−' : '+'}</div>
+            </button>
+            ${open ? `<div class="news-item__detail"><div class="news-item__detail-inner news-content">${n.image ? `<img src="${n.image}" alt="" style="max-width:100%;border-radius:8px;margin-bottom:14px;display:block;">` : ''}${detailHtml}</div></div>` : ''}
+          </li>
+        `;
+      };
 
-      const placeMarker = (d, pos) => {
-        if (!map) {
-          const ph = document.getElementById('mapPlaceholder');
-          if (ph) ph.remove();
-          map = new kakao.maps.Map(mapBox, { center: pos, level: 3 });
-          marker = new kakao.maps.Marker({ position: pos });
-          marker.setMap(map);
-          infowindow = new kakao.maps.InfoWindow({
-            content: `<div style="padding:8px 12px;font-size:13px;font-weight:600;white-space:nowrap;">${d.name}</div>`
+      const render = () => {
+        const rows = filtered();
+        if (!rows.length) {
+          listEl.innerHTML = '';
+          emptyEl.hidden = false;
+          moreBtn.hidden = true;
+          return;
+        }
+        emptyEl.hidden = true;
+        const visible = rows.slice(0, shown);
+        listEl.innerHTML = visible.map(itemHTML).join('');
+
+        const remain = rows.length - visible.length;
+        if (remain > 0) {
+          moreBtn.hidden = false;
+          remainEl.textContent = `(+${remain})`;
+        } else {
+          moreBtn.hidden = true;
+        }
+
+        listEl.querySelectorAll('.news-item__btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const id = +btn.dataset.id;
+            openId = (openId === id) ? null : id;
+            render();
           });
-          infowindow.open(map, marker);
-        } else {
-          map.setCenter(pos);
-          marker.setPosition(pos);
-          infowindow.setContent(`<div style="padding:8px 12px;font-size:13px;font-weight:600;white-space:nowrap;">${d.name}</div>`);
-          infowindow.open(map, marker);
-        }
+        });
       };
 
-      const showLoc = (key) => {
-        const d = MAP_DATA[key];
-        if (!d) return;
-
-        if (isKakaoReady()) {
-          if (!geocoder && kakao.maps.services) geocoder = new kakao.maps.services.Geocoder();
-          if (geocoder) {
-            // 주소 → 좌표 자동 변환 (좌표 입력 불필요)
-            geocoder.addressSearch(d.query, (result, status) => {
-              if (status === kakao.maps.services.Status.OK) {
-                placeMarker(d, new kakao.maps.LatLng(result[0].y, result[0].x));
-              } else {
-                // 변환 실패 시 등록된 좌표 사용
-                placeMarker(d, new kakao.maps.LatLng(d.lat, d.lng));
-              }
-            });
-          } else {
-            placeMarker(d, new kakao.maps.LatLng(d.lat, d.lng));
-          }
-        } else {
-          // 플레이스홀더 (키 없을 때)
-          if (nameEl) nameEl.textContent = d.name;
-          if (addrEl) addrEl.textContent = d.addr;
-          if (linkEl) linkEl.href = 'https://map.kakao.com/?q=' + encodeURIComponent(d.query);
-        }
-      };
-
-      cards.forEach(card => {
-        card.addEventListener('click', () => {
-          cards.forEach(c => c.classList.toggle('is-active', c === card));
-          showLoc(card.dataset.loc);
+      // 필터 클릭
+      filterEl.querySelectorAll('.news-filter__btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterEl.querySelectorAll('.news-filter__btn').forEach(b => b.classList.toggle('is-active', b === btn));
+          curCat = btn.dataset.cat;
+          shown = PAGE; openId = null;
+          render();
         });
       });
 
-      // SDK가 defer로 로드되므로, 준비되면 지도 초기화
-      const initMap = () => { showLoc('hq'); };
-      if (typeof kakao !== 'undefined' && kakao.maps && kakao.maps.load) {
-        kakao.maps.load(initMap);
-      } else {
-        // SDK 아직 미로드 → 로드 완료 대기 (최대 3초), 실패 시 플레이스홀더
-        let waited = 0;
-        const timer = setInterval(() => {
-          waited += 100;
-          if (typeof kakao !== 'undefined' && kakao.maps && kakao.maps.load) {
-            clearInterval(timer);
-            kakao.maps.load(initMap);
-          } else if (waited >= 3000) {
-            clearInterval(timer);
-            initMap(); // 플레이스홀더 표시
-          }
-        }, 100);
-      }
+      // 검색 (입력 디바운스)
+      let t = null;
+      searchEl.addEventListener('input', () => {
+        clearTimeout(t);
+        t = setTimeout(() => {
+          curKeyword = searchEl.value.trim().toLowerCase();
+          shown = PAGE; openId = null;
+          render();
+        }, 200);
+      });
+
+      // 더보기
+      moreBtn.addEventListener('click', () => { shown += PAGE; render(); });
+
+      // Supabase에서 데이터 로드 후 렌더링
+      const load = async () => {
+        if (!sb) {
+          listEl.innerHTML = '';
+          emptyEl.hidden = false;
+          return;
+        }
+        try {
+          const { data, error } = await sb.from('news').select('*');
+          if (error) throw error;
+          NEWS_DATA = (data || []).map(n => ({
+            id: n.id, cat: n.cat, date: (n.date || n.created_at || '').slice(0,10),
+            title: n.title, body: n.body, pinned: n.pinned, image: n.image || ''
+          }));
+          updateCounts();
+          render();
+        } catch (err) { console.error(err); emptyEl.hidden = false; }
+      };
+      load();
     })();
 
     /* 스크롤 시 헤더 축소 */

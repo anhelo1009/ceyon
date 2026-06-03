@@ -3,34 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="세연테크놀로지(주) - 2001년 설립, World Best RFID/USN Technology. RFID 리더·안테나·태그를 자체 개발·제조하는 RFID 하드웨어 전문 기업. 125kHz·134.2kHz·13.56MHz·900MHz 대역 제품 공급." />
-  <meta name="keywords" content="RFID, RFID 리더, RFID 안테나, RFID 태그, 세연테크놀로지, CEYON, 공장자동화, 반도체, USN, UHF, 13.56MHz, 900MHz" />
-  <title>세연테크놀로지 | CEYON Technology — World Best RFID/USN Technology</title>
+  <meta name="description" content="세연테크놀로지(주) 회사소개 — CEO 인사말, 연혁, 오시는 길. 2001년 설립 이후 RFID 하드웨어를 자체 개발·제조해 온 RFID 전문 기업." />
+  <title>오시는 길 | 세연테크놀로지 CEYON Technology</title>
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png" />
 
-  <!-- Pretendard (KR) -->
   <link rel="stylesheet" as="style" crossorigin
         href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
-  <!-- Urbanist (EN) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <style>
     /* =========================================================
-       1. DESIGN TOKENS
+       DESIGN TOKENS (index.html과 동일 시스템 공유)
        ========================================================= */
     :root {
-      /* Brand */
       --color-primary:        #003366;
       --color-primary-soft:   #1a4a7a;
       --color-primary-deep:   #001f3f;
       --color-accent:         #CC0000;
       --color-accent-soft:    #e63333;
-
-      /* Neutrals */
       --color-bg:             #FFFFFF;
       --color-bg-alt:         #F5F6F8;
       --color-border:         #E5E7EB;
@@ -38,33 +32,21 @@
       --color-text:           #0A1628;
       --color-text-muted:     #5B6675;
       --color-text-faint:     #94A0B0;
-
-      /* Type */
       --font-kr: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
       --font-en: 'Urbanist', 'Pretendard Variable', sans-serif;
       --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-
-      /* Layout */
       --header-h:           88px;
       --header-h-scrolled:  80px;
       --container-max:      1440px;
       --container-pad:      clamp(20px, 4vw, 64px);
-
-      /* Motion */
       --ease-out:   cubic-bezier(0.22, 1, 0.36, 1);
       --ease-in-out:cubic-bezier(0.65, 0, 0.35, 1);
     }
 
-    /* =========================================================
-       2. RESET & BASE
-       ========================================================= */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; scroll-padding-top: var(--header-h); }
     body {
       font-family: var(--font-kr);
-      font-weight: 400;
       line-height: 1.6;
       color: var(--color-text);
       background: var(--color-bg);
@@ -72,103 +54,39 @@
       -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
     }
-
     a { color: inherit; text-decoration: none; }
     button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
     img { max-width: 100%; display: block; }
-
     ::selection { background: var(--color-primary); color: #fff; }
 
     /* =========================================================
-       3. HEADER (Sticky + Scroll Transition)
+       HEADER (index.html과 동일)
        ========================================================= */
     .header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       height: var(--header-h);
-      display: flex;
-      align-items: center;
+      display: flex; align-items: center;
       background: transparent;
-      transition:
-        background-color 0.4s var(--ease-out),
-        box-shadow 0.4s var(--ease-out),
-        border-color 0.4s var(--ease-out);
+      transition: height .5s var(--ease-out), background-color .4s var(--ease-out), box-shadow .4s var(--ease-out), border-color .4s var(--ease-out);
       border-bottom: 1px solid transparent;
     }
+    /* 서브페이지는 히어로가 어둡지 않을 수 있어 항상 흰 배경 헤더로 시작 */
+    .header { background: rgba(255,255,255,.92); backdrop-filter: saturate(180%) blur(14px); -webkit-backdrop-filter: saturate(180%) blur(14px); border-bottom-color: var(--color-border); box-shadow: 0 4px 24px -12px rgba(0,31,63,.12); }
+    /* 헤더 높이 고정 — 스크롤 시 위치 변동 없음 */
 
-    /* default: over hero (transparent, white text) */
-    .header .logo,
-    .header .nav__link,
-    .header .lang__btn,
-    .header .menu-toggle { color: #fff; }
-
-    .header .lang__divider { background: rgba(255,255,255,0.35); }
-
-    /* scrolled state */
-    .header.is-scrolled {
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: saturate(180%) blur(14px);
-      -webkit-backdrop-filter: saturate(180%) blur(14px);
-      border-bottom-color: var(--color-border);
-      box-shadow: 0 4px 24px -12px rgba(0, 31, 63, 0.12);
-    }
-
-    .header.is-scrolled .logo,
-    .header.is-scrolled .nav__link,
-    .header.is-scrolled .lang__btn,
-    .header.is-scrolled .menu-toggle { color: var(--color-text); }
-
-    .header.is-scrolled .lang__divider { background: var(--color-border-strong); }
+    .header .logo__img--white { display: none; }
+    .header .nav__link, .header .lang__btn, .header .menu-toggle { color: var(--color-text); }
+    .header .lang__divider { background: var(--color-border-strong); }
 
     .header__inner {
-      width: 100%;
-      max-width: var(--container-max);
-      margin: 0 auto;
+      width: 100%; max-width: var(--container-max); margin: 0 auto;
       padding: 0 var(--container-pad);
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      align-items: center;
-      gap: 48px;
+      display: grid; grid-template-columns: auto 1fr auto;
+      align-items: center; gap: 48px;
     }
+    .logo { display: flex; align-items: center; line-height: 1; height: 100%; position: relative; }
+    .logo__img { height: 36px; width: auto; display: block; transition: opacity .4s var(--ease-out); }
 
-    /* Logo (real CEYON brand image)
-       ─────────────────────────────
-       흰색 버전(logo-white.png)과 컬러 버전(logo.png)을 겹쳐두고
-       스크롤 상태에 따라 페이드 전환 → filter 보다 깨끗함
-    */
-    .logo {
-      display: flex;
-      align-items: center;
-      line-height: 1;
-      height: 100%;
-      position: relative;
-    }
-
-    .logo__img {
-      height: 36px;
-      width: auto;
-      display: block;
-      transition: opacity 0.4s var(--ease-out);
-    }
-    /* 컬러 버전은 흰색 위에 겹쳐서 배치 */
-    .logo__img--color {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      transform: translateY(-50%);
-      opacity: 0;
-    }
-
-    /* 기본(히어로 위): 흰색 로고 보임 */
-    .logo__img--white { opacity: 1; }
-
-    /* 스크롤 후: 컬러 로고로 전환 (높이는 고정 — 줄어들지 않음) */
-    .header.is-scrolled .logo__img--white { opacity: 0; }
-    .header.is-scrolled .logo__img--color { opacity: 1; }
-
-
-    /* Nav */
     .nav { display: flex; justify-content: center; gap: 2px; }
     .nav__item { position: relative; }
     .nav__link {
@@ -195,7 +113,7 @@
     .nav__link:hover::after,
     .nav__link.is-current::after { transform: scaleX(1); }
     .nav__link.is-current { color: var(--color-primary); }
-    .header:not(.is-scrolled) .nav__link.is-current { color: inherit; }
+
 
     /* hover — 연한 블루 칩 (흰 헤더에서도 또렷, 활성 밑줄과 역할 분리) */
     .nav__item .nav__link { border-radius: 8px; }
@@ -204,11 +122,6 @@
       color: var(--color-primary);
     }
     .nav__item:hover .nav__link::after { transform: scaleX(0); }
-    /* 투명 헤더(히어로) — 어두운 배경이라 밝은 흰 칩 + 흰 글자 유지 */
-    .header:not(.is-scrolled) .nav__item:hover .nav__link {
-      background: rgba(255, 255, 255, 0.18);
-      color: #fff;
-    }
 
     /* 드롭다운 (상위 메뉴 아래 패널) */
     .nav__dropdown {
@@ -286,990 +199,298 @@
       background: var(--color-border);
     }
 
-    /* Header right cluster — 언어 선택기를 맨 오른쪽에 */
-    .header__right {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 16px;
-    }
-
-    /* Language selector */
-    .lang {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .header__right { display: flex; align-items: center; justify-content: flex-end; gap: 16px; }
+    .lang { display: flex; align-items: center; gap: 10px; }
     .lang__btn {
-      font-family: var(--font-en);
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      padding: 6px 2px;
-      position: relative;
-      opacity: 0.7;
-      transition: opacity 0.3s var(--ease-out), color 0.3s var(--ease-out);
+      font-family: var(--font-en); font-size: 12px; font-weight: 600; letter-spacing: .12em;
+      padding: 6px 2px; position: relative; opacity: .7;
+      transition: opacity .3s var(--ease-out), color .3s var(--ease-out);
     }
     .lang__btn:hover { opacity: 1; }
-    .lang__btn.is-active {
-      opacity: 1;
-    }
+    .lang__btn.is-active { opacity: 1; }
     .lang__btn.is-active::after {
-      content: "";
-      position: absolute;
-      left: 0; right: 0;
-      bottom: 0;
-      height: 2px;
-      background: var(--color-accent);
+      content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--color-accent);
     }
-    .lang__divider {
-      width: 1px;
-      height: 11px;
-      transition: background-color 0.4s var(--ease-out);
-    }
-
-    /* Mobile menu toggle (hidden by default) */
-    .menu-toggle {
-      display: none;
-      width: 28px;
-      height: 28px;
-      flex-direction: column;
-      justify-content: center;
-      gap: 5px;
-    }
-    .menu-toggle span {
-      display: block;
-      height: 1.5px;
-      background: currentColor;
-      transition: transform 0.3s var(--ease-out), opacity 0.3s var(--ease-out);
-    }
+    .lang__divider { width: 1px; height: 11px; }
+    .menu-toggle { display: none; width: 28px; height: 28px; flex-direction: column; justify-content: center; gap: 5px; }
+    .menu-toggle span { display: block; height: 1.5px; background: currentColor; }
 
     /* =========================================================
-       4. HERO
+       PAGE HERO (서브페이지 배너)
        ========================================================= */
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      min-height: 100svh;
-      display: flex;
-      align-items: center;
+    .page-hero {
+      margin-top: var(--header-h);
+      background: linear-gradient(135deg, var(--color-primary-deep) 0%, var(--color-primary) 55%, var(--color-primary-soft) 100%);
       color: #fff;
-      overflow: hidden;
-      isolation: isolate;
-      background: #001f3f; /* fallback while image loads */
-    }
-
-    /* Background image layer
-       ──────────────────────
-       이미지 교체 방법 (3가지 중 택 1):
-
-       방법 A) <img> 태그의 src 만 바꾸기 (권장 — 반응형/lazy 지원)
-       방법 B) CSS background-image 로 바꾸기 (.hero__bg 의 background 속성 수정)
-       방법 C) <picture> + srcset 으로 디바이스별 다른 해상도 제공
-    */
-    .hero__bg {
-      position: absolute;
-      inset: 0;
-      z-index: -2;
-      overflow: hidden;
-    }
-    .hero__bg img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      /* 손+RFID 그래픽을 좌측에 자연스럽게 배치
-         (이미지 자체가 좌측에 메인 비주얼이 있음) */
-      object-position: 30% center;
-      /* Ken Burns: 아주 미세하게 천천히 줌인 → 시네마틱 느낌 */
-      animation: kenburns 18s ease-out forwards;
-    }
-    @keyframes kenburns {
-      from { transform: scale(1.05); }
-      to   { transform: scale(1.12); }
-    }
-
-    /* Fallback: 이미지가 없거나 로드 전에 보일 그라데이션 */
-    .hero__bg::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, #001f3f 0%, #003366 45%, #0a4a8a 100%);
-      z-index: -1;
-    }
-
-    /* Dark overlay — 사진 위에서 흰 텍스트 가독성 확보
-       이번 히어로 이미지(좌측 RFID / 우측 어두운 노트북)에 맞춰
-       우측을 더 어둡게 처리 → 텍스트 가독성 + 워터마크 자연스러운 가림 */
-    .hero__overlay {
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background:
-        linear-gradient(180deg,
-          rgba(0, 10, 25, 0.35) 0%,
-          rgba(0, 10, 25, 0.45) 50%,
-          rgba(0, 10, 25, 0.65) 100%);
-    }
-    /* 우측 영역 추가 어둡기 — 텍스트 영역 강조 */
-    .hero__overlay::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        260deg,
-        rgba(0, 10, 25, 0.78) 0%,
-        rgba(0, 10, 25, 0.55) 35%,
-        rgba(0, 10, 25, 0.15) 60%,
-        transparent 85%
-      );
-    }
-
-    .hero__inner {
-      width: 100%;
-      max-width: var(--container-max);
-      margin: 0 auto;
-      padding: calc(var(--header-h) + 40px) var(--container-pad) 120px;
-      /* 2단 그리드: 좌측은 이미지 비주얼 공간 / 우측은 텍스트 */
-      display: grid;
-      grid-template-columns: 1fr 1.1fr;
-      gap: 60px;
-      align-items: center;
-    }
-
-    /* 좌측 비주얼 공간 — 이미지가 자연스럽게 보이는 영역 */
-    .hero__visual-space {
-      /* 비어있되 모바일에서 숨김 처리 */
-      min-height: 1px;
-    }
-
-    /* 우측 텍스트 컬럼 */
-    .hero__content {
-      display: grid;
-      gap: 28px;
-      max-width: 560px;
-    }
-
-    .hero__eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      font-family: var(--font-en);
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.85);
-    }
-    .hero__eyebrow::before {
-      content: "";
-      width: 32px;
-      height: 1px;
-      background: var(--color-accent);
-    }
-
-    .hero__title {
-      font-family: var(--font-kr);
-      font-size: clamp(32px, 5.2vw, 62px);
-      font-weight: 700;
-      line-height: 1.15;
-      letter-spacing: -0.035em;
-      max-width: 18ch;
-    }
-    .hero__title em {
-      font-style: normal;
-      color: #fff;
-      position: relative;
-      white-space: nowrap;
-    }
-    .hero__title em::after {
-      content: "";
-      position: absolute;
-      left: 0; right: 0;
-      bottom: 0.04em;
-      height: 0.16em;
-      background: var(--color-accent);
-      opacity: 0.85;
-      z-index: -1;
-    }
-
-    .hero__sub {
-      font-size: clamp(15px, 1.4vw, 18px);
-      font-weight: 400;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.82);
-      max-width: 56ch;
-      letter-spacing: -0.015em;
-    }
-
-    .hero__cta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 8px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 16px 28px;
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: -0.005em;
-      border-radius: 2px;
-      transition: all 0.3s var(--ease-out);
-      white-space: nowrap;
-    }
-    .btn--primary {
-      background: #fff;
-      color: var(--color-primary);
-    }
-    .btn--primary:hover {
-      background: var(--color-accent);
-      color: #fff;
-      transform: translateY(-2px);
-    }
-    .btn--ghost {
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.4);
-    }
-    .btn--ghost:hover {
-      background: rgba(255,255,255,0.1);
-      border-color: rgba(255,255,255,0.7);
-    }
-    .btn__arrow {
-      transition: transform 0.3s var(--ease-out);
-    }
-    .btn:hover .btn__arrow {
-      transform: translateX(4px);
-    }
-
-    /* Hero meta (bottom indicators) */
-    .hero__meta {
-      position: absolute;
-      left: 0; right: 0;
-      bottom: 0;
-      padding: 0 var(--container-pad) 40px;
-      max-width: var(--container-max);
-      margin: 0 auto;
-      display: flex;
-      justify-content: flex-start;
-      align-items: flex-end;
-      gap: 24px;
-    }
-
-    .hero__stats {
-      display: flex;
-      gap: 56px;
-    }
-    .hero__stat {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .hero__stat-num {
-      font-family: var(--font-en);
-      font-size: 32px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      color: #fff;
-      display: inline-flex;
-      align-items: baseline;
-      gap: 4px;
-    }
-    .hero__stat-num sup {
-      font-family: var(--font-kr);
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--color-accent-soft);
-      position: relative;
-      top: -0.6em;
-    }
-    .hero__stat-label {
-      font-size: 11px;
-      color: rgba(255,255,255,0.6);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      font-family: var(--font-en);
-      font-weight: 500;
-    }
-
-    /* =========================================================
-       5. SECTION COMMON
-       ========================================================= */
-    .section__eyebrow {
-      font-family: var(--font-en);
-      font-size: 12px;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--color-accent);
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .section__eyebrow::before {
-      content: "";
-      width: 32px;
-      height: 1px;
-      background: var(--color-accent);
-    }
-    .section__eyebrow--light { color: #ff6b6b; }
-    .section__eyebrow--light::before { background: #ff6b6b; }
-
-    .section__title {
-      font-size: clamp(28px, 4vw, 46px);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      color: var(--color-primary);
-      line-height: 1.2;
-      margin-top: 18px;
-    }
-    .section__title em {
-      font-style: normal;
-      color: var(--color-accent);
-    }
-    .section__title--light { color: #fff; }
-    .section__title--light em { color: #5BC2D8; }
-
-    /* =========================================================
-       5a. ABOUT
-       ========================================================= */
-    .about {
-      padding: clamp(80px, 12vh, 140px) var(--container-pad);
-      max-width: var(--container-max);
-      margin: 0 auto;
-    }
-    .about__head { margin-bottom: 64px; }
-    .about__body {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-    .about__text p {
-      font-size: 16px;
-      line-height: 1.8;
-      color: var(--color-text-muted);
-      margin-bottom: 20px;
-    }
-    .about__link {
-      display: inline-block;
-      margin-top: 12px;
-      font-weight: 600;
-      color: var(--color-primary);
-      font-size: 15px;
-      transition: gap 0.3s var(--ease-out), color 0.3s var(--ease-out);
-    }
-    .about__link:hover { color: var(--color-accent); }
-
-    .about__stats {
-      list-style: none;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--color-border);
-      border: 1px solid var(--color-border);
-    }
-    .about__stat {
-      background: #fff;
-      padding: 36px 28px;
-      transition: background 0.3s var(--ease-out);
-    }
-    .about__stat:hover { background: var(--color-bg-alt); }
-    .about__stat-num {
-      font-family: var(--font-en);
-      font-size: 44px;
-      font-weight: 700;
-      color: var(--color-primary);
-      letter-spacing: -0.03em;
-      line-height: 1;
-    }
-    .about__stat-num span {
-      font-size: 18px;
-      color: var(--color-accent);
-      margin-left: 2px;
-    }
-    .about__stat-label {
-      margin-top: 12px;
-      font-size: 13px;
-      color: var(--color-text-muted);
-      letter-spacing: -0.01em;
-    }
-
-    /* =========================================================
-       5b. RFID
-       ========================================================= */
-    .rfid {
-      background: var(--color-primary-deep);
-      color: #fff;
-      padding: clamp(80px, 12vh, 140px) var(--container-pad);
       position: relative;
       overflow: hidden;
     }
-    .rfid::before {
-      content: "";
-      position: absolute;
-      inset: 0;
+    .page-hero::before {
+      content: ""; position: absolute; inset: 0;
       background-image:
-        linear-gradient(to right, rgba(91,194,216,0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(91,194,216,0.05) 1px, transparent 1px);
-      background-size: 60px 60px;
-      mask-image: radial-gradient(ellipse at 50% 0%, #000 20%, transparent 75%);
-      -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 20%, transparent 75%);
+        linear-gradient(to right, rgba(91,194,216,.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(91,194,216,.06) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse at 70% 50%, #000 10%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse at 70% 50%, #000 10%, transparent 70%);
     }
-    .rfid__inner {
-      max-width: var(--container-max);
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
+    .page-hero__inner {
+      max-width: var(--container-max); margin: 0 auto;
+      padding: clamp(32px, 5vw, 52px) var(--container-pad);
+      position: relative; z-index: 1;
     }
-    .rfid__head { max-width: 640px; margin-bottom: 64px; }
-    .rfid__lead {
-      margin-top: 24px;
-      font-size: 16px;
-      line-height: 1.8;
-      color: rgba(255,255,255,0.75);
+    .page-hero__crumb {
+      font-family: var(--font-en); font-size: 12px; letter-spacing: .1em;
+      color: rgba(255,255,255,.6); margin-bottom: 16px;
     }
-
-    .rfid__flow {
-      display: flex;
-      align-items: stretch;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 72px;
-      flex-wrap: wrap;
+    .page-hero__crumb a:hover { color: #fff; }
+    .page-hero__eyebrow {
+      font-family: var(--font-en); font-size: 13px; font-weight: 600;
+      letter-spacing: .28em; color: #5BC2D8; display: block; margin-bottom: 12px;
     }
-    .rfid__flow-item {
-      flex: 1;
-      min-width: 200px;
-      max-width: 280px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 4px;
-      padding: 36px 28px;
-      text-align: center;
-      transition: all 0.3s var(--ease-out);
+    .page-hero__title {
+      font-size: clamp(26px, 3.5vw, 40px); font-weight: 700; letter-spacing: -.03em; line-height: 1.2;
     }
-    .rfid__flow-item:hover {
-      background: rgba(91,194,216,0.08);
-      border-color: rgba(91,194,216,0.4);
-      transform: translateY(-4px);
-    }
-    .rfid__flow-icon {
-      width: 48px;
-      height: 48px;
-      margin: 0 auto 18px;
-      color: #5BC2D8;
-    }
-    .rfid__flow-icon svg { width: 100%; height: 100%; }
-    .rfid__flow-item h3 {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-    .rfid__flow-item p {
-      font-size: 14px;
-      color: rgba(255,255,255,0.6);
-      line-height: 1.6;
-    }
-    .rfid__flow-arrow {
-      display: flex;
-      align-items: center;
-      font-size: 24px;
-      color: #5BC2D8;
-      font-weight: 300;
-    }
-
-    .rfid__apps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      border-top: 1px solid rgba(255,255,255,0.12);
-      padding-top: 56px;
-    }
-    .rfid__app h4 {
-      font-size: 17px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: #fff;
-    }
-    .rfid__app h4::before {
-      content: "—";
-      color: var(--color-accent);
-      margin-right: 8px;
-    }
-    .rfid__app p {
-      font-size: 14px;
-      color: rgba(255,255,255,0.6);
-      line-height: 1.6;
+    .page-hero__sub {
+      margin-top: 12px; font-size: clamp(14px, 1.3vw, 16px);
+      color: rgba(255,255,255,.78); max-width: 52ch; line-height: 1.7;
     }
 
     /* =========================================================
-       5c. PRODUCTS (Tabs)
+       LAYOUT — 좌측 사이드네비 + 우측 콘텐츠
        ========================================================= */
-    .products {
-      padding: clamp(80px, 12vh, 140px) var(--container-pad);
-      max-width: var(--container-max);
-      margin: 0 auto;
-    }
-    .products__head { margin-bottom: 48px; }
-    .products__sub {
-      margin-top: 18px;
-      font-size: 16px;
-      color: var(--color-text-muted);
-    }
-
-    .tabs {
-      display: flex;
-      gap: 0;
-      border-bottom: 1px solid var(--color-border);
-      margin-bottom: 48px;
-      flex-wrap: wrap;
-    }
-    .tab {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      padding: 18px 32px;
-      text-align: left;
-      position: relative;
-      transition: background 0.3s var(--ease-out);
-    }
-    .tab::after {
-      content: "";
-      position: absolute;
-      left: 0; right: 0; bottom: -1px;
-      height: 2px;
-      background: var(--color-accent);
-      transform: scaleX(0);
-      transition: transform 0.3s var(--ease-out);
-    }
-    .tab:hover { background: var(--color-bg-alt); }
-    .tab.is-active::after { transform: scaleX(1); }
-    .tab__band {
-      font-family: var(--font-en);
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--color-text-faint);
-      letter-spacing: -0.01em;
-      transition: color 0.3s var(--ease-out);
-    }
-    .tab.is-active .tab__band { color: var(--color-primary); }
-    .tab__freq {
-      font-size: 12px;
-      color: var(--color-text-faint);
-      font-family: var(--font-en);
-      letter-spacing: 0.02em;
-    }
-
-    .panel {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 56px;
-      align-items: center;
-      animation: panelFade 0.5s var(--ease-out);
-    }
-    .panel[hidden] { display: none; }
-    @keyframes panelFade {
-      from { opacity: 0; transform: translateY(12px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .panel__info h3 {
-      font-size: 26px;
-      font-weight: 700;
-      color: var(--color-primary);
-      letter-spacing: -0.02em;
-      margin-bottom: 18px;
-    }
-    .panel__info > p {
-      font-size: 16px;
-      line-height: 1.8;
-      color: var(--color-text-muted);
-      margin-bottom: 28px;
-    }
-    .panel__feats {
-      list-style: none;
-      margin-bottom: 32px;
-    }
-    .panel__feats li {
-      padding: 12px 0 12px 28px;
-      position: relative;
-      font-size: 15px;
-      color: var(--color-text);
-      border-bottom: 1px solid var(--color-border);
-    }
-    .panel__feats li::before {
-      content: "✓";
-      position: absolute;
-      left: 0;
-      color: var(--color-accent);
-      font-weight: 700;
-    }
-    .panel__cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 28px;
-      background: var(--color-primary);
-      color: #fff;
-      font-size: 14px;
-      font-weight: 600;
-      border-radius: 2px;
-      transition: all 0.3s var(--ease-out);
-    }
-    .panel__cta:hover {
-      background: var(--color-accent);
-      transform: translateY(-2px);
-    }
-    /* 제품 이미지 슬라이더 (캐러셀) */
-    .panel__slider {
-      position: relative;
-      aspect-ratio: 4 / 3;
-      border-radius: 6px;
-      overflow: hidden;
-      background: var(--color-bg-alt);
-    }
-    .panel__slides {
-      display: flex;
-      width: 100%;
-      height: 100%;
-      transition: transform 0.6s var(--ease-out);
-    }
-    .panel__slide {
-      flex: 0 0 100%;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-soft) 100%);
-      position: relative;
-      overflow: hidden;
-    }
-    .panel__slide::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px);
-      background-size: 32px 32px;
-    }
-    /* 실제 제품 이미지를 넣을 때:
-       <div class="panel__slide"><img src="assets/products/rem125-1.jpg" alt="..."></div>
-       아래 img 스타일이 자동 적용됨 */
-    .panel__slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      position: relative;
-      z-index: 1;
-    }
-    /* 이미지 없을 때 임시 플레이스홀더 */
-    .panel__ph {
-      font-family: var(--font-en);
-      font-size: 20px;
-      font-weight: 600;
-      color: #fff;
-      letter-spacing: 0.02em;
-      position: relative;
-      z-index: 1;
-      padding: 12px 24px;
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 3px;
-    }
-    /* 슬라이드 인디케이터 점 */
-    .panel__dots {
-      position: absolute;
-      bottom: 16px;
-      left: 0; right: 0;
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      z-index: 2;
-    }
-    .panel__dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.4);
-      cursor: pointer;
-      transition: all 0.3s var(--ease-out);
-      border: none;
-      padding: 0;
-    }
-    .panel__dot.is-active {
-      background: #fff;
-      width: 24px;
-      border-radius: 4px;
-    }
-
-    /* =========================================================
-       5d. FOOTER
-       ========================================================= */
-    .footer {
-      background: var(--color-primary-deep);
-      color: rgba(255,255,255,0.7);
-    }
-    .footer__top {
-      max-width: var(--container-max);
-      margin: 0 auto;
-      padding: clamp(56px, 8vh, 88px) var(--container-pad);
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 56px;
+    .about-layout {
+      max-width: var(--container-max); margin: 0 auto;
+      padding: clamp(48px, 7vw, 96px) var(--container-pad);
+      display: grid; grid-template-columns: 240px 1fr; gap: clamp(40px, 6vw, 100px);
       align-items: start;
     }
-    .footer__logo {
-      height: 40px;
-      width: auto;
-      margin-bottom: 24px;
-    }
-    .footer__hours p { font-size: 14px; color: rgba(255,255,255,0.8); }
-    .footer__hours-sub { color: rgba(255,255,255,0.45) !important; margin-top: 4px; }
 
-    .footer__cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+    /* 좌측 고정 사이드 네비 */
+    .side-nav { position: sticky; top: calc(var(--header-h) + 40px); }
+    .side-nav__title {
+      font-family: var(--font-en); font-size: 12px; letter-spacing: .2em;
+      color: var(--color-text-faint); font-weight: 600; margin-bottom: 20px;
+      padding-bottom: 16px; border-bottom: 1px solid var(--color-border);
     }
-    .footer__card {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      padding: 28px 24px;
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 4px;
-      transition: all 0.3s var(--ease-out);
+    .side-nav__list { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+    .side-nav__link {
+      display: block; padding: 12px 16px; border-radius: 4px;
+      font-size: 16px; font-weight: 500; color: var(--color-text-muted);
+      position: relative; transition: all .3s var(--ease-out);
     }
-    .footer__card:hover {
-      background: rgba(255,255,255,0.05);
-      border-color: rgba(91,194,216,0.5);
-      transform: translateY(-4px);
+    .side-nav__link::before {
+      content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%) scaleY(0);
+      width: 3px; height: 60%; background: var(--color-accent); border-radius: 2px;
+      transition: transform .3s var(--ease-out);
     }
-    .footer__card-en {
-      font-family: var(--font-en);
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      color: #5BC2D8;
-      font-weight: 600;
+    .side-nav__link:hover { color: var(--color-primary); background: var(--color-bg-alt); }
+    .side-nav__link.is-active {
+      color: var(--color-primary); font-weight: 700; background: var(--color-bg-alt);
     }
-    .footer__card-ko {
-      font-size: 20px;
-      font-weight: 700;
-      color: #fff;
-    }
-    .footer__card-desc {
-      font-size: 13px;
-      color: rgba(255,255,255,0.55);
-      line-height: 1.6;
-      margin-top: 4px;
-    }
+    .side-nav__link.is-active::before { transform: translateY(-50%) scaleY(1); }
 
-    .footer__bottom {
-      border-top: 1px solid rgba(255,255,255,0.1);
+    /* 우측 콘텐츠 */
+    .about-content { display: flex; flex-direction: column; gap: clamp(64px, 10vw, 130px); min-width: 0; }
+    .block { scroll-margin-top: calc(var(--header-h) + 24px); }
+    .block__eyebrow {
+      font-family: var(--font-en); font-size: 12px; font-weight: 600;
+      letter-spacing: .28em; color: var(--color-accent);
+      display: inline-flex; align-items: center; gap: 12px; margin-bottom: 18px;
     }
-    .footer__info {
-      max-width: var(--container-max);
-      margin: 0 auto;
-      padding: 32px var(--container-pad) 8px;
+    .block__eyebrow::before { content: ""; width: 32px; height: 1px; background: var(--color-accent); }
+    .block__title {
+      font-size: clamp(26px, 3.4vw, 40px); font-weight: 700;
+      letter-spacing: -.03em; color: var(--color-primary); line-height: 1.2; margin-bottom: 28px;
     }
-    .footer__info p {
-      font-size: 13px;
-      color: rgba(255,255,255,0.55);
-      line-height: 1.9;
+    .block__title em { font-style: normal; color: var(--color-accent); }
+
+    /* CEO 인사말 */
+    .ceo { display: grid; grid-template-columns: 1fr; gap: 32px; }
+    .ceo__lead {
+      font-size: clamp(20px, 2.4vw, 26px); font-weight: 700;
+      line-height: 1.5; letter-spacing: -.02em; color: var(--color-text);
     }
-    .footer__meta {
-      max-width: var(--container-max);
-      margin: 0 auto;
-      padding: 16px var(--container-pad) 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .ceo__lead em { font-style: normal; color: var(--color-accent); }
+    .ceo__body { display: flex; flex-direction: column; gap: 18px; }
+    .ceo__body p { font-size: 16px; line-height: 1.85; color: var(--color-text-muted); }
+    .ceo__sign {
+      margin-top: 16px; display: flex; align-items: baseline; gap: 12px;
+      padding-top: 24px; border-top: 1px solid var(--color-border);
     }
-    .footer__copy {
-      font-family: var(--font-en);
-      font-size: 12px;
-      color: rgba(255,255,255,0.4);
+    .ceo__sign-label { font-size: 14px; color: var(--color-text-muted); }
+    .ceo__sign-name { font-size: 22px; font-weight: 700; color: var(--color-primary); letter-spacing: -.02em; }
+
+    .ceo__values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+    .ceo__value { padding: 28px 24px; background: var(--color-bg-alt); border-radius: 6px; border-top: 2px solid var(--color-primary); }
+    .ceo__value-en { font-family: var(--font-en); font-size: 11px; letter-spacing: .16em; color: var(--color-accent); font-weight: 600; }
+    .ceo__value-ko { font-size: 18px; font-weight: 700; color: var(--color-primary); margin: 8px 0 6px; }
+    .ceo__value-desc { font-size: 13px; color: var(--color-text-muted); line-height: 1.6; }
+
+    /* 연혁 (타임라인) */
+    .history { position: relative; }
+    .history__list { list-style: none; position: relative; }
+    .history__list::before {
+      content: ""; position: absolute; left: 0; top: 8px; bottom: 8px;
+      width: 2px; background: var(--color-border);
     }
-    /* 숨겨진 관리자 진입로 — 눈에 거의 안 띄게 */
-    .footer__member {
-      font-family: var(--font-en);
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      color: rgba(255,255,255,0.25);
-      transition: color 0.3s var(--ease-out);
+    .history__item {
+      position: relative; padding: 0 0 36px 40px;
     }
-    .footer__member:hover { color: rgba(255,255,255,0.6); }
+    .history__item:last-child { padding-bottom: 0; }
+    .history__item::before {
+      content: ""; position: absolute; left: -5px; top: 6px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: #fff; border: 2px solid var(--color-border-strong);
+      transition: all .3s var(--ease-out);
+    }
+    .history__item--highlight::before {
+      background: var(--color-accent); border-color: var(--color-accent);
+      box-shadow: 0 0 0 4px rgba(204,0,0,.12);
+    }
+    .history__year {
+      font-family: var(--font-en); font-size: 20px; font-weight: 700;
+      color: var(--color-primary); letter-spacing: -.01em; margin-bottom: 14px;
+    }
+    .history__rows { display: flex; flex-direction: column; gap: 10px; }
+    .history__row { display: flex; gap: 16px; align-items: baseline; }
+    .history__month {
+      font-family: var(--font-en); font-size: 13px; font-weight: 600;
+      color: var(--color-accent); flex-shrink: 0; width: 42px;
+    }
+    .history__text { font-size: 15px; color: var(--color-text); line-height: 1.6; }
+    .history__badge {
+      display: inline-block; margin-left: 8px; padding: 2px 8px;
+      font-family: var(--font-en); font-size: 10px; font-weight: 600; letter-spacing: .05em;
+      background: rgba(204,0,0,.08); color: var(--color-accent); border-radius: 3px; vertical-align: middle;
+    }
+    .history__more-wrap { list-style: none; display: block; padding: 0; }
+    .history__more-wrap::before { display: none; }
+    .history__more {
+      margin-top: 28px;
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 12px 24px; border: 1px solid var(--color-border-strong); border-radius: 4px;
+      font-size: 14px; font-weight: 600; color: var(--color-primary);
+      transition: all .3s var(--ease-out);
+    }
+    .history__more:hover { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
+    .history__more-ico { font-family: var(--font-en); font-size: 16px; line-height: 1; }
+
+    /* 오시는 길 */
+    .location { display: flex; flex-direction: column; gap: 28px; }
+    .location__cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .location__card {
+      padding: 28px; border: 1px solid var(--color-border); border-radius: 6px;
+      transition: all .3s var(--ease-out);
+      text-align: left; background: #fff; cursor: pointer;
+      position: relative; font-family: inherit;
+    }
+    .location__card:hover { border-color: var(--color-primary); box-shadow: 0 8px 30px -16px rgba(0,31,63,.2); }
+    .location__card.is-active {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 1px var(--color-primary), 0 12px 36px -18px rgba(0,31,63,.3);
+    }
+    .location__card.is-active::after {
+      content: ""; position: absolute; left: 50%; bottom: -9px; transform: translateX(-50%) rotate(45deg);
+      width: 16px; height: 16px; background: #fff;
+      border-right: 1px solid var(--color-primary); border-bottom: 1px solid var(--color-primary);
+    }
+    .location__tag {
+      display: inline-block; font-family: var(--font-en); font-size: 11px; font-weight: 600;
+      letter-spacing: .12em; padding: 4px 10px; border-radius: 3px; margin-bottom: 14px;
+    }
+    .location__tag--hq { background: var(--color-primary); color: #fff; }
+    .location__tag--wh { background: var(--color-bg-alt); color: var(--color-text-muted); }
+    .location__name { font-size: 18px; font-weight: 700; color: var(--color-primary); margin-bottom: 10px; }
+    .location__addr { font-size: 15px; color: var(--color-text-muted); line-height: 1.7; }
+    .location__detail { margin-top: 14px; display: flex; flex-direction: column; gap: 4px; font-size: 14px; color: var(--color-text-muted); }
+    .location__detail strong { color: var(--color-text); font-weight: 600; }
+    .location__map {
+      width: 100%; aspect-ratio: 16/9; border-radius: 6px; overflow: hidden;
+      background: var(--color-bg-alt); position: relative;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--color-border);
+    }
+    .location__map iframe { width: 100%; height: 100%; border: 0; }
+    .location__map-ph {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 8px; text-align: center; padding: 24px;
+      animation: mapFade .4s var(--ease-out);
+    }
+    .location__map-pin { font-size: 36px; }
+    .location__map-name { font-size: 20px; font-weight: 700; color: var(--color-primary); }
+    .location__map-addr { font-size: 14px; color: var(--color-text-muted); max-width: 40ch; }
+    .location__map-link {
+      margin-top: 8px; font-size: 14px; font-weight: 600; color: var(--color-accent);
+      transition: opacity .25s var(--ease-out);
+    }
+    .location__map-link:hover { opacity: .7; }
+    @keyframes mapFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
 
     /* =========================================================
-       6. RESPONSIVE
+       FOOTER (index.html과 동일)
        ========================================================= */
-    @media (max-width: 1024px) {
-      .hero__inner {
-        grid-template-columns: 1fr;
-        gap: 32px;
-      }
-      .hero__visual-space { display: none; }
-      .hero__content { max-width: 640px; }
-      /* 모바일에서는 손+RFID가 잘 보이도록 이미지 우측을 살짝 보여줌 */
-      .hero__bg img { object-position: 35% center; }
-      /* 1단일 때는 좌측 그라데이션을 살짝 풀어주고 전체 어둡게 */
-      .hero__overlay::after {
-        background: linear-gradient(
-          180deg,
-          rgba(0, 10, 25, 0.55) 0%,
-          rgba(0, 10, 25, 0.45) 60%,
-          rgba(0, 10, 25, 0.65) 100%
-        );
-      }
+    .footer { background: var(--color-primary-deep); color: rgba(255,255,255,.7); }
+    .footer__top {
+      max-width: var(--container-max); margin: 0 auto;
+      padding: clamp(56px,8vh,88px) var(--container-pad);
+      display: grid; grid-template-columns: 1fr 2fr; gap: 56px; align-items: start;
     }
+    .footer__logo { height: 40px; width: auto; margin-bottom: 24px; }
+    .footer__hours p { font-size: 14px; color: rgba(255,255,255,.8); }
+    .footer__hours-sub { color: rgba(255,255,255,.45) !important; margin-top: 4px; }
+    .footer__cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .footer__card {
+      display: flex; flex-direction: column; gap: 6px; padding: 28px 24px;
+      border: 1px solid rgba(255,255,255,.15); border-radius: 4px; transition: all .3s var(--ease-out);
+    }
+    .footer__card:hover { background: rgba(255,255,255,.05); border-color: rgba(91,194,216,.5); transform: translateY(-4px); }
+    .footer__card-en { font-family: var(--font-en); font-size: 11px; letter-spacing: .18em; color: #5BC2D8; font-weight: 600; }
+    .footer__card-ko { font-size: 20px; font-weight: 700; color: #fff; }
+    .footer__card-desc { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.6; margin-top: 4px; }
+    .footer__bottom { border-top: 1px solid rgba(255,255,255,.1); }
+    .footer__info { max-width: var(--container-max); margin: 0 auto; padding: 32px var(--container-pad) 8px; }
+    .footer__info p { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.9; }
+    .footer__meta {
+      max-width: var(--container-max); margin: 0 auto;
+      padding: 16px var(--container-pad) 40px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer__copy { font-family: var(--font-en); font-size: 12px; color: rgba(255,255,255,.4); }
+    .footer__member { font-family: var(--font-en); font-size: 11px; letter-spacing: .1em; color: rgba(255,255,255,.25); transition: color .3s var(--ease-out); }
+    .footer__member:hover { color: rgba(255,255,255,.6); }
 
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
     @media (max-width: 960px) {
       .header__inner { gap: 24px; }
       .nav { display: none; }
       .menu-toggle { display: flex; }
-      .hero__stats { display: none; }
-
-      .about__body { grid-template-columns: 1fr; gap: 48px; }
-      .rfid__flow-arrow { transform: rotate(90deg); }
-      .panel { grid-template-columns: 1fr; gap: 32px; }
-      .panel__slider { order: -1; }
+      .about-layout { grid-template-columns: 1fr; gap: 40px; }
+      .side-nav { position: relative; top: 0; display: flex; flex-direction: column; }
+      .side-nav__list { flex-direction: row; flex-wrap: wrap; gap: 8px; }
+      .ceo__values { grid-template-columns: 1fr; }
+      .location__cards { grid-template-columns: 1fr; }
       .footer__top { grid-template-columns: 1fr; gap: 40px; }
     }
-
     @media (max-width: 640px) {
-      :root {
-        --header-h: 64px;
-        --header-h-scrolled: 56px;
-      }
+      :root { --header-h: 64px; --header-h-scrolled: 56px; }
       .logo__img { height: 30px; }
-      .header.is-scrolled .logo__img { height: 28px; }
       .lang { gap: 8px; }
       .lang__btn { font-size: 11px; }
-      .hero__inner { padding-bottom: 100px; gap: 24px; }
-      .btn { padding: 14px 22px; font-size: 13px; }
-
-      .about__stats { grid-template-columns: 1fr; }
-      .about__stat { padding: 28px 24px; }
-      .about__stat-num { font-size: 36px; }
-      .rfid__apps { grid-template-columns: 1fr; gap: 28px; }
       .footer__cards { grid-template-columns: 1fr; }
-      .tabs { gap: 0; }
-      .tab { padding: 14px 18px; flex: 1; }
-      .tab__band { font-size: 16px; }
-      .tab__freq { font-size: 10px; }
       .footer__meta { flex-direction: column; gap: 12px; align-items: flex-start; }
-    }
-
-    /* =========================================================
-       7. ENTRANCE ANIMATIONS
-       ========================================================= */
-    .hero__content > * {
-      opacity: 0;
-      transform: translateY(24px);
-      animation: heroEnter 0.9s var(--ease-out) forwards;
-    }
-    .hero__content > *:nth-child(1) { animation-delay: 0.15s; }
-    .hero__content > *:nth-child(2) { animation-delay: 0.30s; }
-    .hero__content > *:nth-child(3) { animation-delay: 0.50s; }
-    .hero__content > *:nth-child(4) { animation-delay: 0.70s; }
-
-    @keyframes heroEnter {
-      to { opacity: 1; transform: translateY(0); }
+      .history__row { flex-direction: column; gap: 2px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-
-    /* =========================================================
-       공지 팝업
-       ========================================================= */
-    .popup {
-      position: fixed; inset: 0; z-index: 1000;
-      display: flex; align-items: center; justify-content: center;
-      padding: 20px;
-    }
-    .popup[hidden] { display: none; }
-    .popup__overlay {
-      position: absolute; inset: 0;
-      background: rgba(0, 15, 31, 0.6);
-      backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
-      animation: popupOverlayIn .3s var(--ease-out);
-    }
-    @keyframes popupOverlayIn { from { opacity: 0; } to { opacity: 1; } }
-    .popup__box {
-      position: relative; z-index: 1;
-      width: 100%; max-width: 420px;
-      background: #fff; border-radius: 12px; overflow: hidden;
-      box-shadow: 0 32px 80px -20px rgba(0, 15, 31, 0.5);
-      animation: popupBoxIn .4s var(--ease-out);
-    }
-    @keyframes popupBoxIn {
-      from { opacity: 0; transform: translateY(24px) scale(0.96); }
-      to   { opacity: 1; transform: none; }
-    }
-    .popup__close-x {
-      position: absolute; top: 12px; right: 12px; z-index: 2;
-      width: 36px; height: 36px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 24px; line-height: 1; color: #fff;
-      background: rgba(0, 0, 0, 0.35); cursor: pointer;
-      transition: background .2s var(--ease-out);
-    }
-    .popup__close-x:hover { background: rgba(0, 0, 0, 0.6); }
-    .popup__img-link { display: block; }
-    .popup__img {
-      width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block;
-    }
-    .popup__body { padding: 24px 26px 20px; }
-    .popup__badge {
-      display: inline-block; font-family: var(--font-en);
-      font-size: 10px; font-weight: 700; letter-spacing: .15em;
-      padding: 4px 10px; border-radius: 3px; margin-bottom: 12px;
-      background: rgba(204, 0, 0, 0.1); color: var(--color-accent);
-    }
-    .popup__title {
-      font-size: 20px; font-weight: 700; color: var(--color-primary);
-      letter-spacing: -.02em; margin-bottom: 10px; line-height: 1.3;
-    }
-    .popup__text {
-      font-size: 14px; line-height: 1.7; color: var(--color-text-muted);
-      white-space: pre-line;
-    }
-    .popup__footer {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 16px 26px; border-top: 1px solid var(--color-border);
-      background: var(--color-bg-alt);
-    }
-    .popup__dont {
-      display: flex; align-items: center; gap: 8px; cursor: pointer;
-      font-size: 13px; color: var(--color-text-muted);
-    }
-    .popup__dont input { accent-color: var(--color-primary); width: 15px; height: 15px; }
-    .popup__close {
-      padding: 9px 22px; background: var(--color-primary); color: #fff;
-      border-radius: 5px; font-size: 14px; font-weight: 600; cursor: pointer;
-      transition: background .2s var(--ease-out);
-    }
-    .popup__close:hover { background: var(--color-accent); }
-
-    @media (max-width: 480px) {
-      .popup__box { max-width: 100%; }
-      .popup__title { font-size: 18px; }
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
     }
   </style>
-  <!-- Supabase 연결 -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    window.CEYON_SUPABASE_URL  = 'https://ovmwclkbquzapgvzweon.supabase.co';
-    window.CEYON_SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im92bXdjbGticXV6YXBndnp3ZW9uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyNjcyMjksImV4cCI6MjA5NTg0MzIyOX0.LWv5GEx3Y0lrem2Vh7-brijuQNZIRdMNsieIC1BtEck';
-  </script>
+  <!-- 카카오맵 SDK — 아래 'YOUR_KAKAO_JS_KEY'를 발급받은 JavaScript 키로 교체하세요 -->
+  <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_KAKAO_JS_KEY&libraries=services" defer></script>
 </head>
 
 <body>
@@ -1277,28 +498,12 @@
   <!-- ===================== HEADER ===================== -->
   <header class="header" id="header">
     <div class="header__inner">
-
-      <a href="index.html" class="logo" aria-label="세연테크놀로지(주) - CEYON Technology 홈">
-        <img
-          class="logo__img logo__img--white"
-          src="assets/logo-white.png"
-          alt="세연테크놀로지(주) CEYON TECHNOLOGY"
-          width="240"
-          height="38"
-        />
-        <img
-          class="logo__img logo__img--color"
-          src="assets/logo.png"
-          alt=""
-          aria-hidden="true"
-          width="240"
-          height="38"
-        />
+      <a href="index.html" class="logo" aria-label="세연테크놀로지(주) 홈">
+        <img class="logo__img" src="assets/logo.png" alt="세연테크놀로지(주) CEYON TECHNOLOGY" width="240" height="36" />
       </a>
-
             <nav class="nav" aria-label="주메뉴">
         <div class="nav__item">
-          <a href="about.html" class="nav__link" data-i18n="nav.about">회사소개</a>
+          <a href="about.html" class="nav__link is-current" data-i18n="nav.about">회사소개</a>
           <div class="nav__dropdown">
             <a href="about.html" data-i18n="about.navCeo">CEO 인사말</a>
             <a href="history.html" data-i18n="about.navHistory">연혁</a>
@@ -1335,7 +540,6 @@
           </div>
         </div>
       </nav>
-
       <div class="header__right">
         <div class="lang" role="group" aria-label="언어 선택">
           <button class="lang__btn is-active" data-lang="ko" aria-pressed="true">KR</button>
@@ -1344,342 +548,95 @@
           <span class="lang__divider" aria-hidden="true"></span>
           <button class="lang__btn" data-lang="cn" aria-pressed="false">CN</button>
         </div>
-
-        <button class="menu-toggle" aria-label="메뉴 열기">
-          <span></span><span></span><span></span>
-        </button>
+        <button class="menu-toggle" aria-label="메뉴 열기"><span></span><span></span><span></span></button>
       </div>
-
     </div>
   </header>
 
-  <!-- ===================== HERO ===================== -->
-  <section class="hero" id="top">
-    <!--
-      배경 사진 (현재: RFID 회로를 손에 든 이미지)
-      ⚠️ iStock 미리보기 — 실 배포 전 라이선스 구매 또는 무료 대체 필수
-      교체 방법: 아래 src 만 새 파일 경로로 바꾸세요. (assets/hero.jpg 권장)
-    -->
-    <div class="hero__bg" aria-hidden="true">
-      <img
-        src="assets/hero.jpg"
-        alt=""
-        loading="eager"
-        fetchpriority="high"
-        onerror="this.style.display='none'"
-      />
-    </div>
-    <div class="hero__overlay" aria-hidden="true"></div>
-
-    <div class="hero__inner">
-      <!-- 좌측: 이미지 비주얼이 자연스럽게 보이는 공간 -->
-      <div class="hero__visual-space" aria-hidden="true"></div>
-
-      <!-- 우측: 텍스트 + CTA -->
-      <div class="hero__content">
-        <span class="hero__eyebrow" data-i18n="hero.eyebrow">WORLD BEST RFID / USN TECHNOLOGY</span>
-
-        <h1 class="hero__title" data-i18n="hero.title" data-i18n-html>
-          대한민국 RFID의<br>
-          <em>표준</em>을 만들어 온 25년.
-        </h1>
-
-        <p class="hero__sub" data-i18n="hero.sub" data-i18n-html>
-          2001년 설립 이후 RFID 리더·안테나·태그를 자체 개발·제조해 온<br>
-          순수 국내 기술 기반 RFID 하드웨어 전문 기업.
-        </p>
-
-        <div class="hero__cta">
-          <a href="products.html" class="btn btn--primary">
-            <span data-i18n="hero.ctaPrimary">제품 살펴보기</span>
-          </a>
-          <a href="support.html" class="btn btn--ghost">
-            <span data-i18n="hero.ctaSecondary">견적 문의</span>
-            <span class="btn__arrow" aria-hidden="true">→</span>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="hero__meta">
-      <div class="hero__stats">
-        <div class="hero__stat">
-          <div class="hero__stat-num">2001<sup>—</sup></div>
-          <div class="hero__stat-label" data-i18n="hero.stat1">Since · RFID 전문</div>
-        </div>
-        <div class="hero__stat">
-          <div class="hero__stat-num">4<sup>대역</sup></div>
-          <div class="hero__stat-label" data-i18n="hero.stat2">125·134·13.56·900</div>
-        </div>
-        <div class="hero__stat">
-          <div class="hero__stat-num">자체<sup>개발</sup></div>
-          <div class="hero__stat-label" data-i18n="hero.stat3">리더·안테나·태그 제조</div>
-        </div>
-      </div>
+  <!-- ===================== PAGE HERO ===================== -->
+  <section class="page-hero">
+    <div class="page-hero__inner">
+      <nav class="page-hero__crumb" aria-label="breadcrumb">
+        <a href="index.html" data-i18n="crumb.home">홈</a> &nbsp;/&nbsp; <a href="about.html" data-i18n="nav.about">회사소개</a> &nbsp;/&nbsp; <span data-i18n="about.navLocation">오시는 길</span>
+      </nav>
+      <span class="page-hero__eyebrow" data-i18n="about.navLocation">LOCATION</span>
+      <h1 class="page-hero__title" data-i18n="locationPage.title" data-i18n-html>세연테크놀로지를<br>찾아오시는 길</h1>
+      <p class="page-hero__sub" data-i18n="locationPage.sub">
+        업무는 서울 본사에서, 제품 납품·물류는 안양 사업장에서 운영하고 있습니다.
+      </p>
     </div>
   </section>
 
-  <!-- =============== ABOUT — 세연테크놀로지는 어떤 기업인가 =============== -->
-  <section class="about" id="about">
-    <div class="about__inner">
-      <div class="about__head">
-        <span class="section__eyebrow" data-i18n="about.eyebrow">ABOUT CEYON</span>
-        <h2 class="section__title" data-i18n="about.title" data-i18n-html>
-          25년간 한 분야만 파고든<br>
-          <em>RFID 전문 기업</em>입니다.
-        </h2>
-      </div>
+  <!-- ===================== ABOUT LAYOUT ===================== -->
+  <div class="about-layout">
 
-      <div class="about__body">
-        <div class="about__text">
-          <p data-i18n="about.p1">
-            세연테크놀로지(주)는 2001년 설립 이후 RFID 리더·안테나·태그를 자체 개발·제조해 온
-            순수 국내 기술 기반의 RFID 하드웨어 전문 기업입니다.
-          </p>
-          <p data-i18n="about.p2">
-            반도체 공장자동화, 유통·물류, 자산·출입관리 등 다양한 산업 현장에
-            검증된 RFID 하드웨어를 공급하며, 고객 환경에 맞는 최적의 솔루션을 제안합니다.
-          </p>
-          <a href="about.html" class="about__link" data-i18n="about.link">
-            우리의 강점 살펴보기 →
-          </a>
+    <!-- 좌측 사이드 네비 -->
+    <aside class="side-nav">
+      <div class="side-nav__title">ABOUT</div>
+      <ul class="side-nav__list">
+        <li><a href="about.html"    class="side-nav__link" data-i18n="about.navCeo">CEO 인사말</a></li>
+        <li><a href="history.html"  class="side-nav__link" data-i18n="about.navHistory">연혁</a></li>
+        <li><a href="location.html" class="side-nav__link is-active" data-i18n="about.navLocation">오시는 길</a></li>
+      </ul>
+    </aside>
+
+    <!-- 우측 콘텐츠 -->
+    <div class="about-content">
+
+      <!-- 오시는 길 -->
+      <section class="block" id="location">
+        <span class="block__eyebrow" data-i18n="about.navLocation">LOCATION</span>
+        <h2 class="block__title" data-i18n="location.title">오시는 길</h2>
+        <div class="location">
+          <div class="location__cards">
+            <button class="location__card is-active" data-loc="hq" type="button">
+              <span class="location__tag location__tag--hq" data-i18n="location.hqTag">본사 · 업무</span>
+              <div class="location__name" data-i18n="location.hqName">서울 본사</div>
+              <p class="location__addr" data-i18n="location.hqAddr">
+                서울특별시 서초구 서초중앙로22길 117<br>그라비타스타워 5층 (우 06631)
+              </p>
+              <div class="location__detail">
+                <span><strong>TEL</strong> &nbsp; 02-3418-3030</span>
+                <span><strong>FAX</strong> &nbsp; 02-3418-5678</span>
+                <span><strong>EMAIL</strong> &nbsp; ceyonpo@ceyon.co.kr</span>
+              </div>
+            </button>
+            <button class="location__card" data-loc="wh" type="button">
+              <span class="location__tag location__tag--wh" data-i18n="location.whTag">사업장 · 납품 창고</span>
+              <div class="location__name" data-i18n="location.whName">안양 사업장</div>
+              <p class="location__addr" data-i18n="location.whAddr">
+                경기도 안양시 동안구 흥안대로427번길 57-2<br>1204호 (관양동, 아이에스비즈타워)
+              </p>
+              <div class="location__detail">
+                <span data-i18n="location.whNote">용도 · 제품 납품 및 물류 창고</span>
+              </div>
+            </button>
+          </div>
+
+          <!-- 지도 (탭 전환) -->
+          <div class="location__map" id="locationMap">
+            <!--
+              ▼▼▼ 실제 카카오맵 적용 방법 ▼▼▼
+              1) https://developers.kakao.com 에서 앱 생성 → JavaScript 키 발급 (무료)
+              2) 배포 도메인을 [플랫폼 > Web]에 등록 (예: https://ceyon.github.io)
+              3) <head> 에 SDK 추가 (예시): dapi.kakao.com/v2/maps/sdk.js?appkey=발급키 를 script 태그로 로드
+              4) 아래 MAP_DATA 의 lat/lng 를 실제 좌표로 넣고, USE_KAKAO 를 true 로
+              현재는 키가 없어 안내용 플레이스홀더가 표시됩니다(탭 전환 동작은 미리보기 가능).
+            -->
+            <div class="location__map-ph" id="mapPlaceholder">
+              <div class="location__map-pin">📍</div>
+              <div class="location__map-name" id="mapName">서울 본사</div>
+              <div class="location__map-addr" id="mapAddr">서울특별시 서초구 서초중앙로22길 117, 그라비타스타워 5층</div>
+              <a class="location__map-link" id="mapLink" href="https://map.kakao.com/?q=서울특별시 서초구 서초중앙로22길 117" target="_blank" rel="noopener" data-i18n="location.openMap">카카오맵에서 보기 →</a>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <ul class="about__stats">
-          <li class="about__stat">
-            <div class="about__stat-num">2001</div>
-            <div class="about__stat-label" data-i18n="about.s1">설립 연도</div>
-          </li>
-          <li class="about__stat">
-            <div class="about__stat-num">4<span>대역</span></div>
-            <div class="about__stat-label" data-i18n="about.s2">125·134·13.56·900</div>
-          </li>
-          <li class="about__stat">
-            <div class="about__stat-num">자체<span>개발</span></div>
-            <div class="about__stat-label" data-i18n="about.s3">리더·안테나·태그 제조</div>
-          </li>
-          <li class="about__stat">
-            <div class="about__stat-num">RFID<span>전문</span></div>
-            <div class="about__stat-label" data-i18n="about.s4">하드웨어 단일 분야 집중</div>
-          </li>
-        </ul>
-      </div>
     </div>
-  </section>
+  </div>
 
-  <!-- =============== RFID — 우리가 다루는 기술 =============== -->
-  <section class="rfid" id="rfid">
-    <div class="rfid__inner">
-      <div class="rfid__head">
-        <span class="section__eyebrow section__eyebrow--light" data-i18n="rfid.eyebrow">WHAT IS RFID</span>
-        <h2 class="section__title section__title--light" data-i18n="rfid.title" data-i18n-html>
-          비접촉으로 사물을 인식하는<br>
-          <em>무선 식별 기술</em>
-        </h2>
-        <p class="rfid__lead" data-i18n="rfid.lead">
-          RFID(Radio Frequency IDentification)는 전파를 이용해 태그에 저장된 정보를
-          비접촉으로 읽고 쓰는 기술입니다. 바코드와 달리 직접 보이지 않아도, 여러 개를 동시에,
-          빠르게 인식할 수 있습니다.
-        </p>
-      </div>
-
-      <div class="rfid__flow" role="list">
-        <div class="rfid__flow-item" role="listitem">
-          <div class="rfid__flow-icon" aria-hidden="true">
-            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="10" y="14" width="28" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
-              <line x1="16" y1="20" x2="32" y2="20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <line x1="16" y1="24" x2="28" y2="24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <circle cx="31" cy="28" r="1.5" fill="currentColor"/>
-            </svg>
-          </div>
-          <h3 data-i18n="rfid.f1t">태그 (Tag)</h3>
-          <p data-i18n="rfid.f1d">사물에 부착되어 고유 정보를 저장</p>
-        </div>
-        <div class="rfid__flow-arrow" aria-hidden="true">→</div>
-        <div class="rfid__flow-item" role="listitem">
-          <div class="rfid__flow-icon" aria-hidden="true">
-            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <line x1="24" y1="26" x2="24" y2="38" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M18 22a6 6 0 0 1 12 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <path d="M14 22a10 10 0 0 1 20 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
-              <path d="M10 22a14 14 0 0 1 28 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
-              <circle cx="24" cy="22" r="2" fill="currentColor"/>
-            </svg>
-          </div>
-          <h3 data-i18n="rfid.f2t">안테나 (Antenna)</h3>
-          <p data-i18n="rfid.f2d">전파를 송수신하여 태그와 통신</p>
-        </div>
-        <div class="rfid__flow-arrow" aria-hidden="true">→</div>
-        <div class="rfid__flow-item" role="listitem">
-          <div class="rfid__flow-icon" aria-hidden="true">
-            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="9" y="12" width="30" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
-              <line x1="19" y1="38" x2="29" y2="38" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              <line x1="24" y1="32" x2="24" y2="38" stroke="currentColor" stroke-width="2"/>
-              <rect x="15" y="18" width="8" height="8" rx="1" stroke="currentColor" stroke-width="1.6"/>
-              <line x1="27" y1="19" x2="33" y2="19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-              <line x1="27" y1="23" x2="33" y2="23" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <h3 data-i18n="rfid.f3t">리더 (Reader)</h3>
-          <p data-i18n="rfid.f3d">정보를 해독하여 시스템으로 전달</p>
-        </div>
-      </div>
-
-      <div class="rfid__apps">
-        <div class="rfid__app">
-          <h4 data-i18n="rfid.a1t">반도체 공장자동화</h4>
-          <p data-i18n="rfid.a1d">웨이퍼·자재 추적, 공정 이력 관리</p>
-        </div>
-        <div class="rfid__app">
-          <h4 data-i18n="rfid.a2t">유통·물류</h4>
-          <p data-i18n="rfid.a2d">입출고 자동화, 재고 실시간 파악</p>
-        </div>
-        <div class="rfid__app">
-          <h4 data-i18n="rfid.a3t">자산·출입 관리</h4>
-          <p data-i18n="rfid.a3d">도서·비품 관리, 출입통제, 이력 추적</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =============== PRODUCTS — 제품 대역 (동적 탭) =============== -->
-  <section class="products" id="products">
-    <div class="products__inner">
-      <div class="products__head">
-        <span class="section__eyebrow" data-i18n="prod.eyebrow">PRODUCTS</span>
-        <h2 class="section__title" data-i18n="prod.title">주파수 대역별 제품군</h2>
-        <p class="products__sub" data-i18n="prod.sub">
-          탭을 클릭하면 각 대역의 특징과 대표 제품을 확인할 수 있습니다.
-        </p>
-      </div>
-
-      <!-- 탭 버튼 -->
-      <div class="tabs" role="tablist" aria-label="제품 대역">
-        <button class="tab is-active" role="tab" data-tab="lf125"  aria-selected="true">
-          <span class="tab__band">125 kHz</span>
-          <span class="tab__freq">LF · 저주파</span>
-        </button>
-        <button class="tab" role="tab" data-tab="lf134" aria-selected="false">
-          <span class="tab__band">134.2 kHz</span>
-          <span class="tab__freq">LF · 동물식별</span>
-        </button>
-        <button class="tab" role="tab" data-tab="hf" aria-selected="false">
-          <span class="tab__band">13.56 MHz</span>
-          <span class="tab__freq">HF · 표준</span>
-        </button>
-        <button class="tab" role="tab" data-tab="uhf" aria-selected="false">
-          <span class="tab__band">900 MHz</span>
-          <span class="tab__freq">UHF · 장거리</span>
-        </button>
-      </div>
-
-      <!-- 탭 패널 -->
-      <div class="tab-panels">
-        <!-- 125 kHz -->
-        <div class="panel is-active" role="tabpanel" data-panel="lf125">
-          <div class="panel__info">
-            <h3 data-i18n="prod.lf125.t">125 kHz — 근거리·고신뢰</h3>
-            <p data-i18n="prod.lf125.d">
-              저주파(LF) 대역으로 금속·수분 환경에서도 안정적인 인식이 가능합니다.
-              출입통제, 자산관리 등 신뢰성이 중요한 환경에 최적화되어 있습니다.
-            </p>
-            <ul class="panel__feats">
-              <li data-i18n="prod.lf125.f1">국내 최초 PDA용 125kHz RFID 리더 개발</li>
-              <li data-i18n="prod.lf125.f2">금속·수분 간섭에 강한 안정성</li>
-              <li data-i18n="prod.lf125.f3">출입통제·자산관리 검증</li>
-            </ul>
-            <a href="products.html#lf125" class="panel__cta" data-i18n="prod.detail">제품 상세 보기 →</a>
-          </div>
-          <div class="panel__slider" data-slider>
-            <div class="panel__slides">
-              <div class="panel__slide"><div class="panel__ph">REM125-1</div></div>
-              <div class="panel__slide"><div class="panel__ph">REM125-5</div></div>
-              <div class="panel__slide"><div class="panel__ph">125kHz Antenna</div></div>
-            </div>
-            <div class="panel__dots"></div>
-          </div>
-        </div>
-
-        <!-- 134.2 kHz -->
-        <div class="panel" role="tabpanel" data-panel="lf134" hidden>
-          <div class="panel__info">
-            <h3 data-i18n="prod.lf134.t">134.2 kHz — 동물 개체식별</h3>
-            <p data-i18n="prod.lf134.d">
-              ISO 11784/11785 국제 표준 대역으로, 가축·반려동물 개체식별에 사용되는
-              주파수입니다. 축산물 이력관리 시스템에 검증된 신뢰성을 제공합니다.
-            </p>
-            <ul class="panel__feats">
-              <li data-i18n="prod.lf134.f1">ISO 11784/11785 동물식별 표준 준수</li>
-              <li data-i18n="prod.lf134.f2">축산물 이력관리 시스템 적용</li>
-              <li data-i18n="prod.lf134.f3">야외·악조건 환경 안정 동작</li>
-            </ul>
-            <a href="products.html#lf134" class="panel__cta" data-i18n="prod.detail">제품 상세 보기 →</a>
-          </div>
-          <div class="panel__slider" data-slider>
-            <div class="panel__slides">
-              <div class="panel__slide"><div class="panel__ph">REM134 Reader</div></div>
-              <div class="panel__slide"><div class="panel__ph">동물식별 태그</div></div>
-            </div>
-            <div class="panel__dots"></div>
-          </div>
-        </div>
-
-        <!-- 13.56 MHz -->
-        <div class="panel" role="tabpanel" data-panel="hf" hidden>
-          <div class="panel__info">
-            <h3 data-i18n="prod.hf.t">13.56 MHz — 표준·범용</h3>
-            <p data-i18n="prod.hf.d">
-              국제 표준(ISO 14443/15693) 호환 HF 제품군입니다.
-              도서관리, 스마트카드, 결제, 의료 등 정밀 식별이 필요한 분야에 적합합니다.
-            </p>
-            <ul class="panel__feats">
-              <li data-i18n="prod.hf.f1">1리더 4안테나 외장형 RFID 리더</li>
-              <li data-i18n="prod.hf.f2">ISO 국제 표준 완벽 호환</li>
-              <li data-i18n="prod.hf.f3">도서관리·스마트카드 적용 검증</li>
-            </ul>
-            <a href="products.html#hf" class="panel__cta" data-i18n="prod.detail">제품 상세 보기 →</a>
-          </div>
-          <div class="panel__slider" data-slider>
-            <div class="panel__slides">
-              <div class="panel__slide"><div class="panel__ph">REM1356-1</div></div>
-              <div class="panel__slide"><div class="panel__ph">REM1356-5</div></div>
-              <div class="panel__slide"><div class="panel__ph">13.56MHz Antenna</div></div>
-            </div>
-            <div class="panel__dots"></div>
-          </div>
-        </div>
-
-        <!-- 900 MHz -->
-        <div class="panel" role="tabpanel" data-panel="uhf" hidden>
-          <div class="panel__info">
-            <h3 data-i18n="prod.uhf.t">900 MHz — 장거리·다중인식</h3>
-            <p data-i18n="prod.uhf.d">
-              UHF 대역으로 최대 수 미터 거리에서 다수의 태그를 동시에 빠르게 인식합니다.
-              물류센터 입출고, 대량 재고관리, 공급망 추적에 최적입니다.
-            </p>
-            <ul class="panel__feats">
-              <li data-i18n="prod.uhf.f1">최대 수 미터 장거리 인식</li>
-              <li data-i18n="prod.uhf.f2">초당 수백 개 태그 동시 처리</li>
-              <li data-i18n="prod.uhf.f3">대규모 물류·공급망 자동화</li>
-            </ul>
-            <a href="products.html#uhf" class="panel__cta" data-i18n="prod.detail">제품 상세 보기 →</a>
-          </div>
-          <div class="panel__slider" data-slider>
-            <div class="panel__slides">
-              <div class="panel__slide"><div class="panel__ph">UHF Reader</div></div>
-              <div class="panel__slide"><div class="panel__ph">UHF Antenna</div></div>
-              <div class="panel__slide"><div class="panel__ph">UHF Tag</div></div>
-            </div>
-            <div class="panel__dots"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- =============== FOOTER (크로스이엔지 패턴) =============== -->
+  <!-- ===================== FOOTER ===================== -->
   <footer class="footer" id="contact">
     <div class="footer__top">
       <div class="footer__brand">
@@ -1689,7 +646,6 @@
           <p class="footer__hours-sub" data-i18n="foot.hours2">(토·일, 법정 공휴일 휴무)</p>
         </div>
       </div>
-
       <div class="footer__cards">
         <a href="about.html" class="footer__card">
           <span class="footer__card-en">ABOUT US</span>
@@ -1699,7 +655,7 @@
         <a href="products.html" class="footer__card">
           <span class="footer__card-en">PRODUCTS</span>
           <span class="footer__card-ko" data-i18n="foot.c2t">제품 안내</span>
-          <span class="footer__card-desc" data-i18n="foot.c2d">LF·HF·UHF 전 대역 RFID 제품을 안내합니다.</span>
+          <span class="footer__card-desc" data-i18n="foot.c2d">125·134·13.56·900 전 대역 RFID 제품을 안내합니다.</span>
         </a>
         <a href="support.html" class="footer__card">
           <span class="footer__card-en">CONTACT</span>
@@ -1708,7 +664,6 @@
         </a>
       </div>
     </div>
-
     <div class="footer__bottom">
       <div class="footer__info">
         <p>
@@ -1725,495 +680,247 @@
       </div>
       <div class="footer__meta">
         <span class="footer__copy">© 2026 CEYON Technology Co., Ltd. All rights reserved.</span>
-        <!-- 숨겨진 관리자 진입로 -->
         <a href="admin.html" class="footer__member" rel="nofollow">MEMBER</a>
       </div>
     </div>
   </footer>
 
-  <!-- ===================== 공지 팝업 ===================== -->
-  <div class="popup" id="noticePopup" hidden>
-    <div class="popup__overlay" id="popupOverlay"></div>
-    <div class="popup__box" role="dialog" aria-modal="true" aria-label="공지사항">
-      <button class="popup__close-x" id="popupCloseX" aria-label="닫기">&times;</button>
-      <a href="news.html" class="popup__img-link" id="popupImgLink">
-        <img class="popup__img" id="popupImg" src="assets/popup-sample.jpg" alt="공지사항" />
-      </a>
-      <div class="popup__body">
-        <span class="popup__badge" id="popupBadge">NOTICE</span>
-        <h3 class="popup__title" id="popupTitle">예시 데이터입니다</h3>
-        <p class="popup__text" id="popupText">
-          이곳에 공지 내용이 표시됩니다. 실제 운영 시에는 관리자 페이지에서
-          입력한 내용과 이미지가 이 영역에 나타납니다. (현재는 예시 데이터)
-        </p>
-      </div>
-      <div class="popup__footer">
-        <label class="popup__dont">
-          <input type="checkbox" id="popupDont" />
-          <span>오늘 하루 보지 않기</span>
-        </label>
-        <button class="popup__close" id="popupClose">닫기</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===================== SCRIPTS ===================== -->
   <script>
-    /* ---------------------------------------------------------
-       1) Sticky header — toggle .is-scrolled past threshold
-       --------------------------------------------------------- */
+    /* =========================================================
+       i18n — 회사소개 페이지 다국어 사전
+       ========================================================= */
+    const I18N = {
+      ko: {
+        'nav.about':'회사소개','nav.rfid':'RFID 기술','nav.products':'제품소개','nav.news':'세연소식','nav.support':'고객지원',
+        'crumb.home':'홈',
+        'about.eyebrow':'ABOUT CEYON',
+        'about.pageTitle':'RFID 한 분야에<br>25년을 집중한 기업',
+        'about.pageSub':'세연테크놀로지(주)는 2001년 설립 이후 RFID 리더·안테나·태그를 자체 개발·제조해 온 순수 국내 기술 기반의 RFID 하드웨어 전문 기업입니다.',
+        'about.navCeo':'CEO 인사말','about.navHistory':'연혁','about.navLocation':'오시는 길',
+        'ceo.title':'<em>World Best RFID</em>를 향한<br>변함없는 약속',
+        'ceo.lead':'"RFID 한 분야에 집중해 온 기술과 경험으로,<br>고객 현장에 가장 적합한 해답을 제시합니다."',
+        'ceo.p1':"세연테크놀로지(주)는 2001년 'World Best RFID/USN Technology'를 기본 이념으로, 자체 기술에 의한 RFID 장비 개발·생산 전문 기업으로 출발했습니다. 사내 연구진이 직접 개발한 주파수 대역별 다양한 제품을 보유하고 있으며, 당사의 리더와 태그는 첨단산업의 공장자동화부터 유통·물류에 이르기까지 폭넓게 적용되고 있습니다.",
+        'ceo.p2':"축적된 기술력을 바탕으로 주파수 대역별 차별화된 제품을 개발하여, 사용자 환경에 적합한 기술과 애플리케이션을 제공함으로써 고객의 기대에 부응하고자 끊임없이 노력하고 있습니다. 'World Best RFID Company'라는 자부심을 가지고 앞으로도 계속 정진하겠습니다.",
+        'ceo.v1t':'자체 기술','ceo.v1d':'리더·안테나·태그를 직접 개발하고 제조합니다.',
+        'ceo.v2t':'25년 노하우','ceo.v2d':'2001년부터 한 분야에 집중해 온 경험이 있습니다.',
+        'ceo.v3t':'고객 중심','ceo.v3d':'현장 환경에 맞는 최적의 솔루션을 제안합니다.',
+        'ceo.signLabel':'세연테크놀로지(주) 대표이사','ceo.signName':'손 영 전',
+        'history.title':'국내외 현장에서 쌓아 온<br><em>RFID 기술의 발자취</em>',
+        'location.title':'오시는 길',
+        'locationPage.title':'세연테크놀로지를<br>찾아오시는 길',
+        'locationPage.sub':'업무는 서울 본사에서, 제품 납품·물류는 안양 사업장에서 운영하고 있습니다.',
+        'location.openMap':'카카오맵에서 보기 →',
+        'location.hqTag':'본사 · 업무','location.hqName':'서울 본사',
+        'location.hqAddr':'서울특별시 서초구 서초중앙로22길 117<br>그라비타스타워 5층 (우 06631)',
+        'location.whTag':'사업장 · 납품 창고','location.whName':'안양 사업장',
+        'location.whAddr':'경기도 안양시 동안구 흥안대로427번길 57-2<br>1204호 (관양동, 아이에스비즈타워)',
+        'location.whNote':'용도 · 제품 납품 및 물류 창고',
+        'foot.hours1':'평일 AM 9:00 ~ PM 6:00','foot.hours2':'(토·일, 법정 공휴일 휴무)',
+        'foot.c1t':'회사 소개','foot.c1d':'RFID 전문 기업, 세연테크놀로지를 소개합니다.',
+        'foot.c2t':'제품 안내','foot.c2d':'125·134·13.56·900 전 대역 RFID 제품을 안내합니다.',
+        'foot.c3t':'문의','foot.c3d':'제품 단가 또는 궁금한 점이 있다면 문의 주세요.',
+        'foot.company':'법인명 : 세연테크놀로지(주)','foot.ceo':'대표자 : 손영전',
+        'foot.addr':'본사 : 서울특별시 서초구 서초중앙로22길 117, 그라비타스타워 5층 (06631)'
+      },
+      en: {
+        'nav.about':'Company','nav.rfid':'RFID','nav.products':'Products','nav.news':'News','nav.support':'Support',
+        'crumb.home':'Home',
+        'about.eyebrow':'ABOUT CEYON',
+        'about.pageTitle':'25 years focused<br>on a single field: RFID',
+        'about.pageSub':'CEYON Technology has developed and manufactured RFID readers, antennas, and tags in-house since 2001 — a Korean-made RFID hardware specialist.',
+        'about.navCeo':'CEO Message','about.navHistory':'History','about.navLocation':'Location',
+        'ceo.title':'An unwavering commitment<br>to <em>World Best RFID</em>',
+        'ceo.lead':'"With technology and experience focused on RFID alone,<br>we deliver the best-fit answer for each customer site."',
+        'ceo.p1':"Founded in 2001 under the philosophy of 'World Best RFID/USN Technology,' CEYON Technology started as a specialist in developing and manufacturing RFID equipment with its own technology. Our in-house R&D team has built a diverse product lineup across frequency bands, and our readers and tags are widely applied from factory automation to retail and logistics.",
+        'ceo.p2':"Building on accumulated expertise, we develop differentiated products for each frequency band, providing technologies and applications suited to each environment. With the pride of being a 'World Best RFID Company,' we will continue to move forward.",
+        'ceo.v1t':'In-house Tech','ceo.v1d':'We develop and manufacture readers, antennas, and tags ourselves.',
+        'ceo.v2t':'25 Years','ceo.v2d':'Focused on one field since 2001.',
+        'ceo.v3t':'Customer First','ceo.v3d':'We propose optimal solutions tailored to each site.',
+        'ceo.signLabel':'CEO, CEYON Technology Co., Ltd.','ceo.signName':'Son Young-jeon',
+        'history.title':'A track record of RFID<br><em>built on real-world sites</em>',
+        'location.title':'Location',
+        'locationPage.title':'How to<br>find CEYON',
+        'locationPage.sub':'Our office operates at the Seoul HQ, while product delivery and logistics run from the Anyang site.',
+        'location.openMap':'View on KakaoMap →',
+        'location.hqTag':'HQ · Office','location.hqName':'Seoul HQ',
+        'location.hqAddr':'5F Gravitas Tower, 117 Seochojungang-ro 22-gil,<br>Seocho-gu, Seoul (06631)',
+        'location.whTag':'Site · Warehouse','location.whName':'Anyang Site',
+        'location.whAddr':'57-2 Heungan-daero 427beon-gil, Dongan-gu,<br>Anyang-si, Gyeonggi-do #1204',
+        'location.whNote':'Use · Product delivery & logistics warehouse',
+        'foot.hours1':'Weekdays 9:00 AM ~ 6:00 PM','foot.hours2':'(Closed weekends & public holidays)',
+        'foot.c1t':'About Us','foot.c1d':'Meet CEYON Technology, an RFID specialist.',
+        'foot.c2t':'Products','foot.c2d':'Explore our full 125·134·13.56·900 RFID lineup.',
+        'foot.c3t':'Contact','foot.c3d':'Questions about pricing or products? Reach out.',
+        'foot.company':'Company : CEYON Technology Co., Ltd.','foot.ceo':'CEO : Son Young-jeon',
+        'foot.addr':'HQ : 5F Gravitas Tower, 117 Seochojungang-ro 22-gil, Seocho-gu, Seoul (06631)'
+      },
+      cn: {
+        'nav.about':'公司简介','nav.rfid':'RFID技术','nav.products':'产品介绍','nav.news':'新闻动态','nav.support':'客户支持',
+        'crumb.home':'首页',
+        'about.eyebrow':'ABOUT CEYON',
+        'about.pageTitle':'专注RFID单一领域<br>25年的企业',
+        'about.pageSub':'世延科技自2001年成立以来,自主研发并制造RFID读取器、天线和标签,是基于纯国产技术的RFID硬件专业企业。',
+        'about.navCeo':'CEO致辞','about.navHistory':'公司沿革','about.navLocation':'交通指南',
+        'ceo.title':'对<em>World Best RFID</em>的<br>不变承诺',
+        'ceo.lead':'"凭借专注于RFID领域的技术与经验,<br>为客户现场提供最合适的解决方案。"',
+        'ceo.p1':"世延科技于2001年以'World Best RFID/USN Technology'为基本理念,作为依靠自有技术开发·生产RFID设备的专业企业起步。公司拥有由内部研发团队自主开发的各频段多样化产品,我们的读取器和标签广泛应用于尖端产业的工厂自动化乃至流通·物流领域。",
+        'ceo.p2':"基于积累的技术实力,我们开发各频段差异化产品,提供适合用户环境的技术与应用,不断努力满足客户期望。我们将怀着'World Best RFID Company'的自豪感,继续奋进。",
+        'ceo.v1t':'自有技术','ceo.v1d':'自主开发并制造读取器、天线和标签。',
+        'ceo.v2t':'25年经验','ceo.v2d':'自2001年起专注于一个领域。',
+        'ceo.v3t':'以客户为中心','ceo.v3d':'提供符合现场环境的最优解决方案。',
+        'ceo.signLabel':'世延科技(株) 代表理事','ceo.signName':'孙荣田',
+        'history.title':'在国内外现场积累的<br><em>RFID技术足迹</em>',
+        'location.title':'交通指南',
+        'locationPage.title':'前往世延科技的<br>交通指南',
+        'locationPage.sub':'业务在首尔总部办理,产品交货及物流在安养营业场所运营。',
+        'location.openMap':'在KakaoMap查看 →',
+        'location.hqTag':'总部 · 办公','location.hqName':'首尔总部',
+        'location.hqAddr':'首尔特别市瑞草区瑞草中央路22街117<br>Gravitas Tower 5层 (邮编06631)',
+        'location.whTag':'营业场所 · 交货仓库','location.whName':'安养营业场所',
+        'location.whAddr':'京畿道安养市东安区兴安大路427号街57-2<br>1204号 (冠阳洞, IS Biz Tower)',
+        'location.whNote':'用途 · 产品交货及物流仓库',
+        'foot.hours1':'工作日 上午9:00 ~ 下午6:00','foot.hours2':'(周六·日、法定节假日休息)',
+        'foot.c1t':'公司简介','foot.c1d':'介绍RFID专业企业世延科技。',
+        'foot.c2t':'产品介绍','foot.c2d':'介绍125·134·13.56·900全频段RFID产品。',
+        'foot.c3t':'咨询','foot.c3d':'如有产品价格或疑问,请咨询我们。',
+        'foot.company':'法人名 : 世延科技(株)','foot.ceo':'代表 : 孙荣田',
+        'foot.addr':'总部 : 首尔特别市瑞草区瑞草中央路22街117, Gravitas Tower 5层 (06631)'
+      }
+    };
+    const LANG_HTML_ATTR = { ko:'ko', en:'en', cn:'zh' };
+    const applyLang = (lang) => {
+      const dict = I18N[lang]; if (!dict) return;
+      document.documentElement.lang = LANG_HTML_ATTR[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const v = dict[el.getAttribute('data-i18n')];
+        if (v == null) return;
+        if (el.hasAttribute('data-i18n-html')) el.innerHTML = v; else el.textContent = v;
+      });
+      document.querySelectorAll('.lang__btn').forEach(b => {
+        const a = b.dataset.lang === lang;
+        b.classList.toggle('is-active', a); b.setAttribute('aria-pressed', a ? 'true':'false');
+      });
+      try { localStorage.setItem('ceyon.lang', lang); } catch(_) {}
+    };
+    document.querySelectorAll('.lang__btn').forEach(b => b.addEventListener('click', () => applyLang(b.dataset.lang)));
     (() => {
-      const header = document.getElementById('header');
-      const THRESHOLD = 40;
+      let s=null; try { s=localStorage.getItem('ceyon.lang'); } catch(_){}
+      if (s && I18N[s]) { applyLang(s); return; }
+      const n=(navigator.language||'ko').toLowerCase();
+      if (n.startsWith('zh')) applyLang('cn'); else if (n.startsWith('en')) applyLang('en');
+    })();
 
-      let ticking = false;
-      const update = () => {
-        const scrolled = window.scrollY > THRESHOLD;
-        header.classList.toggle('is-scrolled', scrolled);
-        ticking = false;
+    /* 오시는 길 — 본사/사업장 탭 전환 + 카카오맵 연동 준비 */
+    (() => {
+      const cards = document.querySelectorAll('.location__card');
+      if (!cards.length) return;
+
+      // ▼ 실제 좌표/주소 (배포 시 lat/lng 정확히 입력)
+      const MAP_DATA = {
+        hq: {
+          name: '서울 본사',
+          addr: '서울특별시 서초구 서초중앙로22길 117, 그라비타스타워 5층',
+          query: '서울특별시 서초구 서초중앙로22길 117',
+          lat: 37.4915, lng: 127.0078   // TODO: 정확한 좌표로 교체
+        },
+        wh: {
+          name: '안양 사업장',
+          addr: '경기도 안양시 동안구 흥안대로427번길 57-2, 1204호',
+          query: '경기도 안양시 동안구 흥안대로427번길 57-2',
+          lat: 37.4017, lng: 126.9525   // TODO: 정확한 좌표로 교체
+        }
       };
 
-      window.addEventListener('scroll', () => {
-        if (!ticking) {
-          window.requestAnimationFrame(update);
-          ticking = true;
-        }
-      }, { passive: true });
+      let map = null, marker = null, infowindow = null, geocoder = null;
+      const isKakaoReady = () => (typeof kakao !== 'undefined' && kakao.maps && kakao.maps.Map);
 
+      const nameEl = document.getElementById('mapName');
+      const addrEl = document.getElementById('mapAddr');
+      const linkEl = document.getElementById('mapLink');
+      const mapBox = document.getElementById('locationMap');
+
+      const placeMarker = (d, pos) => {
+        if (!map) {
+          const ph = document.getElementById('mapPlaceholder');
+          if (ph) ph.remove();
+          map = new kakao.maps.Map(mapBox, { center: pos, level: 3 });
+          marker = new kakao.maps.Marker({ position: pos });
+          marker.setMap(map);
+          infowindow = new kakao.maps.InfoWindow({
+            content: `<div style="padding:8px 12px;font-size:13px;font-weight:600;white-space:nowrap;">${d.name}</div>`
+          });
+          infowindow.open(map, marker);
+        } else {
+          map.setCenter(pos);
+          marker.setPosition(pos);
+          infowindow.setContent(`<div style="padding:8px 12px;font-size:13px;font-weight:600;white-space:nowrap;">${d.name}</div>`);
+          infowindow.open(map, marker);
+        }
+      };
+
+      const showLoc = (key) => {
+        const d = MAP_DATA[key];
+        if (!d) return;
+
+        if (isKakaoReady()) {
+          if (!geocoder && kakao.maps.services) geocoder = new kakao.maps.services.Geocoder();
+          if (geocoder) {
+            // 주소 → 좌표 자동 변환 (좌표 입력 불필요)
+            geocoder.addressSearch(d.query, (result, status) => {
+              if (status === kakao.maps.services.Status.OK) {
+                placeMarker(d, new kakao.maps.LatLng(result[0].y, result[0].x));
+              } else {
+                // 변환 실패 시 등록된 좌표 사용
+                placeMarker(d, new kakao.maps.LatLng(d.lat, d.lng));
+              }
+            });
+          } else {
+            placeMarker(d, new kakao.maps.LatLng(d.lat, d.lng));
+          }
+        } else {
+          // 플레이스홀더 (키 없을 때)
+          if (nameEl) nameEl.textContent = d.name;
+          if (addrEl) addrEl.textContent = d.addr;
+          if (linkEl) linkEl.href = 'https://map.kakao.com/?q=' + encodeURIComponent(d.query);
+        }
+      };
+
+      cards.forEach(card => {
+        card.addEventListener('click', () => {
+          cards.forEach(c => c.classList.toggle('is-active', c === card));
+          showLoc(card.dataset.loc);
+        });
+      });
+
+      // SDK가 defer로 로드되므로, 준비되면 지도 초기화
+      const initMap = () => { showLoc('hq'); };
+      if (typeof kakao !== 'undefined' && kakao.maps && kakao.maps.load) {
+        kakao.maps.load(initMap);
+      } else {
+        // SDK 아직 미로드 → 로드 완료 대기 (최대 3초), 실패 시 플레이스홀더
+        let waited = 0;
+        const timer = setInterval(() => {
+          waited += 100;
+          if (typeof kakao !== 'undefined' && kakao.maps && kakao.maps.load) {
+            clearInterval(timer);
+            kakao.maps.load(initMap);
+          } else if (waited >= 3000) {
+            clearInterval(timer);
+            initMap(); // 플레이스홀더 표시
+          }
+        }, 100);
+      }
+    })();
+
+    /* 스크롤 시 헤더 축소 */
+    (() => {
+      const header = document.getElementById('header');
+      let ticking = false;
+      const update = () => { header.classList.toggle('is-scrolled', window.scrollY > 40); ticking = false; };
+      window.addEventListener('scroll', () => { if (!ticking) { requestAnimationFrame(update); ticking = true; } }, { passive: true });
       update();
     })();
 
-    /* ---------------------------------------------------------
-       1b) Product tabs — 동적 탭 전환 (페이지 이동 없음)
-       --------------------------------------------------------- */
-    (() => {
-      const tabs = document.querySelectorAll('.tab');
-      const panels = document.querySelectorAll('.panel');
-      if (!tabs.length) return;
-
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          const target = tab.dataset.tab;
-
-          tabs.forEach(t => {
-            const active = t === tab;
-            t.classList.toggle('is-active', active);
-            t.setAttribute('aria-selected', active ? 'true' : 'false');
-          });
-
-          panels.forEach(p => {
-            const show = p.dataset.panel === target;
-            p.classList.toggle('is-active', show);
-            p.hidden = !show;
-          });
-        });
-      });
-    })();
-
-    /* ---------------------------------------------------------
-       1c) Product image sliders — 각 대역 제품 사진 순차 순환
-       --------------------------------------------------------- */
-    (() => {
-      const sliders = document.querySelectorAll('[data-slider]');
-      if (!sliders.length) return;
-
-      sliders.forEach(slider => {
-        const track = slider.querySelector('.panel__slides');
-        const slides = slider.querySelectorAll('.panel__slide');
-        const dotsWrap = slider.querySelector('.panel__dots');
-        if (slides.length <= 1) { if (dotsWrap) dotsWrap.style.display = 'none'; return; }
-
-        let idx = 0;
-        let timer = null;
-
-        // 인디케이터 점 생성
-        slides.forEach((_, i) => {
-          const dot = document.createElement('button');
-          dot.className = 'panel__dot' + (i === 0 ? ' is-active' : '');
-          dot.setAttribute('aria-label', `${i + 1}번 제품 보기`);
-          dot.addEventListener('click', () => { go(i); restart(); });
-          dotsWrap.appendChild(dot);
-        });
-        const dots = dotsWrap.querySelectorAll('.panel__dot');
-
-        const go = (n) => {
-          idx = (n + slides.length) % slides.length;
-          track.style.transform = `translateX(-${idx * 100}%)`;
-          dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
-        };
-        const next = () => go(idx + 1);
-        const start = () => { timer = setInterval(next, 3000); };
-        const restart = () => { clearInterval(timer); start(); };
-
-        // 마우스 올리면 일시정지
-        slider.addEventListener('mouseenter', () => clearInterval(timer));
-        slider.addEventListener('mouseleave', start);
-
-        start();
-      });
-    })();
-
-    /* ---------------------------------------------------------
-       2) i18n — JSON-based text replacement
-          향후 /locales/{lang}.json 으로 분리해서 fetch 가능
-       --------------------------------------------------------- */
-    const I18N = {
-      ko: {
-        'brand.ko':         '세연테크놀로지',
-        'nav.about':        '회사소개',
-        'nav.rfid':         'RFID 기술',
-        'nav.products':     '제품소개',
-        'nav.news':         '세연소식',
-        'nav.support':      '고객지원',
-        'hero.eyebrow':     'WORLD BEST RFID / USN TECHNOLOGY',
-        'hero.title':       '대한민국 RFID의<br><em>표준</em>을 만들어 온 25년.',
-        'hero.sub':         '2001년 설립 이후 RFID 리더·안테나·태그를 자체 개발·제조해 온<br>순수 국내 기술 기반 RFID 하드웨어 전문 기업.',
-        'hero.ctaPrimary':  '제품 살펴보기',
-        'hero.ctaSecondary':'견적 문의',
-        'hero.stat1':       'Since · RFID 전문',
-        'hero.stat2':       '125·134·13.56·900',
-        'hero.stat3':       '리더·안테나·태그 제조',
-        'cta.quote':        '견적 문의',
-        'about.eyebrow':    'ABOUT CEYON',
-        'about.title':      '25년간 한 분야만 파고든<br><em>RFID 전문 기업</em>입니다.',
-        'about.p1':         '세연테크놀로지(주)는 2001년 설립 이후 RFID 리더·안테나·태그를 자체 개발·제조해 온 순수 국내 기술 기반의 RFID 하드웨어 전문 기업입니다.',
-        'about.p2':         '반도체 공장자동화, 유통·물류, 자산·출입관리 등 다양한 산업 현장에 검증된 RFID 하드웨어를 공급하며, 고객 환경에 맞는 최적의 솔루션을 제안합니다.',
-        'about.link':       '우리의 강점 살펴보기 →',
-        'about.s1':         '설립 연도',
-        'about.s2':         '125·134·13.56·900',
-        'about.s3':         '리더·안테나·태그 제조',
-        'about.s4':         '하드웨어 단일 분야 집중',
-        'rfid.eyebrow':     'WHAT IS RFID',
-        'rfid.title':       '비접촉으로 사물을 인식하는<br><em>무선 식별 기술</em>',
-        'rfid.lead':        'RFID(Radio Frequency IDentification)는 전파를 이용해 태그에 저장된 정보를 비접촉으로 읽고 쓰는 기술입니다. 바코드와 달리 직접 보이지 않아도, 여러 개를 동시에, 빠르게 인식할 수 있습니다.',
-        'rfid.f1t':         '태그 (Tag)',
-        'rfid.f1d':         '사물에 부착되어 고유 정보를 저장',
-        'rfid.f2t':         '안테나 (Antenna)',
-        'rfid.f2d':         '전파를 송수신하여 태그와 통신',
-        'rfid.f3t':         '리더 (Reader)',
-        'rfid.f3d':         '정보를 해독하여 시스템으로 전달',
-        'rfid.a1t':         '반도체 공장자동화',
-        'rfid.a1d':         '웨이퍼·자재 추적, 공정 이력 관리',
-        'rfid.a2t':         '유통·물류',
-        'rfid.a2d':         '입출고 자동화, 재고 실시간 파악',
-        'rfid.a3t':         '자산·출입 관리',
-        'rfid.a3d':         '도서·비품 관리, 출입통제, 이력 추적',
-        'prod.eyebrow':     'PRODUCTS',
-        'prod.title':       '주파수 대역별 제품군',
-        'prod.sub':         '탭을 클릭하면 각 대역의 특징과 대표 제품을 확인할 수 있습니다.',
-        'prod.detail':      '제품 상세 보기 →',
-        'prod.lf125.t':     '125 kHz — 근거리·고신뢰',
-        'prod.lf125.d':     '저주파(LF) 대역으로 금속·수분 환경에서도 안정적인 인식이 가능합니다. 출입통제, 자산관리 등 신뢰성이 중요한 환경에 최적화되어 있습니다.',
-        'prod.lf125.f1':    '국내 최초 PDA용 125kHz RFID 리더 개발',
-        'prod.lf125.f2':    '금속·수분 간섭에 강한 안정성',
-        'prod.lf125.f3':    '출입통제·자산관리 검증',
-        'prod.lf134.t':     '134.2 kHz — 동물 개체식별',
-        'prod.lf134.d':     'ISO 11784/11785 국제 표준 대역으로, 가축·반려동물 개체식별에 사용되는 주파수입니다. 축산물 이력관리 시스템에 검증된 신뢰성을 제공합니다.',
-        'prod.lf134.f1':    'ISO 11784/11785 동물식별 표준 준수',
-        'prod.lf134.f2':    '축산물 이력관리 시스템 적용',
-        'prod.lf134.f3':    '야외·악조건 환경 안정 동작',
-        'prod.hf.t':        '13.56 MHz — 표준·범용',
-        'prod.hf.d':        '국제 표준(ISO 14443/15693) 호환 HF 제품군입니다. 도서관리, 스마트카드, 결제, 의료 등 정밀 식별이 필요한 분야에 적합합니다.',
-        'prod.hf.f1':       '1리더 4안테나 외장형 RFID 리더',
-        'prod.hf.f2':       'ISO 국제 표준 완벽 호환',
-        'prod.hf.f3':       '도서관리·스마트카드 적용 검증',
-        'prod.uhf.t':       '900 MHz — 장거리·다중인식',
-        'prod.uhf.d':       'UHF 대역으로 최대 수 미터 거리에서 다수의 태그를 동시에 빠르게 인식합니다. 물류센터 입출고, 대량 재고관리, 공급망 추적에 최적입니다.',
-        'prod.uhf.f1':      '최대 수 미터 장거리 인식',
-        'prod.uhf.f2':      '초당 수백 개 태그 동시 처리',
-        'prod.uhf.f3':      '대규모 물류·공급망 자동화',
-        'foot.hours1':      '평일 AM 9:00 ~ PM 6:00',
-        'foot.hours2':      '(토·일, 법정 공휴일 휴무)',
-        'foot.c1t':         '회사 소개',
-        'foot.c1d':         'RFID 전문 기업, 세연테크놀로지를 소개합니다.',
-        'foot.c2t':         '제품 안내',
-        'foot.c2d':         'LF·HF·UHF 전 대역 RFID 제품을 안내합니다.',
-        'foot.c3t':         '문의',
-        'foot.c3d':         '제품 단가 또는 궁금한 점이 있다면 문의 주세요.',
-        'foot.company':     '법인명 : 세연테크놀로지(주)',
-        'foot.ceo':         '대표자 : 손영전',
-        'foot.addr':        '본사 : 서울특별시 서초구 서초중앙로22길 117, 그라비타스타워 5층 (06631)'
-      },
-      en: {
-        'brand.ko':         'CEYON Technology',
-        'nav.about':        'Company',
-        'nav.rfid':         'RFID',
-        'nav.products':     'Products',
-        'nav.news':         'News',
-        'nav.support':      'Support',
-        'hero.eyebrow':     'WORLD BEST RFID / USN TECHNOLOGY',
-        'hero.title':       '25 years of setting<br>the <em>RFID standard</em> in Korea.',
-        'hero.sub':         'A Korean-made RFID hardware specialist that has developed<br>readers, antennas, and tags in-house since 2001.',
-        'hero.ctaPrimary':  'Explore Products',
-        'hero.ctaSecondary':'Request a Quote',
-        'hero.stat1':       'Since · RFID Specialist',
-        'hero.stat2':       '125·134·13.56·900',
-        'hero.stat3':       'In-house R&D & Manufacturing',
-        'cta.quote':        'Get a Quote',
-        'about.eyebrow':    'ABOUT CEYON',
-        'about.title':      '25 years dedicated to<br>a single field — <em>RFID</em>.',
-        'about.p1':         'Since its founding in 2001, CEYON Technology has developed and manufactured RFID readers, antennas, and tags in-house — a Korean-made RFID hardware specialist.',
-        'about.p2':         'We supply proven RFID hardware across diverse industrial sites — semiconductor automation, retail & logistics, asset & access control — and propose solutions tailored to each customer\'s environment.',
-        'about.link':       'Explore our strengths →',
-        'about.s1':         'Founded',
-        'about.s2':         '125·134·13.56·900',
-        'about.s3':         'Reader·Antenna·Tag in-house',
-        'about.s4':         'Focused solely on RFID HW',
-        'rfid.eyebrow':     'WHAT IS RFID',
-        'rfid.title':       'Wireless identification<br>without <em>physical contact</em>',
-        'rfid.lead':        'RFID (Radio Frequency IDentification) reads and writes tag data wirelessly using radio waves. Unlike barcodes, it works without line of sight and can read many items at once, fast.',
-        'rfid.f1t':         'Tag',
-        'rfid.f1d':         'Attached to objects, stores unique data',
-        'rfid.f2t':         'Antenna',
-        'rfid.f2d':         'Transmits and receives radio signals',
-        'rfid.f3t':         'Reader',
-        'rfid.f3d':         'Decodes data and sends it to the system',
-        'rfid.a1t':         'Semiconductor Automation',
-        'rfid.a1d':         'Wafer & material tracking, process history',
-        'rfid.a2t':         'Retail & Logistics',
-        'rfid.a2d':         'Automated I/O, real-time inventory',
-        'rfid.a3t':         'Asset & Access Control',
-        'rfid.a3d':         'Library/asset management, access, traceability',
-        'prod.eyebrow':     'PRODUCTS',
-        'prod.title':       'Products by Frequency Band',
-        'prod.sub':         'Click each tab to see the features and flagship products of each band.',
-        'prod.detail':      'View product details →',
-        'prod.lf125.t':     '125 kHz — Short-range & Reliable',
-        'prod.lf125.d':     'The low-frequency (LF) band offers stable reading even in metal or moisture environments. Optimized for access control, asset management, and other reliability-critical settings.',
-        'prod.lf125.f1':    'First PDA-type 125kHz RFID reader in Korea',
-        'prod.lf125.f2':    'Robust against metal & moisture interference',
-        'prod.lf125.f3':    'Proven in access control & asset management',
-        'prod.lf134.t':     '134.2 kHz — Animal Identification',
-        'prod.lf134.d':     'An ISO 11784/11785 international standard band used for livestock and pet identification. Provides proven reliability for livestock traceability systems.',
-        'prod.lf134.f1':    'Complies with ISO 11784/11785 animal ID standards',
-        'prod.lf134.f2':    'Applied to livestock traceability systems',
-        'prod.lf134.f3':    'Stable operation in harsh outdoor conditions',
-        'prod.hf.t':        '13.56 MHz — Standard & Versatile',
-        'prod.hf.d':        'An ISO 14443/15693 compliant HF product line. Ideal for library management, smart cards, payment, and medical applications requiring precise identification.',
-        'prod.hf.f1':       '1 reader, 4-antenna external RFID reader',
-        'prod.hf.f2':       'Full ISO international standard compatibility',
-        'prod.hf.f3':       'Proven in library & smart card applications',
-        'prod.uhf.t':       '900 MHz — Long-range & Multi-read',
-        'prod.uhf.d':       'The UHF band reads many tags simultaneously over several meters. Optimal for warehouse I/O, bulk inventory, and supply chain tracking.',
-        'prod.uhf.f1':      'Long-range reading up to several meters',
-        'prod.uhf.f2':      'Hundreds of tags per second',
-        'prod.uhf.f3':      'Large-scale logistics & supply chain automation',
-        'foot.hours1':      'Weekdays 9:00 AM ~ 6:00 PM',
-        'foot.hours2':      '(Closed weekends & public holidays)',
-        'foot.c1t':         'About Us',
-        'foot.c1d':         'Meet CEYON Technology, an RFID specialist.',
-        'foot.c2t':         'Products',
-        'foot.c2d':         'Explore our full LF·HF·UHF RFID lineup.',
-        'foot.c3t':         'Contact',
-        'foot.c3d':         'Questions about pricing or products? Reach out.',
-        'foot.company':     'Company : CEYON Technology Co., Ltd.',
-        'foot.ceo':         'CEO : Son Young-jeon',
-        'foot.addr':        'HQ : 5F Gravitas Tower, 117 Seochojungang-ro 22-gil, Seocho-gu, Seoul (06631)'
-      },
-      cn: {
-        'brand.ko':         '世延科技',
-        'nav.about':        '公司简介',
-        'nav.rfid':         'RFID技术',
-        'nav.products':     '产品介绍',
-        'nav.news':         '新闻动态',
-        'nav.support':      '客户支持',
-        'hero.eyebrow':     'WORLD BEST RFID / USN TECHNOLOGY',
-        'hero.title':       '树立韩国RFID标准的<br><em>25年</em>历程。',
-        'hero.sub':         '自2001年成立以来,自主研发读取器、天线和标签的<br>纯国产技术RFID硬件专业企业。',
-        'hero.ctaPrimary':  '查看产品',
-        'hero.ctaSecondary':'索取报价',
-        'hero.stat1':       'Since · RFID 专业',
-        'hero.stat2':       '125·134·13.56·900',
-        'hero.stat3':       '读取器·天线·标签自主制造',
-        'cta.quote':        '索取报价',
-        'about.eyebrow':    'ABOUT CEYON',
-        'about.title':      '专注一个领域<br>25年的<em>RFID专业企业</em>',
-        'about.p1':         '世延科技自2001年成立以来,自主研发并制造RFID读取器、天线和标签,是基于纯国产技术的RFID硬件专业企业。',
-        'about.p2':         '我们在半导体工厂自动化、流通物流、资产门禁管理等多种工业现场提供经过验证的RFID硬件,并为客户量身定制最优解决方案。',
-        'about.link':       '了解我们的优势 →',
-        'about.s1':         '成立年份',
-        'about.s2':         '125·134·13.56·900',
-        'about.s3':         '读取器·天线·标签自主制造',
-        'about.s4':         '专注RFID硬件单一领域',
-        'rfid.eyebrow':     'WHAT IS RFID',
-        'rfid.title':       '无需接触即可识别物体的<br><em>无线识别技术</em>',
-        'rfid.lead':        'RFID(射频识别)是利用电波非接触式读写标签信息的技术。与条形码不同,即使不在视线范围内,也能同时快速识别多个对象。',
-        'rfid.f1t':         '标签 (Tag)',
-        'rfid.f1d':         '附着于物体,存储唯一信息',
-        'rfid.f2t':         '天线 (Antenna)',
-        'rfid.f2d':         '收发电波,与标签通信',
-        'rfid.f3t':         '读取器 (Reader)',
-        'rfid.f3d':         '解码信息并传输至系统',
-        'rfid.a1t':         '半导体工厂自动化',
-        'rfid.a1d':         '晶圆·物料追踪,工序履历管理',
-        'rfid.a2t':         '流通·物流',
-        'rfid.a2d':         '出入库自动化,实时库存掌握',
-        'rfid.a3t':         '资产·门禁管理',
-        'rfid.a3d':         '图书·物品管理,门禁,履历追踪',
-        'prod.eyebrow':     'PRODUCTS',
-        'prod.title':       '各频段产品系列',
-        'prod.sub':         '点击各标签可查看每个频段的特点和代表产品。',
-        'prod.detail':      '查看产品详情 →',
-        'prod.lf125.t':     '125 kHz — 近距离·高可靠',
-        'prod.lf125.d':     '低频(LF)频段,即使在金属·水分环境中也能稳定识别。针对门禁、资产管理等对可靠性要求高的环境进行了优化。',
-        'prod.lf125.f1':    '国内首创PDA用125kHz RFID读取器',
-        'prod.lf125.f2':    '抗金属·水分干扰的稳定性',
-        'prod.lf125.f3':    '门禁·资产管理验证',
-        'prod.lf134.t':     '134.2 kHz — 动物个体识别',
-        'prod.lf134.d':     'ISO 11784/11785国际标准频段,用于家畜·宠物个体识别。为畜产品履历管理系统提供经过验证的可靠性。',
-        'prod.lf134.f1':    '符合ISO 11784/11785动物识别标准',
-        'prod.lf134.f2':    '应用于畜产品履历管理系统',
-        'prod.lf134.f3':    '户外·恶劣环境稳定运行',
-        'prod.hf.t':        '13.56 MHz — 标准·通用',
-        'prod.hf.d':        '国际标准(ISO 14443/15693)兼容HF产品系列。适用于图书管理、智能卡、支付、医疗等需要精密识别的领域。',
-        'prod.hf.f1':       '1读取器4天线外置型RFID读取器',
-        'prod.hf.f2':       'ISO国际标准完美兼容',
-        'prod.hf.f3':       '图书管理·智能卡应用验证',
-        'prod.uhf.t':       '900 MHz — 远距离·多重识别',
-        'prod.uhf.d':       'UHF频段,可在最远数米距离同时快速识别多个标签。最适合物流中心出入库、大量库存管理、供应链追踪。',
-        'prod.uhf.f1':      '最远数米远距离识别',
-        'prod.uhf.f2':      '每秒处理数百个标签',
-        'prod.uhf.f3':      '大规模物流·供应链自动化',
-        'foot.hours1':      '工作日 上午9:00 ~ 下午6:00',
-        'foot.hours2':      '(周六·日、法定节假日休息)',
-        'foot.c1t':         '公司简介',
-        'foot.c1d':         '介绍RFID专业企业世延科技。',
-        'foot.c2t':         '产品介绍',
-        'foot.c2d':         '介绍LF·HF·UHF全频段RFID产品。',
-        'foot.c3t':         '咨询',
-        'foot.c3d':         '如有产品价格或疑问,请咨询我们。',
-        'foot.company':     '法人名 : 世延科技(株)',
-        'foot.ceo':         '代表 : 孙荣田',
-        'foot.addr':        '总部 : 首尔特别市瑞草区瑞草中央路22街117, Gravitas Tower 5层 (06631)'
-      }
-    };
-
-    const LANG_HTML_ATTR = { ko: 'ko', en: 'en', cn: 'zh' };
-
-    const applyLang = (lang) => {
-      const dict = I18N[lang];
-      if (!dict) return;
-
-      // <html lang="..">
-      document.documentElement.lang = LANG_HTML_ATTR[lang];
-
-      // text replacement
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        const val = dict[key];
-        if (val == null) return;
-        if (el.hasAttribute('data-i18n-html')) {
-          el.innerHTML = val;
-        } else {
-          el.textContent = val;
-        }
-      });
-
-      // active state
-      document.querySelectorAll('.lang__btn').forEach(btn => {
-        const isActive = btn.dataset.lang === lang;
-        btn.classList.toggle('is-active', isActive);
-        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-      });
-
-      // persist (정적 호스팅이므로 localStorage 사용)
-      try { localStorage.setItem('ceyon.lang', lang); } catch (_) {}
-    };
-
-    // bind clicks
-    document.querySelectorAll('.lang__btn').forEach(btn => {
-      btn.addEventListener('click', () => applyLang(btn.dataset.lang));
-    });
-
-    // restore on load (browser lang fallback)
-    (() => {
-      let saved = null;
-      try { saved = localStorage.getItem('ceyon.lang'); } catch (_) {}
-      if (saved && I18N[saved]) { applyLang(saved); return; }
-
-      const nav = (navigator.language || 'ko').toLowerCase();
-      if (nav.startsWith('zh')) applyLang('cn');
-      else if (nav.startsWith('en')) applyLang('en');
-      // default: ko (already set in markup)
-    })();
-
-    /* ---------------------------------------------------------
-       공지 팝업 — Supabase 'popups' 테이블 (여러 개 순차 표시)
-       닫기 → 다음 팝업 → ... → 끝. "오늘 하루"는 팝업별로 기억.
-       --------------------------------------------------------- */
-    (async () => {
-      const popup = document.getElementById('noticePopup');
-      if (!popup) return;
-
-      let sbClient = null;
-      try {
-        if (window.supabase && window.CEYON_SUPABASE_URL) {
-          sbClient = window.supabase.createClient(window.CEYON_SUPABASE_URL, window.CEYON_SUPABASE_ANON);
-        }
-      } catch (_) {}
-      if (!sbClient) return;
-
-      // 활성 팝업들 불러오기 (순서대로)
-      let list = [];
-      try {
-        const { data, error } = await sbClient.from('popups')
-          .select('*').eq('enabled', true).order('sort_order', { ascending: true });
-        if (error) throw error;
-        list = data || [];
-      } catch (_) { return; }
-      if (!list.length) return;
-
-      const todayStr = new Date().toISOString().slice(0, 10);
-      const keyOf = (p) => `ceyon.popup.${p.id}.hideUntil`;
-
-      // "오늘 하루 보지 않기"로 가려진 것 제외
-      const queue = list.filter(p => {
-        let stored = null;
-        try { stored = JSON.parse(localStorage.getItem(keyOf(p)) || 'null'); } catch (_) {}
-        return !(stored && stored.until >= todayStr && stored.version === String(p.version || '1'));
-      });
-      if (!queue.length) return;
-
-      const badgeEl = document.getElementById('popupBadge');
-      const titleEl = document.getElementById('popupTitle');
-      const textEl  = document.getElementById('popupText');
-      const img     = document.getElementById('popupImg');
-      const imgLink = document.getElementById('popupImgLink');
-      const dontChk = document.getElementById('popupDont');
-
-      let idx = 0;
-      const showAt = (i) => {
-        const p = queue[i];
-        badgeEl.textContent = p.badge || 'NOTICE';
-        titleEl.textContent = p.title || '';
-        textEl.textContent  = p.body || '';
-        if (p.image) { img.src = p.image; imgLink.style.display = ''; }
-        else { imgLink.style.display = 'none'; }
-        if (p.link) { imgLink.href = p.link; } else { imgLink.removeAttribute('href'); }
-        if (dontChk) dontChk.checked = false;
-        popup.hidden = false;
-      };
-
-      const next = () => {
-        const p = queue[idx];
-        if (dontChk && dontChk.checked) {
-          try {
-            localStorage.setItem(keyOf(p), JSON.stringify({ until: todayStr, version: String(p.version || '1') }));
-          } catch (_) {}
-        }
-        idx++;
-        if (idx < queue.length) { showAt(idx); }
-        else { popup.hidden = true; }
-      };
-
-      document.getElementById('popupClose').addEventListener('click', next);
-      document.getElementById('popupCloseX').addEventListener('click', next);
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !popup.hidden) next();
-      });
-
-      showAt(0);
-    })();
   </script>
 </body>
 </html>
