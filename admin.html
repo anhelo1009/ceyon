@@ -618,6 +618,11 @@
           <div id="nf-image-preview" style="margin-top:10px;"></div>
         </div>
         <div class="field">
+          <label>첨부파일 (선택 · PDF·문서 등, 여러 개 가능)</label>
+          <input type="file" id="nf-attach-file" multiple />
+          <div id="nf-attach-list" style="margin-top:10px;"></div>
+        </div>
+        <div class="field">
           <label class="sp-agree" style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:14px;">
             <input type="checkbox" id="nf-pinned" style="width:16px;height:16px;" />
             <span>상단 고정 (📌 목록 맨 위에 표시)</span>
@@ -1048,6 +1053,20 @@
       return data.publicUrl;
     }
 
+    // 일반 첨부파일 업로드 (원본 파일명 유지)
+    async function uploadFile(file) {
+      if (!sb || !file) return null;
+      // 한글·공백 파일명 안전 처리: 경로엔 안전한 이름, 원본명은 따로 저장
+      const safe = (file.name || 'file').replace(/[^\w.\-]/g, '_');
+      const path = `files/${Date.now()}_${Math.random().toString(36).slice(2,8)}_${safe}`;
+      const { error } = await sb.storage.from('media').upload(path, file, {
+        cacheControl: '3600', upsert: false, contentType: file.type || undefined
+      });
+      if (error) throw error;
+      const { data } = sb.storage.from('media').getPublicUrl(path);
+      return data.publicUrl;
+    }
+
     /* =========================================================
        세연소식 관리
        ========================================================= */
@@ -1105,7 +1124,8 @@
         if (error) throw error;
         NEWS = (data || []).map(n => ({
           id: n.id, cat: n.cat, date: (n.date || n.created_at || '').slice(0,10),
-          title: n.title, body: n.body, pinned: n.pinned, image: n.image || ''
+          title: n.title, body: n.body, pinned: n.pinned, image: n.image || '',
+          attachments: Array.isArray(n.attachments) ? n.attachments : []
         }));
         renderNews();
       } catch (e) { console.error(e); }
@@ -1157,7 +1177,41 @@
       document.getElementById('nf-image-file').value = '';
       const prev = document.getElementById('nf-image-preview');
       prev.innerHTML = (n && n.image) ? `<img src="${n.image}" style="max-width:200px;border-radius:8px;">` : '';
+      // 첨부파일: 기존 것(url 보유) 복사 + 새 파일 입력 초기화
+      nfAttachments = n && Array.isArray(n.attachments) ? n.attachments.map(a => ({ ...a })) : [];
+      document.getElementById('nf-attach-file').value = '';
+      renderAttachList();
     }
+
+    // 첨부파일 상태 (기존: {name,url,size} / 신규: {name,size,file})
+    let nfAttachments = [];
+    function fmtSize(b) {
+      if (!b && b !== 0) return '';
+      if (b < 1024) return b + ' B';
+      if (b < 1024*1024) return (b/1024).toFixed(0) + ' KB';
+      return (b/1024/1024).toFixed(1) + ' MB';
+    }
+    function renderAttachList() {
+      const box = document.getElementById('nf-attach-list');
+      if (!box) return;
+      if (!nfAttachments.length) { box.innerHTML = '<div style="font-size:13px;color:var(--color-text-faint);">첨부된 파일이 없습니다.</div>'; return; }
+      box.innerHTML = nfAttachments.map((a, i) => `
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--color-bg-alt);border-radius:6px;margin-bottom:6px;font-size:13px;">
+          <span style="flex:1;">📎 ${(a.name||'').replace(/</g,'&lt;')} <span style="color:var(--color-text-faint);">${fmtSize(a.size)}</span>${a.file ? ' <span style="color:var(--color-primary);">(새 파일)</span>' : ''}</span>
+          <button type="button" data-rm-attach="${i}" style="border:none;background:none;color:var(--color-accent);cursor:pointer;font-size:13px;">삭제</button>
+        </div>
+      `).join('');
+      box.querySelectorAll('[data-rm-attach]').forEach(btn => {
+        btn.onclick = () => { nfAttachments.splice(+btn.dataset.rmAttach, 1); renderAttachList(); };
+      });
+    }
+
+    // 파일 선택 시 목록에 추가
+    document.getElementById('nf-attach-file').addEventListener('change', (e) => {
+      [...e.target.files].forEach(f => nfAttachments.push({ name: f.name, size: f.size, file: f }));
+      e.target.value = '';
+      renderAttachList();
+    });
 
     document.getElementById('newsAddBtn').onclick = () => {
       document.getElementById('newsModalTitle').textContent = '새 소식 작성';
@@ -1224,7 +1278,17 @@
       const orig = saveBtn.textContent; saveBtn.disabled = true; saveBtn.textContent = '저장 중...';
       try {
         if (file) { image = await uploadImage(file); }
-        const payload = { cat, date, title, body: bodyText, pinned, image: image || null };
+        // 첨부파일: 새 파일(file 보유)은 업로드, 기존 파일(url 보유)은 그대로
+        const attachments = [];
+        for (const a of nfAttachments) {
+          if (a.file) {
+            const url = await uploadFile(a.file);
+            attachments.push({ name: a.name, url, size: a.size });
+          } else {
+            attachments.push({ name: a.name, url: a.url, size: a.size });
+          }
+        }
+        const payload = { cat, date, title, body: bodyText, pinned, image: image || null, attachments };
         if (id) {
           const { error } = await sb.from('news').update(payload).eq('id', +id);
           if (error) throw error;

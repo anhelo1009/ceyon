@@ -464,6 +464,20 @@
     .news-content th { background: var(--color-bg-alt); font-weight: 600; }
     @keyframes newsFade { from { opacity: 0; } to { opacity: 1; } }
 
+    /* 첨부파일 */
+    .news-attach {
+      margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--color-border);
+    }
+    .news-attach__title { font-size: 14px; font-weight: 700; color: var(--color-primary); margin-bottom: 10px; }
+    .news-attach__item {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 14px; margin: 0 8px 8px 0;
+      background: #fff; border: 1px solid var(--color-border); border-radius: 7px;
+      font-size: 14px; color: var(--color-text); transition: all .2s var(--ease-out);
+    }
+    .news-attach__item:hover { border-color: var(--color-primary); color: var(--color-primary); }
+    .news-attach__size { font-size: 12px; color: var(--color-text-faint); }
+
     /* 결과 없음 */
     .news-empty {
       text-align: center; padding: 80px 20px; color: var(--color-text-muted);
@@ -1006,6 +1020,13 @@
         const excerpt = plain.length > 120 ? plain.slice(0, 120) + '…' : plain;
         // 상세: 서식 있는 HTML 그대로 렌더링 (관리자만 작성하므로 신뢰)
         const detailHtml = n.body || '';
+        // 첨부파일 목록
+        const fmtSize = (b) => { if(!b&&b!==0)return''; if(b<1024)return b+' B'; if(b<1048576)return (b/1024).toFixed(0)+' KB'; return (b/1048576).toFixed(1)+' MB'; };
+        const attachHtml = (n.attachments && n.attachments.length) ? `
+          <div class="news-attach">
+            <div class="news-attach__title">📎 첨부파일</div>
+            ${n.attachments.map(a => `<a class="news-attach__item" href="${a.url}" target="_blank" rel="noopener" download>${(a.name||'파일').replace(/</g,'&lt;')} <span class="news-attach__size">${fmtSize(a.size)}</span></a>`).join('')}
+          </div>` : '';
         return `
           <li class="news-item${n.pinned ? ' news-item--pinned' : ''}">
             <button class="news-item__btn" type="button" data-id="${n.id}" aria-expanded="${open}">
@@ -1019,7 +1040,7 @@
               </div>
               <div class="news-item__arrow">${open ? '−' : '+'}</div>
             </button>
-            ${open ? `<div class="news-item__detail"><div class="news-item__detail-inner news-content">${n.image ? `<img src="${n.image}" alt="" style="max-width:100%;border-radius:8px;margin-bottom:14px;display:block;">` : ''}${detailHtml}</div></div>` : ''}
+            ${open ? `<div class="news-item__detail"><div class="news-item__detail-inner news-content">${n.image ? `<img src="${n.image}" alt="" style="max-width:100%;border-radius:8px;margin-bottom:14px;display:block;">` : ''}${detailHtml}${attachHtml}</div></div>` : ''}
           </li>
         `;
       };
@@ -1089,7 +1110,8 @@
           if (error) throw error;
           NEWS_DATA = (data || []).map(n => ({
             id: n.id, cat: n.cat, date: (n.date || n.created_at || '').slice(0,10),
-            title: n.title, body: n.body, pinned: n.pinned, image: n.image || ''
+            title: n.title, body: n.body, pinned: n.pinned, image: n.image || '',
+            attachments: Array.isArray(n.attachments) ? n.attachments : []
           }));
           updateCounts();
           render();
