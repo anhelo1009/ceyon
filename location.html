@@ -490,7 +490,7 @@
     }
   </style>
   <!-- 카카오맵 SDK -->
-  <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=640cb6541614afac41ba60ee0883ce32&libraries=services" defer></script>
+  <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=640cb6541614afac41ba60ee0883ce32&libraries=services&autoload=false"></script>
 </head>
 
 <body>
@@ -892,19 +892,19 @@
         });
       });
 
-      // SDK가 defer로 로드되므로, 준비되면 지도 초기화
+      // 카카오 SDK(autoload=false) 로드 완료 후 지도 초기화
       const initMap = () => { showLoc('hq'); };
       if (typeof kakao !== 'undefined' && kakao.maps && kakao.maps.load) {
         kakao.maps.load(initMap);
       } else {
-        // SDK 아직 미로드 → 로드 완료 대기 (최대 3초), 실패 시 플레이스홀더
+        // SDK 아직 미로드 → 로드 완료 대기 (최대 5초), 실패 시 플레이스홀더
         let waited = 0;
         const timer = setInterval(() => {
           waited += 100;
           if (typeof kakao !== 'undefined' && kakao.maps && kakao.maps.load) {
             clearInterval(timer);
             kakao.maps.load(initMap);
-          } else if (waited >= 3000) {
+          } else if (waited >= 5000) {
             clearInterval(timer);
             initMap(); // 플레이스홀더 표시
           }
