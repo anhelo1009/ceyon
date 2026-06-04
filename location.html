@@ -427,6 +427,17 @@
     .location__map-link:hover { opacity: .7; }
     @keyframes mapFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
+    .location__map-actions { margin-top: 14px; }
+    .location__route-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 22px; border-radius: 8px;
+      background: var(--color-primary); color: #fff;
+      font-size: 15px; font-weight: 600;
+      transition: background .2s var(--ease-out), transform .2s var(--ease-out);
+    }
+    .location__route-btn:hover { background: var(--color-primary-deep, #002244); transform: translateY(-1px); }
+    .location__route-btn svg { flex-shrink: 0; }
+
 
     /* =========================================================
        FOOTER (index.html과 동일)
@@ -592,7 +603,7 @@
             <button class="location__card is-active" data-loc="hq" type="button">
               <span class="location__tag location__tag--hq" data-i18n="location.hqTag">본사 · 업무</span>
               <div class="location__name" data-i18n="location.hqName">서울 본사</div>
-              <p class="location__addr" data-i18n="location.hqAddr">
+              <p class="location__addr" data-i18n="location.hqAddr" data-i18n-html>
                 서울특별시 서초구 서초중앙로22길 117<br>그라비타스타워 5층 (우 06631)
               </p>
               <div class="location__detail">
@@ -604,7 +615,7 @@
             <button class="location__card" data-loc="wh" type="button">
               <span class="location__tag location__tag--wh" data-i18n="location.whTag">사업장 · 납품 창고</span>
               <div class="location__name" data-i18n="location.whName">안양 사업장</div>
-              <p class="location__addr" data-i18n="location.whAddr">
+              <p class="location__addr" data-i18n="location.whAddr" data-i18n-html>
                 경기도 안양시 동안구 흥안대로427번길 57-2<br>1204호 (관양동, 아이에스비즈타워)
               </p>
               <div class="location__detail">
@@ -615,20 +626,19 @@
 
           <!-- 지도 (탭 전환) -->
           <div class="location__map" id="locationMap">
-            <!--
-              ▼▼▼ 실제 카카오맵 적용 방법 ▼▼▼
-              1) https://developers.kakao.com 에서 앱 생성 → JavaScript 키 발급 (무료)
-              2) 배포 도메인을 [플랫폼 > Web]에 등록 (예: https://ceyon.github.io)
-              3) <head> 에 SDK 추가 (예시): dapi.kakao.com/v2/maps/sdk.js?appkey=발급키 를 script 태그로 로드
-              4) 아래 MAP_DATA 의 lat/lng 를 실제 좌표로 넣고, USE_KAKAO 를 true 로
-              현재는 키가 없어 안내용 플레이스홀더가 표시됩니다(탭 전환 동작은 미리보기 가능).
-            -->
             <div class="location__map-ph" id="mapPlaceholder">
               <div class="location__map-pin">📍</div>
               <div class="location__map-name" id="mapName">서울 본사</div>
               <div class="location__map-addr" id="mapAddr">서울특별시 서초구 서초중앙로22길 117, 그라비타스타워 5층</div>
               <a class="location__map-link" id="mapLink" href="https://map.kakao.com/?q=서울특별시 서초구 서초중앙로22길 117" target="_blank" rel="noopener" data-i18n="location.openMap">카카오맵에서 보기 →</a>
             </div>
+          </div>
+          <!-- 길찾기 버튼 (지도 아래 항상 표시) -->
+          <div class="location__map-actions">
+            <a class="location__route-btn" id="routeBtn" href="https://map.kakao.com/?q=서울특별시 서초구 서초중앙로22길 117" target="_blank" rel="noopener">
+              <svg viewBox="0 0 20 20" width="18" height="18" fill="none" aria-hidden="true"><path d="M10 2C6.7 2 4 4.7 4 8c0 4.2 6 10 6 10s6-5.8 6-10c0-3.3-2.7-6-6-6z" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="8" r="2.2" stroke="currentColor" stroke-width="1.6"/></svg>
+              <span data-i18n="location.route">카카오맵에서 길찾기</span>
+            </a>
           </div>
         </div>
       </section>
@@ -710,6 +720,7 @@
         'locationPage.title':'세연테크놀로지를<br>찾아오시는 길',
         'locationPage.sub':'업무는 서울 본사에서, 제품 납품·물류는 안양 사업장에서 운영하고 있습니다.',
         'location.openMap':'카카오맵에서 보기 →',
+        'location.route':'카카오맵에서 길찾기',
         'location.hqTag':'본사 · 업무','location.hqName':'서울 본사',
         'location.hqAddr':'서울특별시 서초구 서초중앙로22길 117<br>그라비타스타워 5층 (우 06631)',
         'location.whTag':'사업장 · 납품 창고','location.whName':'안양 사업장',
@@ -742,6 +753,7 @@
         'locationPage.title':'How to<br>find CEYON',
         'locationPage.sub':'Our office operates at the Seoul HQ, while product delivery and logistics run from the Anyang site.',
         'location.openMap':'View on KakaoMap →',
+        'location.route':'Directions on KakaoMap',
         'location.hqTag':'HQ · Office','location.hqName':'Seoul HQ',
         'location.hqAddr':'5F Gravitas Tower, 117 Seochojungang-ro 22-gil,<br>Seocho-gu, Seoul (06631)',
         'location.whTag':'Site · Warehouse','location.whName':'Anyang Site',
@@ -774,6 +786,7 @@
         'locationPage.title':'前往世延科技的<br>交通指南',
         'locationPage.sub':'业务在首尔总部办理,产品交货及物流在安养营业场所运营。',
         'location.openMap':'在KakaoMap查看 →',
+        'location.route':'在KakaoMap查找路线',
         'location.hqTag':'总部 · 办公','location.hqName':'首尔总部',
         'location.hqAddr':'首尔特别市瑞草区瑞草中央路22街117<br>Gravitas Tower 5层 (邮编06631)',
         'location.whTag':'营业场所 · 交货仓库','location.whName':'安养营业场所',
@@ -858,9 +871,14 @@
         }
       };
 
+      const routeBtn = document.getElementById('routeBtn');
+
       const showLoc = (key) => {
         const d = MAP_DATA[key];
         if (!d) return;
+
+        // 길찾기 버튼 링크 갱신 (지도 로드 여부와 무관하게 항상)
+        if (routeBtn) routeBtn.href = 'https://map.kakao.com/?q=' + encodeURIComponent(d.query);
 
         if (isKakaoReady()) {
           if (!geocoder && kakao.maps.services) geocoder = new kakao.maps.services.Geocoder();
