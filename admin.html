@@ -403,6 +403,10 @@
           <svg class="sidebar__link-ico" viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/><line x1="3" y1="8" x2="17" y2="8" stroke="currentColor" stroke-width="1.6"/></svg>
           <span>팝업 공지</span>
         </button>
+        <button class="sidebar__link" data-tab="products" type="button">
+          <svg class="sidebar__link-ico" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.6"/><rect x="11" y="3" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.6"/><rect x="3" y="11" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.6"/><rect x="11" y="11" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.6"/></svg>
+          <span>제품 관리</span>
+        </button>
       </nav>
       <div class="sidebar__foot">
         <button class="sidebar__logout" id="logoutBtn">로그아웃</button>
@@ -509,7 +513,116 @@
           </table>
         </div>
       </section>
+
+      <!-- 제품 관리 -->
+      <section class="panel" id="panel-products">
+        <div class="main__head">
+          <h1 class="main__title">제품 관리</h1>
+          <p class="main__sub">제품을 추가·수정·삭제합니다. 홈페이지 제품소개에 바로 반영됩니다. 단종 제품은 체크해 두면 데이터는 유지되고 홈페이지에는 숨겨집니다.</p>
+        </div>
+        <div style="margin-bottom:20px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+          <button class="btn btn--primary" id="prodAddBtn">+ 새 제품 추가</button>
+          <select id="prodFilterCat" style="padding:8px 12px; border:1px solid var(--color-border); border-radius:8px;">
+            <option value="all">전체 카테고리</option>
+            <option value="reader">리더 (Reader)</option>
+            <option value="controller">컨트롤러 (Controller)</option>
+            <option value="writer">라이터 (Writer)</option>
+            <option value="antenna">안테나 (Antenna)</option>
+            <option value="bluetooth">블루투스 리더</option>
+          </select>
+          <label style="display:flex; align-items:center; gap:6px; font-size:14px; cursor:pointer;">
+            <input type="checkbox" id="prodShowDiscontinued" /> 단종 포함 보기
+          </label>
+        </div>
+        <div class="table-wrap">
+          <div class="table-head">
+            <div class="table-head__title">제품 목록</div>
+            <div class="table-head__count" id="prodCount">0개</div>
+          </div>
+          <table>
+            <thead>
+              <tr><th>순서</th><th>카테고리</th><th>주파수</th><th>모델명</th><th>이미지</th><th>상태</th></tr>
+            </thead>
+            <tbody id="prodAdminBody"></tbody>
+          </table>
+        </div>
+      </section>
     </main>
+  </div>
+
+  <!-- 제품 작성/수정 모달 -->
+  <div class="modal" id="prodModal">
+    <div class="modal__overlay" id="prodModalOverlay"></div>
+    <div class="modal__box modal__box--wide">
+      <div class="modal__head">
+        <div class="modal__title" id="prodModalTitle">새 제품 추가</div>
+        <button class="modal__close" id="prodModalClose">&times;</button>
+      </div>
+      <div class="modal__body">
+        <input type="hidden" id="prf-id" />
+        <div class="field">
+          <label for="prf-category">카테고리</label>
+          <select id="prf-category">
+            <option value="reader">리더 (Reader)</option>
+            <option value="controller">컨트롤러 (Controller)</option>
+            <option value="writer">라이터 (Writer)</option>
+            <option value="antenna">안테나 (Antenna)</option>
+            <option value="bluetooth">블루투스 리더</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="prf-band">주파수 대역</label>
+          <select id="prf-band">
+            <option value="125khz">125 kHz</option>
+            <option value="134khz">134.2 kHz</option>
+            <option value="13.56mhz">13.56 MHz</option>
+            <option value="900mhz">900 MHz</option>
+            <option value="">기타</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="prf-model">모델명</label>
+          <input type="text" id="prf-model" placeholder="예: CRE1356PLUS" />
+        </div>
+        <div class="field">
+          <label for="prf-name">표시명 (선택 · 비우면 모델명 사용)</label>
+          <input type="text" id="prf-name" placeholder="예: 13.56MHz 멀티포트 리더" />
+        </div>
+        <div class="field">
+          <label>사양 (항목별 입력)</label>
+          <div id="prf-specs-list"></div>
+          <button type="button" class="btn btn--ghost" id="prf-spec-add" style="margin-top:8px; font-size:13px; padding:6px 12px;">+ 사양 항목 추가</button>
+        </div>
+        <div class="field">
+          <label>특징 (선택 · 한 줄에 하나씩)</label>
+          <textarea id="prf-features" rows="3" placeholder="예: 최대 4채널 지원&#10;장거리 리더"></textarea>
+        </div>
+        <div class="field">
+          <label>제품 이미지 (선택)</label>
+          <input type="file" id="prf-image-file" accept="image/*" />
+          <input type="hidden" id="prf-image" />
+          <div id="prf-image-preview" style="margin-top:10px;"></div>
+        </div>
+        <div class="field">
+          <label for="prf-order">표시 순서 (작을수록 먼저)</label>
+          <input type="number" id="prf-order" value="0" />
+        </div>
+        <div class="toggle-row">
+          <div>
+            <div class="toggle-row__label">단종 제품</div>
+            <div class="toggle-row__desc">체크하면 데이터는 유지되고 홈페이지에는 숨겨집니다.</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="prf-discontinued" />
+            <span class="switch__slider"></span>
+          </label>
+        </div>
+      </div>
+      <div class="modal__foot">
+        <button class="btn btn--ghost" id="prodCancelBtn">취소</button>
+        <button class="btn btn--primary" id="prodSaveBtn">저장</button>
+      </div>
+    </div>
   </div>
 
   <!-- 팝업 작성/수정 모달 -->
@@ -696,7 +809,7 @@
     async function enterDashboard() {
       loginView.style.display = 'none';
       adminView.classList.add('is-on');
-      await Promise.all([loadQuotes(), loadQna(), loadPopup(), loadNews()]);
+      await Promise.all([loadQuotes(), loadQna(), loadPopup(), loadNews(), loadProducts()]);
     }
 
     /* =========================================================
@@ -1298,6 +1411,177 @@
         }
         closeNewsModal();
         await loadNews();
+      } catch (e) {
+        console.error(e);
+        alert('저장 중 오류가 발생했습니다.');
+      } finally { saveBtn.disabled = false; saveBtn.textContent = orig; }
+    };
+
+    /* =========================================================
+       제품 관리
+       ========================================================= */
+    let PRODUCTS = [];
+    const PROD_CAT_LABEL = { reader:'리더', controller:'컨트롤러', writer:'라이터', antenna:'안테나', bluetooth:'블루투스' };
+    const PROD_BAND_LABEL = { '125khz':'125 kHz', '134khz':'134.2 kHz', '13.56mhz':'13.56 MHz', '900mhz':'900 MHz', '':'기타' };
+
+    async function loadProducts() {
+      if (!sb) return;
+      try {
+        const { data, error } = await sb.from('products').select('*').order('category').order('sort_order');
+        if (error) throw error;
+        PRODUCTS = (data || []).map(p => ({
+          id: p.id, category: p.category, band: p.band || '', model: p.model, name: p.name || '',
+          specs: Array.isArray(p.specs) ? p.specs : [],
+          features: Array.isArray(p.features) ? p.features : [],
+          image: p.image || '', discontinued: !!p.discontinued, sort_order: p.sort_order || 0
+        }));
+        renderProducts();
+      } catch (e) { console.error(e); }
+    }
+
+    function renderProducts() {
+      const body = document.getElementById('prodAdminBody');
+      const filterCat = document.getElementById('prodFilterCat').value;
+      const showDisc = document.getElementById('prodShowDiscontinued').checked;
+      if (!body) return;
+      let list = PRODUCTS.filter(p => (filterCat === 'all' || p.category === filterCat) && (showDisc || !p.discontinued));
+      document.getElementById('prodCount').textContent = list.length + '개';
+      if (!list.length) {
+        body.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:30px; color:var(--color-text-faint);">제품이 없습니다.</td></tr>';
+        return;
+      }
+      body.innerHTML = list.map(p => `
+        <tr data-prod="${p.id}" style="cursor:pointer;${p.discontinued ? 'opacity:.55;' : ''}">
+          <td>${p.sort_order}</td>
+          <td>${PROD_CAT_LABEL[p.category] || p.category}</td>
+          <td>${PROD_BAND_LABEL[p.band] ?? p.band}</td>
+          <td><b>${(p.model||'').replace(/</g,'&lt;')}</b>${p.name ? '<br><span style="font-size:12px;color:var(--color-text-faint);">'+p.name.replace(/</g,'&lt;')+'</span>' : ''}</td>
+          <td>${p.image ? '<img src="'+p.image+'" style="width:40px;height:40px;object-fit:contain;border-radius:4px;">' : '<span style="color:var(--color-text-faint);font-size:12px;">없음</span>'}</td>
+          <td>${p.discontinued ? '<span style="color:var(--color-accent);font-size:12px;font-weight:600;">단종</span>' : '<span style="color:#1a8a3a;font-size:12px;">판매중</span>'}</td>
+        </tr>
+      `).join('');
+      body.querySelectorAll('[data-prod]').forEach(tr => {
+        tr.onclick = () => openProdModal(+tr.dataset.prod);
+      });
+    }
+
+    document.getElementById('prodFilterCat').onchange = renderProducts;
+    document.getElementById('prodShowDiscontinued').onchange = renderProducts;
+
+    // 사양 입력 행 렌더
+    function renderSpecRows(specs) {
+      const box = document.getElementById('prf-specs-list');
+      box.innerHTML = (specs.length ? specs : [{label:'',value:''}]).map((s, i) => `
+        <div style="display:flex; gap:6px; margin-bottom:6px;" data-spec-row="${i}">
+          <input type="text" class="prf-spec-label" placeholder="항목 (예: 주파수)" value="${(s.label||'').replace(/"/g,'&quot;')}" style="flex:1;" />
+          <input type="text" class="prf-spec-value" placeholder="값 (예: 13.56MHz)" value="${(s.value||'').replace(/"/g,'&quot;')}" style="flex:1.4;" />
+          <button type="button" class="btn btn--ghost prf-spec-del" style="padding:6px 10px; font-size:13px;">×</button>
+        </div>
+      `).join('');
+      box.querySelectorAll('.prf-spec-del').forEach(btn => {
+        btn.onclick = () => { btn.closest('[data-spec-row]').remove(); };
+      });
+    }
+    document.getElementById('prf-spec-add').onclick = () => {
+      const box = document.getElementById('prf-specs-list');
+      const cur = collectSpecs();
+      cur.push({label:'',value:''});
+      renderSpecRows(cur);
+    };
+    function collectSpecs() {
+      const rows = document.querySelectorAll('#prf-specs-list [data-spec-row]');
+      const out = [];
+      rows.forEach(r => {
+        const label = r.querySelector('.prf-spec-label').value.trim();
+        const value = r.querySelector('.prf-spec-value').value.trim();
+        if (label || value) out.push({ label, value });
+      });
+      return out;
+    }
+
+    function fillProdForm(p) {
+      document.getElementById('prf-id').value = p ? p.id : '';
+      document.getElementById('prf-category').value = p ? p.category : 'reader';
+      document.getElementById('prf-band').value = p ? p.band : '125khz';
+      document.getElementById('prf-model').value = p ? p.model : '';
+      document.getElementById('prf-name').value = p ? p.name : '';
+      document.getElementById('prf-features').value = p && p.features ? p.features.join('\n') : '';
+      document.getElementById('prf-image').value = p ? p.image : '';
+      document.getElementById('prf-order').value = p ? p.sort_order : (PRODUCTS.length * 10);
+      document.getElementById('prf-discontinued').checked = p ? p.discontinued : false;
+      document.getElementById('prf-image-file').value = '';
+      const prev = document.getElementById('prf-image-preview');
+      prev.innerHTML = (p && p.image) ? `<img src="${p.image}" style="max-width:160px;border-radius:8px;">` : '';
+      renderSpecRows(p ? p.specs : []);
+    }
+
+    function openProdModal(id) {
+      const p = id ? PRODUCTS.find(x => x.id === id) : null;
+      document.getElementById('prodModalTitle').textContent = p ? '제품 수정' : '새 제품 추가';
+      fillProdForm(p);
+      // 삭제 버튼 동적 추가
+      let delBtn = document.getElementById('prodDeleteBtn');
+      const foot = document.querySelector('#prodModal .modal__foot');
+      if (p) {
+        if (!delBtn) {
+          delBtn = document.createElement('button');
+          delBtn.id = 'prodDeleteBtn'; delBtn.className = 'btn btn--ghost';
+          delBtn.style.cssText = 'color:var(--color-accent); margin-right:auto;';
+          delBtn.textContent = '삭제';
+          foot.insertBefore(delBtn, foot.firstChild);
+        }
+        delBtn.style.display = '';
+        delBtn.onclick = async () => {
+          if (!confirm('이 제품을 삭제할까요? (되돌릴 수 없습니다)')) return;
+          try { await sb.from('products').delete().eq('id', p.id); closeProdModal(); await loadProducts(); }
+          catch (e) { console.error(e); alert('삭제 중 오류가 발생했습니다.'); }
+        };
+      } else if (delBtn) { delBtn.style.display = 'none'; }
+      document.getElementById('prodModal').classList.add('is-on');
+    }
+    function closeProdModal() { document.getElementById('prodModal').classList.remove('is-on'); }
+
+    document.getElementById('prodAddBtn').onclick = () => openProdModal(null);
+    document.getElementById('prodModalClose').onclick = closeProdModal;
+    document.getElementById('prodCancelBtn').onclick = closeProdModal;
+    document.getElementById('prodModalOverlay').onclick = closeProdModal;
+
+    // 이미지 미리보기
+    document.getElementById('prf-image-file').addEventListener('change', (e) => {
+      const f = e.target.files[0];
+      const prev = document.getElementById('prf-image-preview');
+      if (f) { const url = URL.createObjectURL(f); prev.innerHTML = `<img src="${url}" style="max-width:160px;border-radius:8px;">`; }
+    });
+
+    document.getElementById('prodSaveBtn').onclick = async () => {
+      const saveBtn = document.getElementById('prodSaveBtn');
+      const id = document.getElementById('prf-id').value;
+      const category = document.getElementById('prf-category').value;
+      const band = document.getElementById('prf-band').value;
+      const model = document.getElementById('prf-model').value.trim();
+      const name = document.getElementById('prf-name').value.trim();
+      const specs = collectSpecs();
+      const features = document.getElementById('prf-features').value.split('\n').map(s => s.trim()).filter(Boolean);
+      const sort_order = parseInt(document.getElementById('prf-order').value) || 0;
+      const discontinued = document.getElementById('prf-discontinued').checked;
+      const file = document.getElementById('prf-image-file').files[0];
+      let image = document.getElementById('prf-image').value;
+
+      if (!model) { alert('모델명을 입력하세요.'); return; }
+
+      const orig = saveBtn.textContent; saveBtn.disabled = true; saveBtn.textContent = '저장 중...';
+      try {
+        if (file) { image = await uploadImage(file); }
+        const payload = { category, band: band || null, model, name: name || null, specs, features, image: image || null, sort_order, discontinued };
+        if (id) {
+          const { error } = await sb.from('products').update(payload).eq('id', +id);
+          if (error) throw error;
+        } else {
+          const { error } = await sb.from('products').insert(payload);
+          if (error) throw error;
+        }
+        closeProdModal();
+        await loadProducts();
       } catch (e) {
         console.error(e);
         alert('저장 중 오류가 발생했습니다.');
