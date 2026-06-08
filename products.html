@@ -433,6 +433,15 @@
       font-size: 15px; font-weight: 700; color: #fff; letter-spacing: -.01em;
     }
 
+    /* 카드 안 사양 (밝은 배경용) */
+    .prod-spec-grid--card {
+      grid-template-columns: 1fr 1fr; gap: 1px;
+      background: var(--color-border); margin: 12px 0 0;
+    }
+    .prod-spec-grid--card li { background: var(--color-bg-alt, #f6f8fa); padding: 10px 12px; }
+    .prod-spec-grid--card span { color: var(--color-text-faint); font-size: 9px; }
+    .prod-spec-grid--card strong { color: var(--color-text); font-size: 13px; }
+
     /* 제품 섹션 */
     .prod-section { margin-bottom: 56px; }
     .prod-section__title {
@@ -792,343 +801,23 @@
       <div class="side-nav__title">PRODUCTS</div>
       <ul class="side-nav__list">
         <li class="side-nav__group" data-i18n="prod.groupLf">저주파 (LF)</li>
-        <li><button type="button" class="side-nav__link is-active" data-band="lf125"><span class="band"><b>125</b><i>kHz</i></span><span class="side-nav__sub" data-i18n="prod.sub125">저주파 · 출입·자산</span></button></li>
-        <li><button type="button" class="side-nav__link" data-band="lf134"><span class="band"><b>134.2</b><i>kHz</i></span><span class="side-nav__sub" data-i18n="prod.sub134">동물 개체식별</span></button></li>
+        <li><button type="button" class="side-nav__link is-active" data-band="lf125"><span class="band"><b>125</b><i>kHz</i></span><span class="side-nav__sub" data-i18n="prod.sub125">저주파 · 디스플레이·자산</span></button></li>
+        <li><button type="button" class="side-nav__link" data-band="lf134"><span class="band"><b>134.2</b><i>kHz</i></span><span class="side-nav__sub" data-i18n="prod.sub134">저주파 · 정밀 인식</span></button></li>
         <li class="side-nav__group" data-i18n="prod.groupHf">고주파 (HF / UHF)</li>
-        <li><button type="button" class="side-nav__link" data-band="hf"><span class="band"><b>13.56</b><i>MHz</i></span><span class="side-nav__sub" data-i18n="prod.subHf">표준 · 도서·결제</span></button></li>
-        <li><button type="button" class="side-nav__link" data-band="uhf"><span class="band"><b>900</b><i>MHz</i></span><span class="side-nav__sub" data-i18n="prod.subUhf">장거리 · 물류</span></button></li>
+        <li><button type="button" class="side-nav__link" data-band="hf"><span class="band"><b>13.56</b><i>MHz</i></span><span class="side-nav__sub" data-i18n="prod.subHf">고주파 · 정밀 공정</span></button></li>
+        <li><button type="button" class="side-nav__link" data-band="uhf"><span class="band"><b>900</b><i>MHz</i></span><span class="side-nav__sub" data-i18n="prod.subUhf">장거리 · 물류·자동화</span></button></li>
       </ul>
     </aside>
 
     <!-- 우측 콘텐츠 -->
     <div class="about-content">
 
-      <!-- ===== 125 kHz ===== -->
-      <section class="prod-panel is-active" data-panel="lf125">
-        <div class="prod-overview">
-          <div class="prod-overview__head">
-            <div class="prod-overview__band">
-              <span class="prod-overview__badge prod-badge--lf">LF · 저주파</span>
-              <h2 class="prod-overview__freq">125 kHz</h2>
-            </div>
-            <p class="prod-overview__sub">금속·수분 환경에서도 안정적으로 동작하는 저주파 대역. 출입통제·자산관리에 가장 많이 쓰입니다.</p>
-          </div>
-          <ul class="prod-spec-grid">
-            <li><span>인식 거리</span><strong>~10cm</strong></li>
-            <li><span>주요 표준</span><strong>ISO 11784/11785</strong></li>
-            <li><span>강점</span><strong>금속·수분 강함</strong></li>
-            <li><span>인터페이스</span><strong>RS-232 / USB</strong></li>
-          </ul>
-        </div>
+      <!-- 제품 패널 (DB 동적 생성) -->
+      <section class="prod-panel is-active" data-panel="lf125"></section>
+      <section class="prod-panel" data-panel="lf134" hidden></section>
+      <section class="prod-panel" data-panel="hf" hidden></section>
+      <section class="prod-panel" data-panel="uhf" hidden></section>
 
-        <!-- 제품 라인업 -->
-        <div class="prod-section">
-          <h3 class="prod-section__title">READERS — 리더 라인업</h3>
-          <div class="prod-cards">
-            <article class="prod-card">
-              <div class="prod-card__image"><div class="prod-card__ph">REM125 / 고정형</div></div>
-              <div class="prod-card__body">
-                <div class="prod-card__series">REM125 SERIES</div>
-                <h4 class="prod-card__name">고정형 RFID Reader</h4>
-                <p class="prod-card__desc">출입통제·자산관리에 최적화된 고정 설치형 리더.</p>
-                <ul class="prod-card__feats">
-                  <li>안테나 1~4ch 외장 연결 가능</li>
-                  <li>RS-232 / TCP-IP 통신 지원</li>
-                  <li>금속 환경 안정 동작</li>
-                </ul>
-              </div>
-            </article>
-            <article class="prod-card">
-              <div class="prod-card__image"><div class="prod-card__ph">REM125 / 휴대형</div></div>
-              <div class="prod-card__body">
-                <div class="prod-card__series">REM125 HANDHELD</div>
-                <h4 class="prod-card__name">휴대형 RFID Reader</h4>
-                <p class="prod-card__desc">국내 최초 PDA용 125kHz RFID 리더 — 현장 점검·이동 식별용.</p>
-                <ul class="prod-card__feats">
-                  <li>휴대 가능한 배터리 일체형</li>
-                  <li>블루투스 / USB 통신</li>
-                  <li>점검·점호·검수 용도</li>
-                </ul>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        <div class="prod-section">
-          <h3 class="prod-section__title">ANTENNAS &amp; TAGS</h3>
-          <div class="prod-cards prod-cards--small">
-            <article class="prod-card prod-card--mini">
-              <div class="prod-card__image"><div class="prod-card__ph">125kHz Antenna</div></div>
-              <div class="prod-card__body">
-                <h4 class="prod-card__name">125 kHz 안테나</h4>
-                <p class="prod-card__desc">패치형·게이트형 등 환경별 안테나 라인업.</p>
-              </div>
-            </article>
-            <article class="prod-card prod-card--mini">
-              <div class="prod-card__image"><div class="prod-card__ph">125kHz Tags</div></div>
-              <div class="prod-card__body">
-                <h4 class="prod-card__name">125 kHz 태그</h4>
-                <p class="prod-card__desc">카드형·키링형·디스크형 등 부착 환경에 맞춤.</p>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        <div class="prod-uses">
-          <h3 class="prod-section__title">APPLICATIONS — 주요 적용 분야</h3>
-          <div class="prod-uses__grid">
-            <div class="prod-use">출입통제</div>
-            <div class="prod-use">자산관리</div>
-            <div class="prod-use">근태관리</div>
-            <div class="prod-use">설비점검</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===== 134.2 kHz ===== -->
-      <section class="prod-panel" data-panel="lf134" hidden>
-        <div class="prod-overview">
-          <div class="prod-overview__head">
-            <div class="prod-overview__band">
-              <span class="prod-overview__badge prod-badge--lf">LF · 동물식별</span>
-              <h2 class="prod-overview__freq">134.2 kHz</h2>
-            </div>
-            <p class="prod-overview__sub">ISO 11784/11785 동물 개체식별 국제 표준. 축산물 이력관리·반려동물 등록에 사용됩니다.</p>
-          </div>
-          <ul class="prod-spec-grid">
-            <li><span>인식 거리</span><strong>~10cm</strong></li>
-            <li><span>주요 표준</span><strong>ISO 11784/11785</strong></li>
-            <li><span>강점</span><strong>야외·악조건 안정</strong></li>
-            <li><span>인터페이스</span><strong>RS-232 / Bluetooth</strong></li>
-          </ul>
-        </div>
-
-        <div class="prod-section">
-          <h3 class="prod-section__title">READERS — 리더 라인업</h3>
-          <div class="prod-cards">
-            <article class="prod-card">
-              <div class="prod-card__image"><div class="prod-card__ph">REM134 / 휴대형</div></div>
-              <div class="prod-card__body">
-                <div class="prod-card__series">REM134 SERIES</div>
-                <h4 class="prod-card__name">동물식별 휴대형 Reader</h4>
-                <p class="prod-card__desc">가축·반려동물의 귀표·체내 태그를 읽는 휴대형 리더.</p>
-                <ul class="prod-card__feats">
-                  <li>ISO 11784/11785 완벽 호환</li>
-                  <li>방진·방수 등급</li>
-                  <li>축산농가·도축장·검역소 적용</li>
-                </ul>
-              </div>
-            </article>
-            <article class="prod-card">
-              <div class="prod-card__image"><div class="prod-card__ph">REM134 / 고정형</div></div>
-              <div class="prod-card__body">
-                <div class="prod-card__series">REM134 FIXED</div>
-                <h4 class="prod-card__name">고정형 동물식별 Reader</h4>
-                <p class="prod-card__desc">도축장 라인·통로 게이트 등 자동 식별이 필요한 위치에 설치.</p>
-                <ul class="prod-card__feats">
-                  <li>연속 자동 인식</li>
-                  <li>외장 안테나 연결</li>
-                  <li>이력관리 시스템 연계</li>
-                </ul>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        <div class="prod-section">
-          <h3 class="prod-section__title">TAGS — 동물식별 태그</h3>
-          <div class="prod-cards prod-cards--small">
-            <article class="prod-card prod-card--mini">
-              <div class="prod-card__image"><div class="prod-card__ph">귀표 (Ear Tag)</div></div>
-              <div class="prod-card__body">
-                <h4 class="prod-card__name">귀표 태그</h4>
-                <p class="prod-card__desc">소·돼지 등 가축 개체식별용 외부 부착형.</p>
-              </div>
-            </article>
-            <article class="prod-card prod-card--mini">
-              <div class="prod-card__image"><div class="prod-card__ph">체내 태그</div></div>
-              <div class="prod-card__body">
-                <h4 class="prod-card__name">체내 (Implant) 태그</h4>
-                <p class="prod-card__desc">반려동물·소형 가축용 마이크로칩 태그.</p>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        <div class="prod-uses">
-          <h3 class="prod-section__title">APPLICATIONS — 주요 적용 분야</h3>
-          <div class="prod-uses__grid">
-            <div class="prod-use">축산물 이력관리</div>
-            <div class="prod-use">가축 개체식별</div>
-            <div class="prod-use">반려동물 등록</div>
-            <div class="prod-use">도축·가공 추적</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===== 13.56 MHz ===== -->
-      <section class="prod-panel" data-panel="hf" hidden>
-        <div class="prod-overview">
-          <div class="prod-overview__head">
-            <div class="prod-overview__band">
-              <span class="prod-overview__badge prod-badge--hf">HF · 표준</span>
-              <h2 class="prod-overview__freq">13.56 MHz</h2>
-            </div>
-            <p class="prod-overview__sub">국제 표준(ISO 14443/15693) 호환. 도서관리·스마트카드·결제 등 정밀 식별이 필요한 분야의 표준 대역.</p>
-          </div>
-          <ul class="prod-spec-grid">
-            <li><span>인식 거리</span><strong>~1m</strong></li>
-            <li><span>주요 표준</span><strong>ISO 14443 / 15693</strong></li>
-            <li><span>강점</span><strong>1리더 4안테나 외장형</strong></li>
-            <li><span>인터페이스</span><strong>RS-232 / TCP-IP</strong></li>
-          </ul>
-        </div>
-
-        <div class="prod-section">
-          <h3 class="prod-section__title">READERS — 리더 라인업</h3>
-          <div class="prod-cards">
-            <article class="prod-card prod-card--feature">
-              <div class="prod-card__image"><div class="prod-card__ph">REM1356-4</div></div>
-              <div class="prod-card__body">
-                <div class="prod-card__series">REM1356 SERIES · FLAGSHIP</div>
-                <h4 class="prod-card__name">1리더 4안테나 외장형 Reader</h4>
-                <p class="prod-card__desc">하나의 리더에 외장 안테나 4개까지 연결 가능. 도서관 무인 반납기·공장자동화 라인에 검증된 구성.</p>
-                <ul class="prod-card__feats">
-                  <li>외장 안테나 1~4ch 자유 구성</li>
-                  <li>ISO 14443A/B, ISO 15693 호환</li>
-                  <li>TCP-IP / RS-232 통신</li>
-                  <li>다중 태그 충돌 방지(Anti-collision)</li>
-                </ul>
-              </div>
-            </article>
-            <article class="prod-card">
-              <div class="prod-card__image"><div class="prod-card__ph">REM1356 / 휴대형</div></div>
-              <div class="prod-card__body">
-                <div class="prod-card__series">REM1356 HANDHELD</div>
-                <h4 class="prod-card__name">휴대형 HF Reader</h4>
-                <p class="prod-card__desc">현장에서 사용하는 휴대형 13.56MHz 리더.</p>
-                <ul class="prod-card__feats">
-                  <li>블루투스·USB 통신</li>
-                  <li>장서 점검·재고 실사</li>
-                  <li>스마트카드 발급·관리</li>
-                </ul>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        <div class="prod-section">
-          <h3 class="prod-section__title">ANTENNAS &amp; TAGS</h3>
-          <div class="prod-cards prod-cards--small">
-            <article class="prod-card prod-card--mini">
-              <div class="prod-card__image"><div class="prod-card__ph">13.56MHz Antenna</div></div>
-              <div class="prod-card__body">
-                <h4 class="prod-card__name">13.56 MHz 안테나</h4>
-                <p class="prod-card__desc">슬림형·게이트형·터널형 등 환경별 안테나.</p>
-              </div>
-            </article>
-            <article class="prod-card prod-card--mini">
-              <div class="prod-card__image"><div class="prod-card__ph">13.56MHz Tags</div></div>
-              <div class="prod-card__body">
-                <h4 class="prod-card__name">13.56 MHz 태그</h4>
-                <p class="prod-card__desc">라벨형·카드형·스티커형 — 도서·자산 라벨링.</p>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        <div class="prod-uses">
-          <h3 class="prod-section__title">APPLICATIONS — 주요 적용 분야</h3>
-          <div class="prod-uses__grid">
-            <div class="prod-use">도서관리</div>
-            <div class="prod-use">스마트카드</div>
-            <div class="prod-use">전자결제</div>
-            <div class="prod-use">의료·자산</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===== 900 MHz ===== -->
-      <section class="prod-panel" data-panel="uhf" hidden>
-        <div class="prod-overview">
-          <div class="prod-overview__head">
-            <div class="prod-overview__band">
-              <span class="prod-overview__badge prod-badge--uhf">UHF · 장거리</span>
-              <h2 class="prod-overview__freq">900 MHz</h2>
-            </div>
-            <p class="prod-overview__sub">수 미터 거리에서 초당 수백 개 태그를 동시에 인식. 물류·공급망·반도체 공정 자동화의 핵심 대역.</p>
-          </div>
-          <ul class="prod-spec-grid">
-            <li><span>인식 거리</span><strong>~수 m</strong></li>
-            <li><span>주요 표준</span><strong>ISO 18000-6C (EPC C1G2)</strong></li>
-            <li><span>강점</span><strong>다중 인식·고속 처리</strong></li>
-            <li><span>인터페이스</span><strong>TCP-IP / RS-232</strong></li>
-          </ul>
-        </div>
-
-        <div class="prod-section">
-          <h3 class="prod-section__title">READERS — 리더 라인업</h3>
-          <div class="prod-cards">
-            <article class="prod-card prod-card--feature">
-              <div class="prod-card__image"><div class="prod-card__ph">REM900 / 고정형</div></div>
-              <div class="prod-card__body">
-                <div class="prod-card__series">REM900 SERIES · FLAGSHIP</div>
-                <h4 class="prod-card__name">UHF 고정형 Reader</h4>
-                <p class="prod-card__desc">반도체 공장·물류센터 입출고 게이트에 검증된 고정형 리더. 멀티태그 인식률 100%(TTA 인증).</p>
-                <ul class="prod-card__feats">
-                  <li>외장 안테나 4ch 연결</li>
-                  <li>EPC C1G2 표준 호환</li>
-                  <li>TTA 멀티태그 인식률 100% 인증</li>
-                  <li>Good Design 수상 (REM900-R2)</li>
-                </ul>
-              </div>
-            </article>
-            <article class="prod-card">
-              <div class="prod-card__image"><div class="prod-card__ph">REM900 / 휴대형</div></div>
-              <div class="prod-card__body">
-                <div class="prod-card__series">REM900 HANDHELD</div>
-                <h4 class="prod-card__name">UHF 휴대형 Reader</h4>
-                <p class="prod-card__desc">대량 재고 실사·현장 검수용 휴대형 UHF 리더.</p>
-                <ul class="prod-card__feats">
-                  <li>블루투스 / USB 통신</li>
-                  <li>장거리 인식 (최대 ~5m)</li>
-                  <li>창고·매장 재고 실사</li>
-                </ul>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        <div class="prod-section">
-          <h3 class="prod-section__title">ANTENNAS &amp; TAGS</h3>
-          <div class="prod-cards prod-cards--small">
-            <article class="prod-card prod-card--mini">
-              <div class="prod-card__image"><div class="prod-card__ph">UHF Antenna</div></div>
-              <div class="prod-card__body">
-                <h4 class="prod-card__name">UHF 안테나</h4>
-                <p class="prod-card__desc">원편파·선형편파, 게이트·터널형 등 적용 환경별 라인업.</p>
-              </div>
-            </article>
-            <article class="prod-card prod-card--mini">
-              <div class="prod-card__image"><div class="prod-card__ph">UHF Tags</div></div>
-              <div class="prod-card__body">
-                <h4 class="prod-card__name">UHF 태그</h4>
-                <p class="prod-card__desc">라벨·하드·금속 부착형 — 반도체 자재·물류 박스에 적용.</p>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        <div class="prod-uses">
-          <h3 class="prod-section__title">APPLICATIONS — 주요 적용 분야</h3>
-          <div class="prod-uses__grid">
-            <div class="prod-use">반도체 공장자동화</div>
-            <div class="prod-use">물류·공급망</div>
-            <div class="prod-use">자산 실사</div>
-            <div class="prod-use">대형 매장 재고</div>
-          </div>
-        </div>
-      </section>
 
       <!-- 공통 CTA -->
       <section class="prod-cta">
@@ -1191,6 +880,11 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    window.CEYON_SUPABASE_URL  = 'https://ovmwclkbquzapgvzweon.supabase.co';
+    window.CEYON_SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im92bXdjbGticXV6YXBndnp3ZW9uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyNjcyMjksImV4cCI6MjA5NTg0MzIyOX0.LWv5GEx3Y0lrem2Vh7-brijuQNZIRdMNsieIC1BtEck';
+  </script>
   <script>
     /* =========================================================
        i18n — 회사소개 페이지 다국어 사전
@@ -1221,12 +915,12 @@
         'prod.eye':'PRODUCTS',
         'prodPage.title':'주파수 대역별<br>RFID 제품군',
         'prodPage.tLf125':'125 kHz<br>저주파 RFID','prodPage.sLf125':'출입통제·자산관리에 쓰이는 125kHz 저주파 리더·태그를 자체 개발·제조합니다.',
-        'prodPage.tLf134':'134.2 kHz<br>동물 개체식별 RFID','prodPage.sLf134':'국제표준(ISO 11784/5) 기반 동물 개체식별용 134.2kHz 제품군입니다.',
+        'prodPage.tLf134':'134.2 kHz<br>저주파 정밀 RFID','prodPage.sLf134':'간섭에 강하고 신뢰성이 높은 저주파 대역으로, 정밀 산업 공정·물류에 적용됩니다.',
         'prodPage.tHf':'13.56 MHz<br>고주파 RFID','prodPage.sHf':'도서관리·결제·출입 등 가장 널리 쓰이는 13.56MHz 표준 대역 제품군입니다.',
         'prodPage.tUhf':'900 MHz<br>UHF 장거리 RFID','prodPage.sUhf':'물류·반도체 등 장거리 다중인식이 필요한 900MHz UHF 제품군입니다.',
         'prodPage.sub':'125 kHz · 134.2 kHz · 13.56 MHz · 900 MHz — 산업 현장에서 가장 많이 쓰이는 4개 대역의 리더·안테나·태그를 모두 자체 개발·제조합니다.',
         'prod.groupLf':'저주파 (LF)','prod.groupHf':'고주파 (HF / UHF)',
-        'prod.sub125':'저주파 · 출입·자산','prod.sub134':'동물 개체식별','prod.subHf':'표준 · 도서·결제','prod.subUhf':'장거리 · 물류',
+        'prod.sub125':'저주파 · 디스플레이·자산','prod.sub134':'저주파 · 정밀 인식','prod.subHf':'고주파 · 정밀 공정','prod.subUhf':'장거리 · 물류·자동화',
         'foot.hours1':'평일 AM 9:00 ~ PM 6:00','foot.hours2':'(토·일, 법정 공휴일 휴무)',
         'foot.c1t':'회사 소개','foot.c1d':'RFID 전문 기업, 세연테크놀로지를 소개합니다.',
         'foot.c2t':'제품 안내','foot.c2d':'125·134·13.56·900 전 대역 RFID 제품을 안내합니다.',
@@ -1259,12 +953,12 @@
         'prod.eye':'PRODUCTS',
         'prodPage.title':'RFID products<br>by frequency band',
         'prodPage.tLf125':'125 kHz<br>Low-Frequency RFID','prodPage.sLf125':'125kHz LF readers and tags for access control and asset management, developed in-house.',
-        'prodPage.tLf134':'134.2 kHz<br>Animal ID RFID','prodPage.sLf134':'134.2kHz products for animal identification based on ISO 11784/5 standards.',
+        'prodPage.tLf134':'134.2 kHz<br>LF Precision RFID','prodPage.sLf134':'Interference-resistant, highly reliable low-frequency band for precision industrial processes and logistics.',
         'prodPage.tHf':'13.56 MHz<br>High-Frequency RFID','prodPage.sHf':'13.56MHz standard-band products widely used for library, payment and access.',
         'prodPage.tUhf':'900 MHz<br>UHF Long-Range RFID','prodPage.sUhf':'900MHz UHF products for long-range multi-tag reading in logistics and semiconductors.',
         'prodPage.sub':'125 kHz · 134.2 kHz · 13.56 MHz · 900 MHz — we develop and manufacture readers, antennas, and tags in-house across all four bands most used in industry.',
         'prod.groupLf':'Low Freq (LF)','prod.groupHf':'High Freq (HF / UHF)',
-        'prod.sub125':'Low freq · Access·Asset','prod.sub134':'Animal ID','prod.subHf':'Standard · Library·Pay','prod.subUhf':'Long range · Logistics',
+        'prod.sub125':'LF · Display·Asset','prod.sub134':'LF · Precision','prod.subHf':'HF · Precision process','prod.subUhf':'Long range · Logistics',
         'foot.hours1':'Weekdays 9:00 AM ~ 6:00 PM','foot.hours2':'(Closed weekends & public holidays)',
         'foot.c1t':'About Us','foot.c1d':'Meet CEYON Technology, an RFID specialist.',
         'foot.c2t':'Products','foot.c2d':'Explore our full 125·134·13.56·900 RFID lineup.',
@@ -1297,12 +991,12 @@
         'prod.eye':'PRODUCTS',
         'prodPage.title':'按频段分类的<br>RFID产品系列',
         'prodPage.tLf125':'125 kHz<br>低频 RFID','prodPage.sLf125':'用于门禁·资产管理的125kHz低频读取器和标签，自主研发制造。',
-        'prodPage.tLf134':'134.2 kHz<br>动物识别 RFID','prodPage.sLf134':'基于ISO 11784/5标准的134.2kHz动物个体识别产品系列。',
+        'prodPage.tLf134':'134.2 kHz<br>低频精密 RFID','prodPage.sLf134':'抗干扰、高可靠性的低频频段，适用于精密工业流程与物流。',
         'prodPage.tHf':'13.56 MHz<br>高频 RFID','prodPage.sHf':'广泛用于图书·支付·门禁的13.56MHz标准频段产品系列。',
         'prodPage.tUhf':'900 MHz<br>UHF 远距离 RFID','prodPage.sUhf':'用于物流·半导体等远距离多标签识别的900MHz UHF产品系列。',
         'prodPage.sub':'125 kHz · 134.2 kHz · 13.56 MHz · 900 MHz — 自主研发并制造产业现场最常用的4个频段的读取器·天线·标签全产品。',
         'prod.groupLf':'低频 (LF)','prod.groupHf':'高频 (HF / UHF)',
-        'prod.sub125':'低频 · 门禁·资产','prod.sub134':'动物个体识别','prod.subHf':'标准 · 图书·支付','prod.subUhf':'远距离 · 物流',
+        'prod.sub125':'低频 · 显示·资产','prod.sub134':'低频 · 精密识别','prod.subHf':'高频 · 精密工序','prod.subUhf':'远距离 · 物流·自动化',
         'foot.hours1':'工作日 上午9:00 ~ 下午6:00','foot.hours2':'(周六·日、法定节假日休息)',
         'foot.c1t':'公司简介','foot.c1d':'介绍RFID专业企业世延科技。',
         'foot.c2t':'产品介绍','foot.c2d':'介绍125·134·13.56·900全频段RFID产品。',
@@ -1401,6 +1095,109 @@
       const update = () => { header.classList.toggle('is-scrolled', window.scrollY > 40); ticking = false; };
       window.addEventListener('scroll', () => { if (!ticking) { requestAnimationFrame(update); ticking = true; } }, { passive: true });
       update();
+    })();
+
+    /* =========================================================
+       제품 DB 렌더링
+       ========================================================= */
+    (() => {
+      let sb = null;
+      if (window.supabase && window.CEYON_SUPABASE_URL) {
+        sb = window.supabase.createClient(window.CEYON_SUPABASE_URL, window.CEYON_SUPABASE_ANON);
+      }
+      if (!sb) return;
+
+      const BAND_INFO = {
+        lf125: {
+          band: '125khz', badge: 'LF · 저주파', freq: '125 kHz',
+          sub: '금속·수분 환경에서도 안정적으로 동작하는 저주파 대역입니다. 출입통제·자산관리 등 근거리 고신뢰 인식에 두루 쓰이며, 디스플레이 패널 생산 현장 등에 공급해 왔습니다.',
+          specs: [['인식 거리','~10cm'],['강점','금속·수분에 강함'],['대표 적용','디스플레이·자산관리'],['인터페이스','RS-232 / RS-422']]
+        },
+        lf134: {
+          band: '134khz', badge: 'LF · 저주파', freq: '134.2 kHz',
+          sub: '국제표준 기반의 저주파 대역으로, 간섭에 강하고 인식 신뢰성이 높습니다. 정밀함이 요구되는 산업 공정·물류 현장에 적용됩니다.',
+          specs: [['인식 거리','~20cm'],['강점','높은 신뢰성'],['대표 적용','산업 공정 관리'],['인터페이스','RS-232 / TCP/IP']]
+        },
+        hf: {
+          band: '13.56mhz', badge: 'HF · 고주파', freq: '13.56 MHz',
+          sub: '데이터 안정성이 뛰어난 고주파 표준 대역입니다. 인증·관리 등 폭넓게 쓰이며, 반도체 정밀 공정·물류 관리에 강점을 가집니다.',
+          specs: [['인식 거리','~50cm'],['주요 표준','ISO15693'],['대표 적용','정밀 공정·물류'],['인터페이스','RS-232 / TCP/IP']]
+        },
+        uhf: {
+          band: '900mhz', badge: 'UHF · 극초단파', freq: '900 MHz',
+          sub: '장거리·다중 인식이 가능한 극초단파 대역입니다. 대규모 물류 추적과 공장 자동화 등 빠른 대량 처리가 필요한 현장에 적합합니다.',
+          specs: [['인식 거리','~수 m'],['주요 표준','ISO18000-6C'],['대표 적용','물류·자동화'],['인터페이스','RS-232 / TCP/IP']]
+        }
+      };
+      const CAT_LABEL = { reader:'READERS — 리더', controller:'CONTROLLER — 컨트롤러', writer:'WRITER — 라이터', antenna:'ANTENNAS — 안테나', bluetooth:'BLUETOOTH — 블루투스 리더' };
+      const CAT_ORDER = ['reader','controller','writer','antenna','bluetooth'];
+      const esc = (s) => (s||'').replace(/</g,'&lt;');
+
+      const cardHTML = (p) => {
+        const specsHTML = (p.specs||[]).slice(0,4).map(s => `<li><span>${esc(s.label)}</span><strong>${esc(s.value)}</strong></li>`).join('');
+        const featHTML = (p.features||[]).map(f => `<li>${esc(f)}</li>`).join('');
+        return `
+          <article class="prod-card">
+            <div class="prod-card__image">${p.image ? `<img src="${p.image}" alt="${esc(p.model)}" style="width:100%;height:100%;object-fit:contain;">` : `<div class="prod-card__ph">${esc(p.model)}</div>`}</div>
+            <div class="prod-card__body">
+              <div class="prod-card__series">${esc(p.model)}</div>
+              <h4 class="prod-card__name">${esc(p.name || p.model)}</h4>
+              ${specsHTML ? `<ul class="prod-spec-grid prod-spec-grid--card">${specsHTML}</ul>` : ''}
+              ${featHTML ? `<ul class="prod-card__feats">${featHTML}</ul>` : ''}
+            </div>
+          </article>`;
+      };
+
+      const renderPanel = (panelKey, products) => {
+        const panel = document.querySelector(`.prod-panel[data-panel="${panelKey}"]`);
+        if (!panel) return;
+        const info = BAND_INFO[panelKey];
+        const mine = products.filter(p => p.band === info.band && !p.discontinued)
+                             .sort((a,b) => a.sort_order - b.sort_order);
+        let html = `
+          <div class="prod-overview">
+            <div class="prod-overview__head">
+              <div class="prod-overview__band">
+                <span class="prod-overview__badge prod-badge--${panelKey.startsWith('lf')?'lf':(panelKey==='hf'?'hf':'uhf')}">${info.badge}</span>
+                <h2 class="prod-overview__freq">${info.freq}</h2>
+              </div>
+              <p class="prod-overview__sub">${info.sub}</p>
+            </div>
+            <ul class="prod-spec-grid">
+              ${info.specs.map(([l,v]) => `<li><span>${l}</span><strong>${v}</strong></li>`).join('')}
+            </ul>
+          </div>`;
+        if (!mine.length) {
+          html += `<div class="prod-empty" style="padding:40px 0; color:var(--color-text-faint);">해당 대역 제품 정보는 별도 문의 바랍니다.</div>`;
+        } else {
+          CAT_ORDER.forEach(cat => {
+            const items = mine.filter(p => p.category === cat);
+            if (!items.length) return;
+            html += `
+              <div class="prod-section">
+                <h3 class="prod-section__title">${CAT_LABEL[cat] || cat}</h3>
+                <div class="prod-cards">${items.map(cardHTML).join('')}</div>
+              </div>`;
+          });
+        }
+        panel.innerHTML = html;
+      };
+
+      const load = async () => {
+        try {
+          const { data, error } = await sb.from('products').select('*').order('sort_order');
+          if (error) throw error;
+          const products = (data || []).map(p => ({
+            category: p.category, band: p.band || '', model: p.model, name: p.name || '',
+            specs: Array.isArray(p.specs) ? p.specs : [],
+            features: Array.isArray(p.features) ? p.features : [],
+            image: p.image || '', discontinued: !!p.discontinued, sort_order: p.sort_order || 0,
+            visible: p.visible !== false
+          })).filter(p => p.visible);
+          Object.keys(BAND_INFO).forEach(k => renderPanel(k, products));
+        } catch (e) { console.error(e); }
+      };
+      load();
     })();
 
   </script>
