@@ -146,7 +146,7 @@
     }
 
     .logo__img {
-      height: 36px;
+      height: 48px;
       width: auto;
       display: block;
       transition: opacity 0.4s var(--ease-out);
@@ -175,7 +175,7 @@
       position: relative;
       display: block;
       padding: 10px 20px;
-      font-size: 17px;
+      font-size: 18px;
       font-weight: 600;
       letter-spacing: -0.01em;
       border-radius: 8px 8px 0 0;
@@ -690,6 +690,11 @@
       color: var(--color-accent);
       margin-left: 2px;
     }
+    .about__stat-num span.stat-main {
+      font-size: inherit;
+      color: inherit;
+      margin-left: 0;
+    }
     .about__stat-label {
       margin-top: 12px;
       font-size: 13px;
@@ -703,7 +708,7 @@
     .rfid {
       background: var(--color-primary-deep);
       color: #fff;
-      padding: clamp(80px, 12vh, 140px) var(--container-pad);
+      padding: clamp(80px, 12vh, 140px) 0;
       position: relative;
       overflow: hidden;
     }
@@ -721,6 +726,7 @@
     .rfid__inner {
       max-width: var(--container-max);
       margin: 0 auto;
+      padding: 0 var(--container-pad);
       position: relative;
       z-index: 1;
     }
@@ -1144,8 +1150,8 @@
         --header-h: 64px;
         --header-h-scrolled: 56px;
       }
-      .logo__img { height: 30px; }
-      .header.is-scrolled .logo__img { height: 28px; }
+      .logo__img { height: 36px; }
+      .header.is-scrolled .logo__img { height: 34px; }
       .lang { gap: 8px; }
       .lang__btn { font-size: 11px; }
       .hero__inner { padding-bottom: 100px; gap: 24px; }
@@ -1455,7 +1461,7 @@
             <div class="about__stat-label" data-i18n="about.s2">125·134·13.56·900</div>
           </li>
           <li class="about__stat">
-            <div class="about__stat-num"><span data-i18n="hero.statDevTop">자체</span><span data-i18n="hero.statDev">개발</span></div>
+            <div class="about__stat-num"><span class="stat-main" data-i18n="hero.statDevTop">자체</span><span data-i18n="hero.statDev">개발</span></div>
             <div class="about__stat-label" data-i18n="about.s3">리더·안테나·태그 제조</div>
           </li>
           <li class="about__stat">
