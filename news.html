@@ -502,6 +502,30 @@
     }
     .news-detail__body { font-size: 16px; line-height: 1.85; color: var(--color-text); }
 
+    /* 이전/다음 글 네비게이션 */
+    .news-nav {
+      display: flex; flex-direction: column; gap: 1px;
+      margin-top: 40px; border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border); background: var(--color-border);
+    }
+    .news-nav__item {
+      display: flex; align-items: center; gap: 16px; width: 100%;
+      padding: 16px 20px; background: var(--color-surface, #fff);
+      border: none; text-align: left; cursor: pointer; font-family: inherit;
+      transition: background .2s var(--ease-out);
+    }
+    .news-nav__item:hover:not(.news-nav__item--empty) { background: var(--color-bg-alt); }
+    .news-nav__item--empty { cursor: default; opacity: .6; }
+    .news-nav__dir {
+      flex-shrink: 0; width: 80px; font-size: 13px; font-weight: 600; color: var(--color-primary);
+    }
+    .news-nav__item--empty .news-nav__dir { color: var(--color-text-faint); }
+    .news-nav__title {
+      font-size: 15px; color: var(--color-text); overflow: hidden;
+      text-overflow: ellipsis; white-space: nowrap;
+    }
+    .news-nav__item--empty .news-nav__title { color: var(--color-text-faint); }
+
     /* 결과 없음 */
     .news-empty {
       text-align: center; padding: 80px 20px; color: var(--color-text-muted);
@@ -1084,6 +1108,24 @@
             <div class="news-attach__title">📎 첨부파일</div>
             ${n.attachments.map(a => `<a class="news-attach__item" href="${a.url}" target="_blank" rel="noopener" download>${(a.name||'파일').replace(/</g,'&lt;')} <span class="news-attach__size">${fmtSizeD(a.size)}</span></a>`).join('')}
           </div>` : '';
+
+        // 현재 필터/검색 기준 목록에서 앞뒤 글 찾기
+        const list = filtered();
+        const idx = list.findIndex(x => x.id === id);
+        const prev = idx > 0 ? list[idx - 1] : null;          // 위(최신 방향)
+        const next = idx >= 0 && idx < list.length - 1 ? list[idx + 1] : null; // 아래(과거 방향)
+        const navRow = (item, dir) => {
+          if (!item) {
+            return `<div class="news-nav__item news-nav__item--empty"><span class="news-nav__dir">${dir==='prev'?'이전 글':'다음 글'}</span><span class="news-nav__title">${dir==='prev'?'최신 글입니다':'마지막 글입니다'}</span></div>`;
+          }
+          return `<button class="news-nav__item" type="button" data-nav="${item.id}"><span class="news-nav__dir">${dir==='prev'?'↑ 이전 글':'↓ 다음 글'}</span><span class="news-nav__title">${(item.title||'').replace(/</g,'&lt;')}</span></button>`;
+        };
+        const navHtml = `
+          <nav class="news-nav">
+            ${navRow(prev, 'prev')}
+            ${navRow(next, 'next')}
+          </nav>`;
+
         detailEl.innerHTML = `
           <div class="news-detail__head">
             <span class="news-item__cat news-cat--${n.cat}">${CAT_LABEL[n.cat] || n.cat}</span>
@@ -1094,7 +1136,18 @@
             ${n.image ? `<img src="${n.image}" alt="" style="max-width:100%;border-radius:8px;margin-bottom:16px;display:block;">` : ''}
             ${n.body || ''}
             ${attachHtml}
-          </div>`;
+          </div>
+          ${navHtml}`;
+
+        // 이전/다음 글 클릭
+        detailEl.querySelectorAll('[data-nav]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const nid = +btn.dataset.nav;
+            history.pushState({ id: nid }, '', 'news.html?id=' + nid);
+            showDetail(nid);
+          });
+        });
+
         listView.hidden = true;
         detailView.hidden = false;
         window.scrollTo({ top: 0, behavior: 'smooth' });
