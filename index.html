@@ -593,6 +593,14 @@
       font-family: var(--font-en);
       font-weight: 500;
     }
+    .hero__stat-freq .freq-line {
+      display: block; line-height: 1.55;
+    }
+    .hero__stat-freq .freq-line b { font-weight: 600; color: rgba(255,255,255,0.92); }
+    .hero__stat-freq .freq-line i {
+      font-style: normal; font-size: 11px; color: rgba(255,255,255,0.45);
+      margin-left: 4px; font-family: var(--font-kr);
+    }
 
     /* =========================================================
        5. SECTION COMMON
@@ -700,6 +708,13 @@
       font-size: 14px;
       color: var(--color-text-muted);
       letter-spacing: -0.01em;
+    }
+    .about__stat-freq .freq-line {
+      display: block; line-height: 1.6;
+    }
+    .about__stat-freq .freq-line b { font-weight: 600; color: var(--color-text); }
+    .about__stat-freq .freq-line i {
+      font-style: normal; font-size: 12px; color: var(--color-text-faint); margin-left: 4px;
     }
 
     /* =========================================================
@@ -1415,7 +1430,7 @@
         </div>
         <div class="hero__stat">
           <div class="hero__stat-num">4<sup data-i18n="hero.statBand">대역</sup></div>
-          <div class="hero__stat-label" data-i18n="hero.stat2">125·134·13.56·900</div>
+          <div class="hero__stat-label hero__stat-freq" data-i18n="hero.stat2" data-i18n-html>125·134·13.56·900</div>
         </div>
         <div class="hero__stat">
           <div class="hero__stat-num"><span data-i18n="hero.statDevTop">자체</span><sup data-i18n="hero.statDev">개발</sup></div>
@@ -1458,7 +1473,7 @@
           </li>
           <li class="about__stat">
             <div class="about__stat-num">4<span data-i18n="hero.statBand">대역</span></div>
-            <div class="about__stat-label" data-i18n="about.s2">125·134·13.56·900</div>
+            <div class="about__stat-label about__stat-freq" data-i18n="about.s2" data-i18n-html>125·134·13.56·900</div>
           </li>
           <li class="about__stat">
             <div class="about__stat-num"><span class="stat-main" data-i18n="hero.statDevTop">자체</span><span data-i18n="hero.statDev">개발</span></div>
@@ -1877,7 +1892,7 @@
         'hero.ctaPrimary':  '제품 살펴보기',
         'hero.ctaSecondary':'견적 문의',
         'hero.stat1':       'Since · RFID 전문',
-        'hero.stat2':       '125·134 kHz · 13.56·900 MHz',
+        'hero.stat2':       '<span class="freq-line"><b>125 · 134</b> kHz <i>저주파</i></span><span class="freq-line"><b>13.56 · 900</b> MHz <i>고주파</i></span>',
         'hero.statBand':'대역','hero.statDev':'개발','hero.statDevTop':'자체','hero.statPro':'전문',
         'hero.stat3':       '리더·안테나·태그 제조',
         'cta.quote':        '견적 문의',
@@ -1887,7 +1902,7 @@
         'about.p2':         '반도체 공장자동화, 유통·물류, 자산·출입관리 등 다양한 산업 현장에 검증된 RFID 하드웨어를 공급하며, 고객 환경에 맞는 최적의 솔루션을 제안합니다.',
         'about.link':       '우리의 강점 살펴보기 →',
         'about.s1':         '설립 연도',
-        'about.s2':         '125·134 kHz · 13.56·900 MHz',
+        'about.s2':         '<span class="freq-line"><b>125 · 134</b> kHz <i>저주파</i></span><span class="freq-line"><b>13.56 · 900</b> MHz <i>고주파</i></span>',
         'about.s3':         '리더·안테나·태그 제조',
         'about.s4':         '하드웨어 단일 분야 집중',
         'rfid.eyebrow':     'WHAT IS RFID',
@@ -1954,7 +1969,7 @@
         'hero.ctaPrimary':  'Explore Products',
         'hero.ctaSecondary':'Request a Quote',
         'hero.stat1':       'Since · RFID Specialist',
-        'hero.stat2':       '125·134 kHz · 13.56·900 MHz',
+        'hero.stat2':       '<span class="freq-line"><b>125 · 134</b> kHz <i>LF</i></span><span class="freq-line"><b>13.56 · 900</b> MHz <i>HF·UHF</i></span>',
         'hero.statBand':'Bands','hero.statDev':'In-house','hero.statDevTop':'R&D','hero.statPro':'Focus',
         'hero.stat3':       'In-house R&D & Manufacturing',
         'cta.quote':        'Get a Quote',
@@ -1964,7 +1979,7 @@
         'about.p2':         'We supply proven RFID hardware across diverse industrial sites — semiconductor automation, retail & logistics, asset & access control — and propose solutions tailored to each customer\'s environment.',
         'about.link':       'Explore our strengths →',
         'about.s1':         'Founded',
-        'about.s2':         '125·134 kHz · 13.56·900 MHz',
+        'about.s2':         '<span class="freq-line"><b>125 · 134</b> kHz <i>LF</i></span><span class="freq-line"><b>13.56 · 900</b> MHz <i>HF·UHF</i></span>',
         'about.s3':         'Reader·Antenna·Tag in-house',
         'about.s4':         'Focused solely on RFID HW',
         'rfid.eyebrow':     'WHAT IS RFID',
@@ -2031,7 +2046,7 @@
         'hero.ctaPrimary':  '查看产品',
         'hero.ctaSecondary':'索取报价',
         'hero.stat1':       'Since · RFID 专业',
-        'hero.stat2':       '125·134 kHz · 13.56·900 MHz',
+        'hero.stat2':       '<span class="freq-line"><b>125 · 134</b> kHz <i>低频</i></span><span class="freq-line"><b>13.56 · 900</b> MHz <i>高频</i></span>',
         'hero.statBand':'频段','hero.statDev':'自主开发','hero.statDevTop':'自主','hero.statPro':'专业',
         'hero.stat3':       '读取器·天线·标签自主制造',
         'cta.quote':        '索取报价',
@@ -2041,7 +2056,7 @@
         'about.p2':         '我们在半导体工厂自动化、流通物流、资产门禁管理等多种工业现场提供经过验证的RFID硬件,并为客户量身定制最优解决方案。',
         'about.link':       '了解我们的优势 →',
         'about.s1':         '成立年份',
-        'about.s2':         '125·134 kHz · 13.56·900 MHz',
+        'about.s2':         '<span class="freq-line"><b>125 · 134</b> kHz <i>低频</i></span><span class="freq-line"><b>13.56 · 900</b> MHz <i>高频</i></span>',
         'about.s3':         '读取器·天线·标签自主制造',
         'about.s4':         '专注RFID硬件单一领域',
         'rfid.eyebrow':     'WHAT IS RFID',
