@@ -478,6 +478,30 @@
     .news-attach__item:hover { border-color: var(--color-primary); color: var(--color-primary); }
     .news-attach__size { font-size: 12px; color: var(--color-text-faint); }
 
+    /* 목록 아이템 — 화살표/클립 */
+    .news-item__arrow { font-size: 22px; color: var(--color-text-faint); }
+    .news-item__clip { font-size: 13px; }
+
+    /* 상세 뷰 */
+    .news-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 9px 16px; margin-bottom: 24px;
+      background: var(--color-bg-alt); border: 1px solid var(--color-border); border-radius: 8px;
+      font-size: 14px; font-weight: 600; color: var(--color-text-muted);
+      cursor: pointer; transition: all .2s var(--ease-out);
+    }
+    .news-back:hover { border-color: var(--color-primary); color: var(--color-primary); }
+    .news-detail__head {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+    }
+    .news-detail__date { font-size: 14px; color: var(--color-text-faint); }
+    .news-detail__title {
+      font-size: clamp(22px, 3vw, 30px); font-weight: 700; line-height: 1.35;
+      color: var(--color-text); letter-spacing: -.02em;
+      padding-bottom: 22px; margin-bottom: 24px; border-bottom: 2px solid var(--color-primary);
+    }
+    .news-detail__body { font-size: 16px; line-height: 1.85; color: var(--color-text); }
+
     /* 결과 없음 */
     .news-empty {
       text-align: center; padding: 80px 20px; color: var(--color-text-muted);
@@ -734,6 +758,8 @@
     <!-- 콘텐츠 -->
     <div class="about-content">
 
+      <!-- 목록 뷰 -->
+      <div id="newsListView">
       <!-- 카테고리 필터 + 검색 -->
       <div class="news-toolbar">
         <div class="news-filter" id="newsFilter" role="tablist">
@@ -780,6 +806,16 @@
           <span>더보기</span>
           <span class="news-more__remain" id="newsRemain"></span>
         </button>
+      </div>
+      </div><!-- /newsListView -->
+
+      <!-- 상세 뷰 -->
+      <div id="newsDetailView" hidden>
+        <button class="news-back" id="newsBack" type="button">
+          <svg viewBox="0 0 20 20" width="18" height="18" fill="none" aria-hidden="true"><path d="M12 4l-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>목록으로</span>
+        </button>
+        <article class="news-detail" id="newsDetail"><!-- JS가 채움 --></article>
       </div>
 
     </div>
@@ -985,7 +1021,6 @@
       let curCat = 'all';
       let curKeyword = '';
       let shown = PAGE;
-      let openId = null;
 
       const CAT_LABEL = { notice:'공지', news:'뉴스', event:'전시·행사', award:'수상·인증' };
       const fmtDate = (d) => (d || '').slice(0,10).replace(/-/g, '. ');
@@ -1014,36 +1049,73 @@
       });
 
       const itemHTML = (n) => {
-        const open = n.id === openId;
         // 미리보기: HTML 태그 제거한 순수 텍스트 요약 (120자)
         const plain = (n.body || '').replace(/<[^>]*>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
         const excerpt = plain.length > 120 ? plain.slice(0, 120) + '…' : plain;
-        // 상세: 서식 있는 HTML 그대로 렌더링 (관리자만 작성하므로 신뢰)
-        const detailHtml = n.body || '';
-        // 첨부파일 목록
-        const fmtSize = (b) => { if(!b&&b!==0)return''; if(b<1024)return b+' B'; if(b<1048576)return (b/1024).toFixed(0)+' KB'; return (b/1048576).toFixed(1)+' MB'; };
-        const attachHtml = (n.attachments && n.attachments.length) ? `
-          <div class="news-attach">
-            <div class="news-attach__title">📎 첨부파일</div>
-            ${n.attachments.map(a => `<a class="news-attach__item" href="${a.url}" target="_blank" rel="noopener" download>${(a.name||'파일').replace(/</g,'&lt;')} <span class="news-attach__size">${fmtSize(a.size)}</span></a>`).join('')}
-          </div>` : '';
+        const hasAttach = n.attachments && n.attachments.length;
         return `
           <li class="news-item${n.pinned ? ' news-item--pinned' : ''}">
-            <button class="news-item__btn" type="button" data-id="${n.id}" aria-expanded="${open}">
+            <button class="news-item__btn" type="button" data-id="${n.id}">
               <div class="news-item__left">
                 <span class="news-item__cat news-cat--${n.cat}">${CAT_LABEL[n.cat] || n.cat}</span>
                 <div class="news-item__date">${fmtDate(n.date)}</div>
               </div>
               <div class="news-item__body">
-                <div class="news-item__title">${n.pinned ? '<span class="news-item__pin">📌</span>' : ''}${(n.title||'').replace(/</g,'&lt;')}</div>
+                <div class="news-item__title">${n.pinned ? '<span class="news-item__pin">📌</span>' : ''}${(n.title||'').replace(/</g,'&lt;')}${hasAttach ? ' <span class="news-item__clip">📎</span>' : ''}</div>
                 <div class="news-item__excerpt">${excerpt.replace(/</g,'&lt;')}</div>
               </div>
-              <div class="news-item__arrow">${open ? '−' : '+'}</div>
+              <div class="news-item__arrow">›</div>
             </button>
-            ${open ? `<div class="news-item__detail"><div class="news-item__detail-inner news-content">${n.image ? `<img src="${n.image}" alt="" style="max-width:100%;border-radius:8px;margin-bottom:14px;display:block;">` : ''}${detailHtml}${attachHtml}</div></div>` : ''}
           </li>
         `;
       };
+
+      // 상세 뷰 렌더
+      const listView = document.getElementById('newsListView');
+      const detailView = document.getElementById('newsDetailView');
+      const detailEl = document.getElementById('newsDetail');
+      const fmtSizeD = (b) => { if(!b&&b!==0)return''; if(b<1024)return b+' B'; if(b<1048576)return (b/1024).toFixed(0)+' KB'; return (b/1048576).toFixed(1)+' MB'; };
+
+      const showDetail = (id) => {
+        const n = NEWS_DATA.find(x => x.id === id);
+        if (!n) { showList(); return; }
+        const attachHtml = (n.attachments && n.attachments.length) ? `
+          <div class="news-attach">
+            <div class="news-attach__title">📎 첨부파일</div>
+            ${n.attachments.map(a => `<a class="news-attach__item" href="${a.url}" target="_blank" rel="noopener" download>${(a.name||'파일').replace(/</g,'&lt;')} <span class="news-attach__size">${fmtSizeD(a.size)}</span></a>`).join('')}
+          </div>` : '';
+        detailEl.innerHTML = `
+          <div class="news-detail__head">
+            <span class="news-item__cat news-cat--${n.cat}">${CAT_LABEL[n.cat] || n.cat}</span>
+            <span class="news-detail__date">${fmtDate(n.date)}</span>
+          </div>
+          <h1 class="news-detail__title">${n.pinned ? '<span class="news-item__pin">📌</span>' : ''}${(n.title||'').replace(/</g,'&lt;')}</h1>
+          <div class="news-detail__body news-content">
+            ${n.image ? `<img src="${n.image}" alt="" style="max-width:100%;border-radius:8px;margin-bottom:16px;display:block;">` : ''}
+            ${n.body || ''}
+            ${attachHtml}
+          </div>`;
+        listView.hidden = true;
+        detailView.hidden = false;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+
+      const showList = () => {
+        detailView.hidden = true;
+        listView.hidden = false;
+      };
+
+      // 뒤로가기 버튼
+      document.getElementById('newsBack').addEventListener('click', () => {
+        history.pushState({}, '', 'news.html');
+        showList();
+      });
+
+      // 브라우저 뒤로가기 대응
+      window.addEventListener('popstate', () => {
+        const id = +(new URLSearchParams(location.search).get('id') || 0);
+        if (id) showDetail(id); else showList();
+      });
 
       const render = () => {
         const rows = filtered();
@@ -1068,8 +1140,8 @@
         listEl.querySelectorAll('.news-item__btn').forEach(btn => {
           btn.addEventListener('click', () => {
             const id = +btn.dataset.id;
-            openId = (openId === id) ? null : id;
-            render();
+            history.pushState({ id }, '', 'news.html?id=' + id);
+            showDetail(id);
           });
         });
       };
@@ -1079,7 +1151,7 @@
         btn.addEventListener('click', () => {
           filterEl.querySelectorAll('.news-filter__btn').forEach(b => b.classList.toggle('is-active', b === btn));
           curCat = btn.dataset.cat;
-          shown = PAGE; openId = null;
+          shown = PAGE;
           render();
         });
       });
@@ -1090,7 +1162,7 @@
         clearTimeout(t);
         t = setTimeout(() => {
           curKeyword = searchEl.value.trim().toLowerCase();
-          shown = PAGE; openId = null;
+          shown = PAGE;
           render();
         }, 200);
       });
@@ -1115,6 +1187,9 @@
           }));
           updateCounts();
           render();
+          // URL에 ?id=N 있으면 해당 글 상세 바로 표시 (공유 링크)
+          const urlId = +(new URLSearchParams(location.search).get('id') || 0);
+          if (urlId) showDetail(urlId);
         } catch (err) { console.error(err); emptyEl.hidden = false; }
       };
       load();
