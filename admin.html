@@ -1441,11 +1441,14 @@
 
     function renderProducts() {
       const body = document.getElementById('prodAdminBody');
-      const filterCat = document.getElementById('prodFilterCat').value;
-      const showDisc = document.getElementById('prodShowDiscontinued').checked;
       if (!body) return;
+      const filterCatEl = document.getElementById('prodFilterCat');
+      const showDiscEl = document.getElementById('prodShowDiscontinued');
+      const filterCat = filterCatEl ? filterCatEl.value : 'all';
+      const showDisc = showDiscEl ? showDiscEl.checked : false;
       let list = PRODUCTS.filter(p => (filterCat === 'all' || p.category === filterCat) && (showDisc || !p.discontinued));
-      document.getElementById('prodCount').textContent = list.length + '개';
+      const countEl = document.getElementById('prodCount');
+      if (countEl) countEl.textContent = list.length + '개';
       if (!list.length) {
         body.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:30px; color:var(--color-text-faint);">제품이 없습니다.</td></tr>';
         return;
@@ -1465,8 +1468,10 @@
       });
     }
 
-    document.getElementById('prodFilterCat').onchange = renderProducts;
-    document.getElementById('prodShowDiscontinued').onchange = renderProducts;
+    const _prodFilterCat = document.getElementById('prodFilterCat');
+    const _prodShowDisc = document.getElementById('prodShowDiscontinued');
+    if (_prodFilterCat) _prodFilterCat.onchange = renderProducts;
+    if (_prodShowDisc) _prodShowDisc.onchange = renderProducts;
 
     // 사양 입력 행 렌더
     function renderSpecRows(specs) {
