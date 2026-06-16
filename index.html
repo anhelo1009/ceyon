@@ -377,15 +377,8 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      /* 손+RFID 그래픽을 좌측에 자연스럽게 배치
-         (이미지 자체가 좌측에 메인 비주얼이 있음) */
-      object-position: 30% center;
-      /* Ken Burns: 아주 미세하게 천천히 줌인 → 시네마틱 느낌 */
-      animation: kenburns 18s ease-out forwards;
-    }
-    @keyframes kenburns {
-      from { transform: scale(1.05); }
-      to   { transform: scale(1.12); }
+      object-position: center center;
+      /* 확대 애니메이션 제거 — 원본 비율 그대로 채움 */
     }
 
     /* Fallback: 이미지가 없거나 로드 전에 보일 그라데이션 */
@@ -987,6 +980,16 @@
       position: relative;
       z-index: 1;
     }
+    .panel__slide-label {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      z-index: 2;
+      padding: 14px 18px;
+      font-family: var(--font-en);
+      font-size: 14px; font-weight: 700; letter-spacing: .02em;
+      color: #fff;
+      background: linear-gradient(to top, rgba(0,20,45,.72) 0%, transparent 100%);
+    }
     /* 이미지 없을 때 임시 플레이스홀더 */
     .panel__ph {
       font-family: var(--font-en);
@@ -1584,7 +1587,7 @@
         </button>
         <button class="tab" role="tab" data-tab="lf134" aria-selected="false">
           <span class="tab__band">134.2 kHz</span>
-          <span class="tab__freq">LF · 동물식별</span>
+          <span class="tab__freq">LF · 정밀</span>
         </button>
         <button class="tab" role="tab" data-tab="hf" aria-selected="false">
           <span class="tab__band">13.56 MHz</span>
@@ -1604,12 +1607,12 @@
             <h3 data-i18n="prod.lf125.t">125 kHz — 근거리·고신뢰</h3>
             <p data-i18n="prod.lf125.d">
               저주파(LF) 대역으로 금속·수분 환경에서도 안정적인 인식이 가능합니다.
-              출입통제, 자산관리 등 신뢰성이 중요한 환경에 최적화되어 있습니다.
+              디스플레이 패널 생산, 자산관리 등 신뢰성이 중요한 환경에 최적화되어 있습니다.
             </p>
             <ul class="panel__feats">
               <li data-i18n="prod.lf125.f1">국내 최초 PDA용 125kHz RFID 리더 개발</li>
               <li data-i18n="prod.lf125.f2">금속·수분 간섭에 강한 안정성</li>
-              <li data-i18n="prod.lf125.f3">출입통제·자산관리 검증</li>
+              <li data-i18n="prod.lf125.f3">디스플레이·자산관리 현장 검증</li>
             </ul>
             <a href="products.html#lf125" class="panel__cta" data-i18n="prod.detail">제품 상세 보기 →</a>
           </div>
@@ -1626,22 +1629,22 @@
         <!-- 134.2 kHz -->
         <div class="panel" role="tabpanel" data-panel="lf134" hidden>
           <div class="panel__info">
-            <h3 data-i18n="prod.lf134.t">134.2 kHz — 동물 개체식별</h3>
+            <h3 data-i18n="prod.lf134.t">134.2 kHz — 저주파 정밀 인식</h3>
             <p data-i18n="prod.lf134.d">
-              ISO 11784/11785 국제 표준 대역으로, 가축·반려동물 개체식별에 사용되는
-              주파수입니다. 축산물 이력관리 시스템에 검증된 신뢰성을 제공합니다.
+              간섭에 강하고 인식 신뢰성이 높은 저주파(LF) 대역입니다.
+              정밀함이 요구되는 산업 공정·물류 현장에 안정적으로 적용됩니다.
             </p>
             <ul class="panel__feats">
-              <li data-i18n="prod.lf134.f1">ISO 11784/11785 동물식별 표준 준수</li>
-              <li data-i18n="prod.lf134.f2">축산물 이력관리 시스템 적용</li>
-              <li data-i18n="prod.lf134.f3">야외·악조건 환경 안정 동작</li>
+              <li data-i18n="prod.lf134.f1">간섭에 강한 높은 인식 신뢰성</li>
+              <li data-i18n="prod.lf134.f2">산업 공정·물류 관리 적용</li>
+              <li data-i18n="prod.lf134.f3">악조건 환경에서도 안정 동작</li>
             </ul>
             <a href="products.html#lf134" class="panel__cta" data-i18n="prod.detail">제품 상세 보기 →</a>
           </div>
           <div class="panel__slider" data-slider>
             <div class="panel__slides">
               <div class="panel__slide"><div class="panel__ph">REM134 Reader</div></div>
-              <div class="panel__slide"><div class="panel__ph">동물식별 태그</div></div>
+              <div class="panel__slide"><div class="panel__ph">REM134 Antenna</div></div>
             </div>
             <div class="panel__dots"></div>
           </div>
@@ -1835,43 +1838,47 @@
        1c) Product image sliders — 각 대역 제품 사진 순차 순환
        --------------------------------------------------------- */
     (() => {
-      const sliders = document.querySelectorAll('[data-slider]');
-      if (!sliders.length) return;
+      window.initProductSliders = function() {
+        const sliders = document.querySelectorAll('[data-slider]');
+        if (!sliders.length) return;
 
-      sliders.forEach(slider => {
-        const track = slider.querySelector('.panel__slides');
-        const slides = slider.querySelectorAll('.panel__slide');
-        const dotsWrap = slider.querySelector('.panel__dots');
-        if (slides.length <= 1) { if (dotsWrap) dotsWrap.style.display = 'none'; return; }
+        sliders.forEach(slider => {
+          if (slider.dataset.sliderInit === '1') return; // 중복 초기화 방지
+          const track = slider.querySelector('.panel__slides');
+          const slides = slider.querySelectorAll('.panel__slide');
+          const dotsWrap = slider.querySelector('.panel__dots');
+          if (slides.length <= 1) { if (dotsWrap) dotsWrap.style.display = 'none'; slider.dataset.sliderInit = '1'; return; }
+          slider.dataset.sliderInit = '1';
 
-        let idx = 0;
-        let timer = null;
+          let idx = 0;
+          let timer = null;
 
-        // 인디케이터 점 생성
-        slides.forEach((_, i) => {
-          const dot = document.createElement('button');
-          dot.className = 'panel__dot' + (i === 0 ? ' is-active' : '');
-          dot.setAttribute('aria-label', `${i + 1}번 제품 보기`);
-          dot.addEventListener('click', () => { go(i); restart(); });
-          dotsWrap.appendChild(dot);
+          if (dotsWrap) dotsWrap.innerHTML = '';
+          slides.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'panel__dot' + (i === 0 ? ' is-active' : '');
+            dot.setAttribute('aria-label', `${i + 1}번 제품 보기`);
+            dot.addEventListener('click', () => { go(i); restart(); });
+            dotsWrap.appendChild(dot);
+          });
+          const dots = dotsWrap.querySelectorAll('.panel__dot');
+
+          const go = (n) => {
+            idx = (n + slides.length) % slides.length;
+            track.style.transform = `translateX(-${idx * 100}%)`;
+            dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+          };
+          const next = () => go(idx + 1);
+          const start = () => { timer = setInterval(next, 3000); };
+          const restart = () => { clearInterval(timer); start(); };
+
+          slider.addEventListener('mouseenter', () => clearInterval(timer));
+          slider.addEventListener('mouseleave', start);
+
+          start();
         });
-        const dots = dotsWrap.querySelectorAll('.panel__dot');
-
-        const go = (n) => {
-          idx = (n + slides.length) % slides.length;
-          track.style.transform = `translateX(-${idx * 100}%)`;
-          dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
-        };
-        const next = () => go(idx + 1);
-        const start = () => { timer = setInterval(next, 3000); };
-        const restart = () => { clearInterval(timer); start(); };
-
-        // 마우스 올리면 일시정지
-        slider.addEventListener('mouseenter', () => clearInterval(timer));
-        slider.addEventListener('mouseleave', start);
-
-        start();
-      });
+      };
+      window.initProductSliders();
     })();
 
     /* ---------------------------------------------------------
@@ -1928,12 +1935,12 @@
         'prod.lf125.d':     '저주파(LF) 대역으로 금속·수분 환경에서도 안정적인 인식이 가능합니다. 출입통제, 자산관리 등 신뢰성이 중요한 환경에 최적화되어 있습니다.',
         'prod.lf125.f1':    '국내 최초 PDA용 125kHz RFID 리더 개발',
         'prod.lf125.f2':    '금속·수분 간섭에 강한 안정성',
-        'prod.lf125.f3':    '출입통제·자산관리 검증',
-        'prod.lf134.t':     '134.2 kHz — 동물 개체식별',
-        'prod.lf134.d':     'ISO 11784/11785 국제 표준 대역으로, 가축·반려동물 개체식별에 사용되는 주파수입니다. 축산물 이력관리 시스템에 검증된 신뢰성을 제공합니다.',
-        'prod.lf134.f1':    'ISO 11784/11785 동물식별 표준 준수',
-        'prod.lf134.f2':    '축산물 이력관리 시스템 적용',
-        'prod.lf134.f3':    '야외·악조건 환경 안정 동작',
+        'prod.lf125.f3':    '디스플레이·자산관리 현장 검증',
+        'prod.lf134.t':     '134.2 kHz — 저주파 정밀 인식',
+        'prod.lf134.d':     '간섭에 강하고 인식 신뢰성이 높은 저주파(LF) 대역입니다. 정밀함이 요구되는 산업 공정·물류 현장에 안정적으로 적용됩니다.',
+        'prod.lf134.f1':    '간섭에 강한 높은 인식 신뢰성',
+        'prod.lf134.f2':    '산업 공정·물류 관리 적용',
+        'prod.lf134.f3':    '악조건 환경에서도 안정 동작',
         'prod.hf.t':        '13.56 MHz — 표준·범용',
         'prod.hf.d':        '국제 표준(ISO 14443/15693) 호환 HF 제품군입니다. 도서관리, 스마트카드, 결제, 의료 등 정밀 식별이 필요한 분야에 적합합니다.',
         'prod.hf.f1':       '1리더 4안테나 외장형 RFID 리더',
@@ -2006,10 +2013,10 @@
         'prod.lf125.f1':    'First PDA-type 125kHz RFID reader in Korea',
         'prod.lf125.f2':    'Robust against metal & moisture interference',
         'prod.lf125.f3':    'Proven in access control & asset management',
-        'prod.lf134.t':     '134.2 kHz — Animal Identification',
-        'prod.lf134.d':     'An ISO 11784/11785 international standard band used for livestock and pet identification. Provides proven reliability for livestock traceability systems.',
-        'prod.lf134.f1':    'Complies with ISO 11784/11785 animal ID standards',
-        'prod.lf134.f2':    'Applied to livestock traceability systems',
+        'prod.lf134.t':     '134.2 kHz — LF Precision',
+        'prod.lf134.d':     'An interference-resistant low-frequency (LF) band with high reliability, applied to precision industrial processes and logistics.',
+        'prod.lf134.f1':    'High recognition reliability, interference-resistant',
+        'prod.lf134.f2':    'Applied to industrial process and logistics management',
         'prod.lf134.f3':    'Stable operation in harsh outdoor conditions',
         'prod.hf.t':        '13.56 MHz — Standard & Versatile',
         'prod.hf.d':        'An ISO 14443/15693 compliant HF product line. Ideal for library management, smart cards, payment, and medical applications requiring precise identification.',
@@ -2083,10 +2090,10 @@
         'prod.lf125.f1':    '国内首创PDA用125kHz RFID读取器',
         'prod.lf125.f2':    '抗金属·水分干扰的稳定性',
         'prod.lf125.f3':    '门禁·资产管理验证',
-        'prod.lf134.t':     '134.2 kHz — 动物个体识别',
-        'prod.lf134.d':     'ISO 11784/11785国际标准频段,用于家畜·宠物个体识别。为畜产品履历管理系统提供经过验证的可靠性。',
-        'prod.lf134.f1':    '符合ISO 11784/11785动物识别标准',
-        'prod.lf134.f2':    '应用于畜产品履历管理系统',
+        'prod.lf134.t':     '134.2 kHz — 低频精密识别',
+        'prod.lf134.d':     '抗干扰、高可靠性的低频(LF)频段,稳定应用于精密工业流程与物流现场。',
+        'prod.lf134.f1':    '抗干扰、高识别可靠性',
+        'prod.lf134.f2':    '应用于工业流程与物流管理',
         'prod.lf134.f3':    '户外·恶劣环境稳定运行',
         'prod.hf.t':        '13.56 MHz — 标准·通用',
         'prod.hf.d':        '国际标准(ISO 14443/15693)兼容HF产品系列。适用于图书管理、智能卡、支付、医疗等需要精密识别的领域。',
@@ -2237,6 +2244,64 @@
       });
 
       showAt(0);
+    })();
+
+    /* ---------------------------------------------------------
+       메인 제품 섹션 — DB 실제 제품 이미지로 슬라이드 채우기
+       --------------------------------------------------------- */
+    (() => {
+      let sb = null;
+      if (window.supabase && window.CEYON_SUPABASE_URL) {
+        sb = window.supabase.createClient(window.CEYON_SUPABASE_URL, window.CEYON_SUPABASE_ANON);
+      }
+      if (!sb) return;
+
+      // 패널 data-panel → DB band 매핑
+      const BAND_MAP = { lf125: '125khz', lf134: '134khz', hf: '13.56mhz', uhf: '900mhz' };
+      const esc = (s) => (s || '').replace(/</g, '&lt;');
+
+      const fillSlides = (products) => {
+        Object.entries(BAND_MAP).forEach(([panelKey, band]) => {
+          const panel = document.querySelector(`.panel[data-panel="${panelKey}"]`);
+          if (!panel) return;
+          const track = panel.querySelector('.panel__slides');
+          if (!track) return;
+
+          // 해당 대역 제품 중 이미지 있는 것 우선, 단종 제외
+          const items = products
+            .filter(p => p.band === band && !p.discontinued)
+            .sort((a, b) => a.sort_order - b.sort_order);
+          const withImg = items.filter(p => p.image);
+
+          // 이미지가 있는 제품이 하나도 없으면 기존 플레이스홀더 유지
+          if (!withImg.length) return;
+
+          track.innerHTML = withImg.map(p => `
+            <div class="panel__slide">
+              <img src="${p.image}" alt="${esc(p.model)}" loading="lazy" style="object-fit:contain;background:#fff;padding:24px;">
+              <div class="panel__slide-label">${esc(p.name || p.model)}</div>
+            </div>
+          `).join('');
+        });
+
+        // 슬라이더 재초기화 (새 슬라이드 반영)
+        document.querySelectorAll('[data-slider]').forEach(s => { s.dataset.sliderInit = ''; });
+        if (window.initProductSliders) window.initProductSliders();
+      };
+
+      const load = async () => {
+        try {
+          const { data, error } = await sb.from('products').select('*').order('sort_order');
+          if (error) throw error;
+          const products = (data || []).map(p => ({
+            band: p.band || '', model: p.model, name: p.name || '',
+            image: p.image || '', discontinued: !!p.discontinued, sort_order: p.sort_order || 0,
+            visible: p.visible !== false
+          })).filter(p => p.visible);
+          fillSlides(products);
+        } catch (e) { console.error(e); }
+      };
+      load();
     })();
   </script>
 </body>
