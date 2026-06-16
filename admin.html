@@ -357,6 +357,7 @@
   </style>
   <!-- Supabase 연결 -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/utif@3.1.0/UTIF.min.js"></script>
   <!-- CKEditor 5 (세연소식 글쓰기) -->
   <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
   <script>
@@ -617,7 +618,7 @@
         <div class="field">
           <label>제품 이미지 (선택)</label>
           <div id="prf-dropzone" class="dropzone">
-            <input type="file" id="prf-image-file" accept="image/*" hidden />
+            <input type="file" id="prf-image-file" accept="image/*,.tif,.tiff" hidden />
             <div class="dropzone__inner">
               <svg viewBox="0 0 24 24" width="28" height="28" fill="none" aria-hidden="true"><path d="M12 16V4m0 0l-4 4m4-4l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
               <div class="dropzone__text">이미지를 <b>드래그</b>하거나 <b>클릭</b>해서 업로드</div>
@@ -1172,8 +1173,33 @@
     /* =========================================================
        이미지 업로드 헬퍼 (Supabase Storage 'media' 버킷)
        ========================================================= */
+    // TIF/TIFF → PNG 변환 (브라우저가 TIF를 직접 못 띄우므로)
+    async function convertTifToPng(file) {
+      const buf = await file.arrayBuffer();
+      const ifds = UTIF.decode(buf);
+      UTIF.decodeImage(buf, ifds[0]);
+      const rgba = UTIF.toRGBA8(ifds[0]);
+      const w = ifds[0].width, h = ifds[0].height;
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      const imgData = ctx.createImageData(w, h);
+      imgData.data.set(rgba);
+      ctx.putImageData(imgData, 0, 0);
+      const blob = await new Promise(res => canvas.toBlob(res, 'image/png'));
+      // 원본 파일명 유지하되 확장자만 png로
+      const baseName = (file.name || 'image').replace(/\.[^.]+$/, '');
+      return new File([blob], baseName + '.png', { type: 'image/png' });
+    }
+
     async function uploadImage(file) {
       if (!sb || !file) return null;
+      // TIF/TIFF면 PNG로 자동 변환
+      const isTif = (file.name && /\.tiff?$/i.test(file.name)) || file.type === 'image/tiff';
+      if (isTif) {
+        if (typeof UTIF === 'undefined') { alert('TIF 변환 모듈을 불러오지 못했습니다. JPG/PNG로 올려주세요.'); throw new Error('UTIF missing'); }
+        file = await convertTifToPng(file);
+      }
       // File이면 name에서, Blob이면 MIME 타입에서 확장자 추출
       let ext = 'jpg';
       if (file.name && file.name.includes('.')) {
@@ -1582,8 +1608,18 @@
       const prev = document.getElementById('prf-image-preview');
       if (!dz || !input) return;
 
-      const showPreview = (file) => {
-        if (!file || !file.type.startsWith('image/')) return;
+      const showPreview = async (file) => {
+        if (!file) return;
+        const isTif = (file.name && /\.tiff?$/i.test(file.name)) || file.type === 'image/tiff';
+        if (isTif && typeof UTIF !== 'undefined') {
+          try {
+            const png = await convertTifToPng(file);
+            const url = URL.createObjectURL(png);
+            prev.innerHTML = `<img src="${url}" style="max-width:160px;border-radius:8px;"><div style="font-size:12px;color:var(--color-text-faint);margin-top:4px;">TIF → PNG 변환됨</div>`;
+          } catch (e) { prev.innerHTML = `<div style="font-size:13px;color:var(--color-accent);">TIF 미리보기 실패 (업로드는 시도됩니다)</div>`; }
+          return;
+        }
+        if (!file.type.startsWith('image/')) return;
         const url = URL.createObjectURL(file);
         prev.innerHTML = `<img src="${url}" style="max-width:160px;border-radius:8px;">`;
       };
@@ -1602,8 +1638,8 @@
       }));
       dz.addEventListener('drop', (e) => {
         const file = e.dataTransfer.files[0];
-        if (file && file.type.startsWith('image/')) {
-          // input에 파일 주입 (저장 로직이 input.files를 읽으므로)
+        const isImg = file && (file.type.startsWith('image/') || /\.tiff?$/i.test(file.name || ''));
+        if (isImg) {
           const dt = new DataTransfer();
           dt.items.add(file);
           input.files = dt.files;
