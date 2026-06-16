@@ -278,6 +278,23 @@
     .field input:focus, .field textarea:focus { outline: none; border-color: var(--color-primary); }
     .field textarea { resize: vertical; line-height: 1.6; }
 
+    /* 드래그앤드롭 업로드 영역 */
+    .dropzone {
+      border: 2px dashed var(--color-border-strong);
+      border-radius: 10px; padding: 24px; text-align: center;
+      cursor: pointer; transition: all .2s ease; background: var(--color-bg-alt, #f8fafc);
+    }
+    .dropzone:hover { border-color: var(--color-primary); background: #f0f6ff; }
+    .dropzone.is-dragover {
+      border-color: var(--color-primary); background: #e6f0ff;
+      transform: scale(1.01);
+    }
+    .dropzone__inner { display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--color-text-muted); pointer-events: none; }
+    .dropzone.is-dragover .dropzone__inner { color: var(--color-primary); }
+    .dropzone__text { font-size: 14px; }
+    .dropzone__text b { color: var(--color-primary); font-weight: 700; }
+    .dropzone__hint { font-size: 12px; color: var(--color-text-faint); }
+
     /* 토글 스위치 */
     .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid var(--color-border); margin-bottom: 20px; }
     .toggle-row__label { font-size: 14px; font-weight: 600; }
@@ -599,7 +616,14 @@
         </div>
         <div class="field">
           <label>제품 이미지 (선택)</label>
-          <input type="file" id="prf-image-file" accept="image/*" />
+          <div id="prf-dropzone" class="dropzone">
+            <input type="file" id="prf-image-file" accept="image/*" hidden />
+            <div class="dropzone__inner">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" aria-hidden="true"><path d="M12 16V4m0 0l-4 4m4-4l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              <div class="dropzone__text">이미지를 <b>드래그</b>하거나 <b>클릭</b>해서 업로드</div>
+              <div class="dropzone__hint">JPG · PNG · WebP</div>
+            </div>
+          </div>
           <input type="hidden" id="prf-image" />
           <div id="prf-image-preview" style="margin-top:10px;"></div>
         </div>
@@ -1551,12 +1575,42 @@
     document.getElementById('prodCancelBtn').onclick = closeProdModal;
     document.getElementById('prodModalOverlay').onclick = closeProdModal;
 
-    // 이미지 미리보기
-    document.getElementById('prf-image-file').addEventListener('change', (e) => {
-      const f = e.target.files[0];
+    // 이미지: 드래그앤드롭 + 클릭 + 미리보기
+    (() => {
+      const dz = document.getElementById('prf-dropzone');
+      const input = document.getElementById('prf-image-file');
       const prev = document.getElementById('prf-image-preview');
-      if (f) { const url = URL.createObjectURL(f); prev.innerHTML = `<img src="${url}" style="max-width:160px;border-radius:8px;">`; }
-    });
+      if (!dz || !input) return;
+
+      const showPreview = (file) => {
+        if (!file || !file.type.startsWith('image/')) return;
+        const url = URL.createObjectURL(file);
+        prev.innerHTML = `<img src="${url}" style="max-width:160px;border-radius:8px;">`;
+      };
+
+      // 클릭 → 파일 선택
+      dz.addEventListener('click', () => input.click());
+      // 파일 선택됨
+      input.addEventListener('change', (e) => { if (e.target.files[0]) showPreview(e.target.files[0]); });
+
+      // 드래그 이벤트
+      ['dragenter','dragover'].forEach(ev => dz.addEventListener(ev, (e) => {
+        e.preventDefault(); e.stopPropagation(); dz.classList.add('is-dragover');
+      }));
+      ['dragleave','drop'].forEach(ev => dz.addEventListener(ev, (e) => {
+        e.preventDefault(); e.stopPropagation(); dz.classList.remove('is-dragover');
+      }));
+      dz.addEventListener('drop', (e) => {
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) {
+          // input에 파일 주입 (저장 로직이 input.files를 읽으므로)
+          const dt = new DataTransfer();
+          dt.items.add(file);
+          input.files = dt.files;
+          showPreview(file);
+        }
+      });
+    })();
 
     document.getElementById('prodSaveBtn').onclick = async () => {
       const saveBtn = document.getElementById('prodSaveBtn');
