@@ -1192,6 +1192,40 @@
       return new File([blob], baseName + '.png', { type: 'image/png' });
     }
 
+    // 이미지 리사이즈 + 압축 (로딩 속도 개선)
+    // 가로 최대 1400px, JPEG 85% — 화질 유지하면서 용량 대폭 감소
+    async function resizeImage(file, maxW = 1400, quality = 0.85) {
+      // GIF는 애니메이션 깨질 수 있어 건드리지 않음
+      if (file.type === 'image/gif') return file;
+      try {
+        const img = await new Promise((res, rej) => {
+          const i = new Image();
+          i.onload = () => res(i);
+          i.onerror = rej;
+          i.src = URL.createObjectURL(file);
+        });
+        // 이미 작으면 그대로 둠
+        if (img.width <= maxW) return file;
+        const scale = maxW / img.width;
+        const w = maxW, h = Math.round(img.height * scale);
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.imageSmoothingQuality = 'high';
+        // 투명 PNG는 흰 배경 깔고 JPG로 (제품 사진 대부분 흰 배경)
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, w, h);
+        ctx.drawImage(img, 0, 0, w, h);
+        const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', quality));
+        if (!blob) return file;
+        const baseName = (file.name || 'image').replace(/\.[^.]+$/, '');
+        return new File([blob], baseName + '.jpg', { type: 'image/jpeg' });
+      } catch (e) {
+        console.warn('리사이즈 실패, 원본 업로드:', e);
+        return file;
+      }
+    }
+
     async function uploadImage(file) {
       if (!sb || !file) return null;
       // TIF/TIFF면 PNG로 자동 변환
@@ -1200,6 +1234,8 @@
         if (typeof UTIF === 'undefined') { alert('TIF 변환 모듈을 불러오지 못했습니다. JPG/PNG로 올려주세요.'); throw new Error('UTIF missing'); }
         file = await convertTifToPng(file);
       }
+      // 리사이즈 + 압축 (로딩 속도 개선)
+      file = await resizeImage(file);
       // File이면 name에서, Blob이면 MIME 타입에서 확장자 추출
       let ext = 'jpg';
       if (file.name && file.name.includes('.')) {
